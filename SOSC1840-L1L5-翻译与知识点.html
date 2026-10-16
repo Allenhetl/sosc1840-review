@@ -27,6 +27,11 @@
   .kp{background:var(--hl);border-left:4px solid #d9a441;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;}
   .en{color:var(--muted);font-size:13.5px;margin:0 0 2px;}
   .zh{margin:0 0 14px;}
+  /* 英文为主模式（考试英文，默认开启）：英文醒目、中文辅助 */
+  body.enfirst .en{color:var(--ink);font-size:16px;font-weight:600;line-height:1.7;margin:0 0 5px;}
+  body.enfirst .zh{color:var(--muted);font-size:13.5px;}
+  body.enfirst .zh b{color:#4b5563;font-weight:600;}
+  .swapbtn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 14px;font-size:13.5px;cursor:pointer;font-weight:600;color:var(--brand2);white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.08);}
   .pair{border-bottom:1px dashed var(--line);padding:8px 0;}
   .pair:last-child{border-bottom:none;}
   .note{font-size:13px;color:var(--muted);}
@@ -41,7 +46,7 @@
   @media print{nav.tabs,.searchbar{display:none}section.tab{display:block}}
 </style>
 </head>
-<body>
+<body class="enfirst">
 <header>
   <h1>SOSC1840《Government, Law and Society in China》</h1>
   <p>Lecture 1–7 教师讲义（lecture 1.doc – Lecture 7.doc）——全文翻译 + 知识点总结 + 考试关键词汇中英对照（第二批专有名词已加入）（L7 为期末范围）</p>
@@ -63,7 +68,7 @@
     <button data-tab="l7sum">L7 知识点</button>
     <button data-tab="l7tr">L7 翻译</button>
   </nav>
-  <div class="searchbar"><input id="q" type="search" placeholder="搜索关键词（如：乡绅、严打、司法考试、仲裁、婚姻法…）"></div>
+  <div class="searchbar" style="display:flex;gap:8px;align-items:center;"><input id="q" type="search" placeholder="搜索关键词（如：乡绅、严打、司法考试、仲裁、婚姻法…）" style="flex:1;"><button id="swap" class="swapbtn" title="切换英文/中文哪个更醒目">🔀 现在：英文醒目</button></div>
 
 <!-- ================= L1 知识点 ================= -->
 <section class="tab active" id="l1sum">
@@ -702,6 +707,16 @@ function activate(id){
 }
 btns.forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
 if(location.hash)activate(location.hash.slice(1));
+/* 中英主次切换：默认英文醒目（考试是英文），可一键切回中文醒目 */
+const swap=document.getElementById('swap');
+function syncSwap(){swap.textContent=document.body.classList.contains('enfirst')?'🔀 现在：英文醒目':'🔀 现在：中文醒目';}
+if(localStorage.getItem('sosc1840-swap')==='zh'){document.body.classList.remove('enfirst');}
+syncSwap();
+swap.addEventListener('click',()=>{
+  document.body.classList.toggle('enfirst');
+  localStorage.setItem('sosc1840-swap',document.body.classList.contains('enfirst')?'en':'zh');
+  syncSwap();
+});
 const q=document.getElementById('q');
 q.addEventListener('input',()=>{
   const v=q.value.trim();

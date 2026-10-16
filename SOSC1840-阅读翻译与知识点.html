@@ -45,13 +45,17 @@ details.source pre{white-space:pre-wrap;word-break:break-word;background:#faf8f3
 .hidden{display:none!important}
 .btn{display:inline-block;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:9px;padding:7px 12px;text-decoration:none}
 .btn:hover{border-color:var(--brand);color:var(--brand)}
+button.btn{cursor:pointer;font:inherit;font-size:14px}
+/* 英文醒目模式：自动展开全部英文原文并提亮，中文讲解保持辅助 */
+body.enfirst details.source pre{color:var(--text);background:#fff;font-size:14.5px;border-color:#c9c2b4}
+body.enfirst details.source summary{color:var(--brand2);font-weight:700}
 @media print{.top,.tabs,.actions,details.source summary{display:none!important}section[data-pane]{display:block!important}.card{break-inside:avoid}}
 </style>
 </head>
 <body>
 <header class="top"><div class="topin">
 <div class="brand">SOSC1840 指定阅读合集<small>Week 1–6 阅读材料 · 中文知识点 + 考点（期中范围）</small></div>
-<div class="actions"><a class="btn" href="SOSC1840-期中冲刺.html">⚡ 返回期中冲刺</a> <a class="btn" href="SOSC1840-L1L5-翻译与知识点.html">📖 讲义翻译合集</a> <input id="search" class="search" placeholder="搜索概念、作者、数字…"></div>
+<div class="actions"><button id="enfirst" class="btn">🔀 现在：中文为主</button> <a class="btn" href="SOSC1840-期中冲刺.html">⚡ 返回期中冲刺</a> <a class="btn" href="SOSC1840-L1L5-翻译与知识点.html">📖 讲义翻译合集</a> <input id="search" class="search" placeholder="搜索概念、作者、数字…"></div>
 </div><div class="tabs"><button data-tab="w1">Week 1 · 王绍光</button><button data-tab="w2">Week 2 · 制度介绍+法系</button><button data-tab="w3">Week 3 · Peerenboom 290–302</button><button data-tab="w4">Week 4 · Cai 2008</button><button data-tab="w5">Week 5 · Peerenboom 280–295</button><button data-tab="w6">Week 6 · Peerenboom 414–424</button></div></header>
 <main><section data-pane="w1"><section class="hero"><div class="kicker">指定阅读 · Week 1 · 王绍光</div><h1>Wang Shaoguang: 国家 weakness</h1><p class='muted'>Wang Shaoguang, “The Problems of State Weakness,” <i>Journal of Democracy</i> 14:1 (2003), pp. 36–42</p><p class='muted'>📄 Week 1.pdf（扫描件，已解码转录）</p><p>核心论点：<b>民主化不必然带来有效治理</b>——转型国家真正的瓶颈是国家能力（state capacity）而非民主程度。作者提出「有效国家的六项职能」：强制（武力）、汲取（财政）、认同（民族认同）、管制、协调、再分配，并用这六项职能分析中国改革后的治理危机（治安恶化、财政汲取下降、认同真空、管制失灵、碎片化权威、分配危机）。</p><h3 style="margin:14px 0 6px">本篇关键词汇（考试英文对照）</h3><table class="gloss"><tr><th>中文</th><th>English</th><th>备注 / 考点</th></tr><tr><td>国家能力 / 国家虚弱</td><td class="en-cell">state capacity / state weakness</td><td>全文核心对立</td></tr><tr><td>有效国家的六项职能</td><td class="en-cell">six functions of an effective state</td><td>强制/汲取/认同/管制/协调/再分配</td></tr><tr><td>强制（武力垄断）</td><td class="en-cell">coercion (monopoly of violence)</td><td></td></tr><tr><td>汲取能力</td><td class="en-cell">extractive capacity</td><td>财政税收汲取</td></tr><tr><td>（民族）认同</td><td class="en-cell">national identity</td><td></td></tr><tr><td>管制</td><td class="en-cell">regulation</td><td></td></tr><tr><td>协调</td><td class="en-cell">coordination</td><td></td></tr><tr><td>再分配</td><td class="en-cell">redistribution</td><td></td></tr><tr><td>民主化</td><td class="en-cell">democratization</td><td>作者论点：民主化≠有效治理</td></tr><tr><td>治理危机</td><td class="en-cell">governance crisis</td><td>治安/财政/认同/管制/碎片化/分配六个征候</td></tr><tr><td>碎片化权威</td><td class="en-cell">fragmented authority</td><td></td></tr></table></section><div class="card"><p style="margin:0">注意区分：这篇文章的「六项职能」清单 ≠ L1 讲义的「法律三功能」清单，选择题常混在一起出。</p></div><p class="muted" style="margin:6px 4px">8 个学习单元：原文（英文，可展开）+ 中文知识点 + 讲解 + 考点提示。</p><article class="card" id="L1R-01"><div class="pagehead"><span class="pageno">L1R-01</span><h3>民主化<span class="en-term">democratization</span>不必然削弱国家</h3><span class="label">阅读补充（Wang 2003）</span></div><details class="source"><summary>阅读原文（英文）</summary><pre>In the late 1980s and early 1990s, when the “third wave” of democratization was sweeping over much of the globe, it was widely held among scholars and policy makers alike that democratic reform entailed shrinking or neutralizing the state.
 Yet after a decade during which so much emphasis has been placed upon restraining the state, a look at the political map of the world reveals scores of fake or incomplete democracies, and even a few cases of outright “democratic reversal.”
@@ -227,6 +231,18 @@ panes.forEach(p=>p.classList.toggle('hidden',p.dataset.pane!==name));window.scro
 tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
 if(location.hash){const h=location.hash.slice(1);if(panes.some(p=>p.dataset.pane===h))show(h)}else show(tabs[0].dataset.tab);
 const search=document.getElementById('search');
+/* 英文醒目模式：展开全部英文原文并提亮（考试是英文），默认关闭 */
+const enBtn=document.getElementById('enfirst');
+function applyEn(on){
+  document.body.classList.toggle('enfirst',on);
+  document.querySelectorAll('details.source').forEach(d=>d.open=on);
+  enBtn.textContent=on?'🔀 现在：英文醒目':'🔀 现在：中文为主';
+}
+applyEn(localStorage.getItem('sosc1840-read-en')==='1');
+enBtn.addEventListener('click',()=>{
+  const on=!document.body.classList.contains('enfirst');
+  applyEn(on);localStorage.setItem('sosc1840-read-en',on?'1':'0');
+});
 if(search)search.addEventListener('input',()=>{
   const q=search.value.trim().toLowerCase();
   document.querySelectorAll('.card').forEach(c=>{
