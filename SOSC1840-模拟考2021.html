@@ -52,6 +52,7 @@ h2.part{font-size:20px;color:var(--warn);border-left:5px solid var(--warn);paddi
 .result.show{display:block}
 .result b{color:var(--accent);font-size:22px}
 .foot{color:var(--muted);font-size:12.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+*{-webkit-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important}
 </style>
 </head>
 <body>
@@ -169,7 +170,7 @@ function updateScore(){
   if(done===Q.length){
     r.className='result show';
     const pct=Math.round(right/Q.length*100);
-    r.innerHTML='<b>'+right+' / 30（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！错题回到考点总表再过一遍。':pct>=60?'💪 及格线以上，重点看下面标红的错题。':'📖 建议先重做错题，再回讲义翻译合集补对应讲次。')+'</p><p style="margin:6px 0 0;color:var(--muted)">错题直达：'+Q.filter((q,i)=>state.graded[i]===false).map(q=>'<a href="#q'+q.n+'" style="color:var(--red)">Q'+q.n+'</a>').join(' · ')+'</p>';
+    r.innerHTML='<b>'+right+' / 30（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！错题回到考点总表再过一遍。':pct>=60?'💪 及格线以上，重点看下面标红的错题。':'📖 建议先重做错题，再回讲义翻译合集补对应讲次。')+'</p><p style="margin:6px 0 0;color:var(--muted)">错题直达：'+Q.filter((q,i)=>state.graded[i]===false).map(q=>'<a href="#q'+q.n+'" style="color:var(--red)">Q'+q.n+'</a>').join(' · ')+'</p><p style="margin:8px 0 0;color:var(--muted)">错题复习清单：'+Q.filter((q,i)=>state.graded[i]===false).map(q=>'<a href="'+REF[q.n][0]+'" style="color:var(--accent2)">Q'+q.n+' '+REF[q.n][1]+'</a>').join('<br>')+'</p>';
   }else r.className='result';
 }
 function reveal(i){
