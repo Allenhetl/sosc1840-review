@@ -26,6 +26,8 @@ main{max-width:980px;margin:auto;padding:24px 20px 90px}
 .qhead{display:flex;gap:10px;align-items:baseline;margin-bottom:8px}
 .qno{font:700 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);border:1px solid #67d39144;background:#67d39110;border-radius:6px;padding:4px 8px;white-space:nowrap}
 .qtext{margin:6px 0 12px;font-size:15.5px;font-weight:600}
+.ref{margin:12px 0 0;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.ref a{color:var(--accent2);text-decoration:none}.ref a:hover{text-decoration:underline}
 .opts{display:grid;gap:7px}
 .opt{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 13px;cursor:pointer;display:flex;gap:10px;align-items:baseline;transition:.12s}
 .opt:hover{border-color:var(--accent2)}
@@ -110,6 +112,39 @@ const ESSAYS=[
 {t:"3. 据《China's Long March Toward Rule of Law》：《行政诉讼法》和行政复议有一个共同局限——某些机关不在其管辖范围内，即不能被起诉。是哪些机关？",a:`<p><b>中国共产党（CCP）和检察院（procuracy）</b>不在行政复议和《行政诉讼法》（Administrative Litigation Law）的管辖范围之内——也就是说，党政机关与检察机关不能成为这两类案件的被告。</p>`}
 ];
 const letters="abcdef";
+/* 每题的复习入口：讲义合集 #lNtr / 阅读合集 #单元号 */
+const REF={
+1:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 劳动教养制度"],
+2:["SOSC1840-L1L5-翻译与知识点.html#l4tr","讲义 L4 · 医疗纠纷（一审/二审胜率表）"],
+3:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 法院案件类型构成"],
+4:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 公安机关（报警 110）"],
+5:["SOSC1840-L1L5-翻译与知识点.html#l5tr","讲义 L5 · 婚姻法与离婚程序"],
+6:["SOSC1840-L1L5-翻译与知识点.html#l6tr","讲义 L6 · 国家赔偿法（1995 分界线）"],
+7:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 减刑与死缓"],
+8:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 严打 1983–84"],
+9:["SOSC1840-阅读翻译与知识点.html#L4-19","阅读 W4 · L4-19 意愿与行动的落差"],
+10:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 国家安全局"],
+11:["SOSC1840-L1L5-翻译与知识点.html#l1tr","讲义 L1 · 1979 年七部法律"],
+12:["SOSC1840-L1L5-翻译与知识点.html#l4tr","讲义 L4 · 农民工维权与仲裁委员会"],
+13:["SOSC1840-L1L5-翻译与知识点.html#l5tr","讲义 L5 · 婚姻法 1950/1980/2001"],
+14:["SOSC1840-L1L5-翻译与知识点.html#l6tr","讲义 L6 · 行政诉讼（县级最常被诉）"],
+15:["SOSC1840-L1L5-翻译与知识点.html#l6tr","讲义 L6 · 行政诉讼：不作为之诉"],
+16:["SOSC1840-阅读翻译与知识点.html#W2-05","阅读 W2-05 · 最高法院的管辖"],
+17:["SOSC1840-L1L5-翻译与知识点.html#l1tr","讲义 L1 · 传统调解者（乡绅/家族/行会）"],
+18:["SOSC1840-阅读翻译与知识点.html#L6-02","阅读 W6 · L6-02 立法监督"],
+19:["SOSC1840-阅读翻译与知识点.html#L6-07","阅读 W6 · L6-07 行政复议的局限"],
+20:["SOSC1840-L1L5-翻译与知识点.html#l3tr","讲义 L3 · 律师与胜诉因素"],
+21:["SOSC1840-阅读翻译与知识点.html#W2-06","阅读 W2-06 · 高院/中院/基层法院"],
+22:["SOSC1840-L1L5-翻译与知识点.html#l6tr","讲义 L6 · 行政诉讼撤诉"],
+23:["SOSC1840-阅读翻译与知识点.html#W2-08","阅读 W2-08 · 司法解释的约束力"],
+24:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 劳教制度沿革"],
+25:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 减刑/假释/保外就医"],
+26:["SOSC1840-L1L5-翻译与知识点.html#l2tr","讲义 L2 · 理发店阴阳头案"],
+27:["SOSC1840-L1L5-翻译与知识点.html#l6tr","讲义 L6 · 行政诉讼法 2014 修订"],
+28:["SOSC1840-L1L5-翻译与知识点.html#l3tr","讲义 L3 · 保护伞与有组织犯罪"],
+29:["SOSC1840-L1L5-翻译与知识点.html#l6tr","讲义 L6 · 国家赔偿法 2012 修正"],
+30:["SOSC1840-阅读翻译与知识点.html#L6-06","阅读 W6 · L6-06 监察为何边缘"]
+};
 let mode="instant";
 const state={picked:{},graded:{}};
 const quiz=document.getElementById('quiz');
@@ -117,7 +152,7 @@ Q.forEach((it,i)=>{
   const d=document.createElement('div');d.className='q';d.id='q'+it.n;
   d.innerHTML='<div class="qhead"><span class="qno">Q'+it.n+'</span></div><p class="qtext">'+it.q+'</p><div class="opts">'+
     it.o.map((o,j)=>'<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+letters[j]+'.</span><span>'+o+'</span></div>').join('')+
-    '</div><p class="verdict" id="v'+i+'"></p></div>';
+    '</div><p class="verdict" id="v'+i+'"></p><p class="ref">📖 复习 → <a href="'+REF[it.n][0]+'">'+REF[it.n][1]+'</a></p></div>';
   quiz.appendChild(d);
 });
 const es=document.getElementById('essays');

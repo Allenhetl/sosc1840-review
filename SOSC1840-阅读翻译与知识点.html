@@ -240,7 +240,14 @@ const panes=[...document.querySelectorAll('main > section[data-pane]')];
 function show(name){tabs.forEach(b=>b.classList.toggle('on',b.dataset.tab===name));
 panes.forEach(p=>p.classList.toggle('hidden',p.dataset.pane!==name));window.scrollTo({top:0,behavior:'instant'})}
 tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
-if(location.hash){const h=location.hash.slice(1);if(panes.some(p=>p.dataset.pane===h))show(h)}else show(tabs[0].dataset.tab);
+if(location.hash){const h=location.hash.slice(1);
+if(panes.some(p=>p.dataset.pane===h)){show(h);}
+else{const el=document.getElementById(h);
+if(el){const p=el.closest('section[data-pane]');
+if(p){show(p.dataset.pane);setTimeout(()=>{el.scrollIntoView({block:'start'});el.style.outline='2px solid #b45309';setTimeout(()=>el.style.outline='',2500)},60);}
+else show(tabs[0].dataset.tab);}
+else show(tabs[0].dataset.tab);}}
+else show(tabs[0].dataset.tab);
 const search=document.getElementById('search');
 /* 英文醒目模式：展开全部英文原文并提亮（考试是英文），默认关闭 */
 const enBtn=document.getElementById('enfirst');
