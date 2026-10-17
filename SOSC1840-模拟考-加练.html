@@ -49,15 +49,15 @@ main{max-width:980px;margin:auto;padding:24px 20px 90px}
 </head>
 <body>
 <header class="top"><div class="topin">
-<div class="brand">SOSC1840 · 期中加练 A/B 卷<small>各 30 题 · 考点全覆盖 · 答案盖住 · 带解析</small></div>
+<div class="brand">SOSC1840 · 期中加练 A/B 卷<small>各 41 题 · 考点全覆盖 · 答案盖住 · 带解析</small></div>
 <div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做本卷</button><a class="btn" href="SOSC1840-模拟考2021.html">📝 2021 真题</a><a class="btn" href="index.html">🏠 入口</a></div>
 </div></header>
 <main>
 <section class="hero">
 <div class="kicker">Practice Sets · 新题 · 非真题</div>
 <h1>两套加练：A 卷偏讲义 + W1/W2，B 卷偏 L4–L6 + 阅读</h1>
-<p>每套 30 题，按 2021 真题的命题风格（偷换层级/数字/方向、镜像选项、all of the above）出题。点选项立即揭晓对错，并附<b>一句话解析</b>和「复习 →」直达链接。覆盖：L1–L6 讲义 + Week 1–6 阅读全部考点区。</p>
-<div class="setbar"><button class="btn on" id="setA">📗 A 卷（30 题）</button><button class="btn" id="setB">📘 B 卷（30 题）</button></div>
+<p>每套 41 题，按 2021 真题的命题风格（偷换层级/数字/方向、镜像选项、all of the above）出题。点选项立即揭晓对错，并附<b>一句话解析</b>和「复习 →」直达链接。覆盖：L1–L6 讲义 + Week 1–6 阅读全部考点区。</p>
+<div class="setbar"><button class="btn on" id="setA">📗 A 卷（41 题）</button><button class="btn" id="setB">📘 B 卷（41 题）</button></div>
 </section>
 <div id="quiz"></div>
 <div class="result" id="result"></div>
@@ -94,7 +94,18 @@ const SETS={A:[
 {t:"W1",q:"In recent years, central-government revenues in China averaged about ____ of GDP, leaving Beijing unable to finance many vital functions.",o:["8 percent or less","15 percent","25 percent","40 percent"],a:0,e:"中央收入 ≤8% of GDP；15% 是各级政府正式收入合计；非正式收入约为其 2.5 倍。"},
 {t:"W2",q:"China's people's assessors (人民陪审员) differ from juries in common law countries in that assessors",o:["only decide issues of fact","are selected on the basis of citizenship","function as judges and decide both issues of fact and law","serve permanently in one court"],a:2,e:"陪审员功能等同法官、事实和法律都定；jury 只定事实、按公民身份选出。"},
 {t:"W2",q:"According to the Week 2 reading, the judicial interpretations of the Supreme People's Court and the Supreme People's Procuratorate",o:["have no legal effect because China is not a common law country","bind only the courts, not the procuratorates","have de facto legal effect and bind lower-level judicial activities even though China is not a common law country","must be approved by the NPC before taking effect"],a:2,e:"两家解释都有 de facto 约束力——「不是普通法国家」并不妨碍（2021 Q23 的变体）。"},
-{t:"W2",q:"Within the procuratorate structure, higher-level procuratorates ____ the work of lower-level ones; within the court system, higher courts ____ the work of lower courts.",o:["supervise; direct","direct; supervise","direct; direct","supervise; supervise"],a:1,e:"检察院上下级是「领导（direct/lead）+ 双重领导」；法院上下级只是「监督（supervise）」——方向相反是必考对比。"}
+{t:"W2",q:"Within the procuratorate structure, higher-level procuratorates ____ the work of lower-level ones; within the court system, higher courts ____ the work of lower courts.",o:["supervise; direct","direct; supervise","direct; direct","supervise; supervise"],a:1,e:"检察院上下级是「领导（direct/lead）+ 双重领导」；法院上下级只是「监督（supervise）」——方向相反是必考对比。"},
+{t:"L1",q:"The Nina Wang (龚如心) case, with legal fees of about HK$200 million, is used in Lecture 1 mainly to show that",o:["Hong Kong courts are corrupt","the cost of litigation can itself decide whether law is usable","inheritance law is unclear","mediation is always cheaper"],a:1,e:"贯穿全课的主线之一：能不能用法律，取决于用不用得起——2 亿港元律师费是「成本」主线的标志性案例。"},
+{t:"L1",q:"The Lai Changxing (赖昌星) case dragged on for about 12 years. It illustrates the ____ dimension of using law.",o:["cost of time and delay","lack of criminal law","absence of courts","judicial review"],a:0,e:"赖昌星案拖延 12 年 = 「等不等得起」的时间成本，与龚如心案的金钱成本并列。"},
+{t:"L1",q:"Which of the following is NOT an institutional reason for litigation-aversion (厌讼) in traditional China?",o:["The risk of torture in the legal process","Corruption of officials","The high cost of lawsuits","The Confucian ideal of harmony"],a:3,e:"刑讯、腐败、成本是制度原因；儒家「和为贵」是观念原因——题干问 institutional 时别选观念。"},
+{t:"L1",q:"During the Maoist era, disputes were largely absorbed inside organizations through",o:["the court system","the people's commune in the countryside and the work unit (单位) in cities","private lawyers","the procuratorate"],a:1,e:"农村靠公社、城市靠单位——纠纷在组织内部解决，法院被边缘化。"},
+{t:"L2",q:"Among the following organs, which one has a FIVE-level structure?",o:["The people's courts","The people's procuratorates","The public security organs (公安局)","The people's congresses"],a:2,e:"法院、检察院、人大都是四级；公安是五级（部—省—市—县—派出所）——层级数是易混考点。"},
+{t:"L2",q:"The Party's Political-Legal Affairs Committee (政法委) mainly",o:["tries criminal cases directly","coordinates the courts, procuratorates and public security organs on behalf of the Party","drafts laws for the NPC","appoints the President"],a:1,e:"政法委是党协调政法机关的机构——党—政—法关系主线的核心机构。"},
+{t:"L2",q:"In a criminal case, public prosecution (公诉) is brought by",o:["the public security bureau","the people's procuratorate","the victim's lawyer","the court itself"],a:1,e:"公安侦查 → 检察院公诉 → 法院审判，三家分工是制度骨架题。"},
+{t:"L3",q:"In the early years of the reform era, many Chinese judges were",o:["graduates of top law schools","cadres and demobilized soldiers with little legal training","elected by local residents","appointed from abroad"],a:1,e:"早期法官多由干部和转业军人构成、法律训练不足——这正是后来统一司法考试（2001/2002）要解决的问题。"},
+{t:"L3",q:"According to Lecture 3, guanxi (关系) networks matter because they",o:["determine judges' salaries","can influence case outcomes and are a channel of judicial corruption","are required by the Judges Law","only exist in rural areas"],a:1,e:"关系网影响案件走向，是司法腐败的重要形式之一——L2 的结构在 L3 落到法官个人身上。"},
+{t:"W1",q:"Which of the following IS one of Wang Shaoguang's six critical functions of an effective state?",o:["Monopolize the legitimate use of force","Hold competitive elections","Guarantee freedom of the press","Separate the ruling party from the state"],a:0,e:"六职能之首就是垄断合法武力；选举、新闻自由、党政分离都不在六职能清单里。"},
+{t:"W2",q:"Judicial interpretations with de facto binding force in China are issued by",o:["the NPC Standing Committee only","the Supreme People's Court and the Supreme People's Procuratorate","local high people's courts","the Ministry of Justice"],a:1,e:"只有最高法、最高检两家的司法解释有 de facto 约束力；地方高院的文件不算。"}
 ],B:[
 {t:"L4",q:"According to the survey in Lecture 4 (947 civil disputes), the most commonly used method for resolving civil disputes was",o:["going to court","mediation by acquaintances (30.7%)","approaching state authorities","collective petition"],a:1,e:"民事纠纷首选熟人调解 30.7%；法律只有 16.1%。与官民纠纷首选法律 27.1% 正好相反。"},
 {t:"L4",q:"In the same survey, the use of law in civil disputes was reported by",o:["about 21% of urban and 11% of rural residents","about 11% of urban and 21% of rural residents","equal shares of urban and rural residents","about 40% of all residents"],a:0,e:"城市 20.9% ≈ 21%，农村 11.1% ≈ 11%——城市用法律明显更多，方向别记反。"},
@@ -125,7 +136,18 @@ const SETS={A:[
 {t:"W5",q:"According to Peerenboom, as many as ____ of civil judgments and arbitral awards went unenforced.",o:["10%","25%","50%","90%"],a:2,e:"多达 50% 未执行——执行难是法官爱调解的直接背景，也与 L6 的执行难互证。"},
 {t:"W6",q:"“Excess of authority” (超越职权) differs from “abuse of authority” (滥用职权) in that",o:["they are two translations of the same concept","excess means the agency had no authority at all over the act; abuse means the act was within its jurisdiction but inconsistent with the law's purpose or unreasonable","abuse means the agency had no authority; excess means misuse within authority","excess applies only to courts"],a:1,e:"一句话：有没有权限 vs 权限内用得对不对。例：劳动局发营业执照 = 超越职权。"},
 {t:"W6",q:"Which case may be tried NOT in public (公开审判的例外)?",o:["A commercial contract dispute between two companies","A divorce case","A routine traffic violation","A case involving an adult defendant"],a:1,e:"例外五项：国家秘密、个人隐私、离婚、商业秘密、未成年人。干扰项常写「所有刑事案件」。"},
-{t:"W6",q:"According to “China's Long March toward Rule of Law,” which is NOT a form of legislative supervision?",o:["Investigating law enforcement","Controlling the budget of administrative agencies","Reviewing local Party-committee rules for consistency with higher-level legislation","Making appointment and removal decisions"],a:2,e:"人大监督对象是「一府两院」的法和行为；党委的规章不在人大监督范围内（2021 Q18 变体）。"}
+{t:"W6",q:"According to “China's Long March toward Rule of Law,” which is NOT a form of legislative supervision?",o:["Investigating law enforcement","Controlling the budget of administrative agencies","Reviewing local Party-committee rules for consistency with higher-level legislation","Making appointment and removal decisions"],a:2,e:"人大监督对象是「一府两院」的法和行为；党委的规章不在人大监督范围内（2021 Q18 变体）。"},
+{t:"L4",q:"In the 2005 survey on state-citizen disputes (官民纠纷), the single most chosen option was",o:["mediation by acquaintances","using the law (27.1%)","doing nothing","collective violence"],a:1,e:"官民纠纷首选法律 27.1%——与民事纠纷首选熟人调解 30.7% 正好相反，两组数常被互换做陷阱。"},
+{t:"L6",q:"In the 2005 survey, administrative litigation accounted for ____ of dispute-resolution channels.",o:["about 27%","about 16%","less than 2%","about 40%"],a:2,e:"行政诉讼占比不到 2%——公民告政府是最少见也最敏感的一类。"},
+{t:"L4",q:"Compared with mediation agreements, court judgments differ mainly in that judgments",o:["are faster to obtain","are legally binding and enforceable by state coercion","are cheaper","require consent of both parties"],a:1,e:"仲裁/调解/诉讼的关键差别之一是约束力：法院判决有国家强制力背书，调解协议靠自愿履行。"},
+{t:"L6",q:"Before 1990, Chinese citizens",o:["could sue the government in administrative courts","had no law allowing them to sue the government","could only sue in military courts","could appeal directly to the NPC"],a:1,e:"1990 年《行政诉讼法》实施前，中国没有任何允许公民起诉政府的法律——这是 L6 的起点。"},
+{t:"L6",q:"In administrative litigation, the defendant is always",o:["the citizen who was harmed","the administrative agency that made the challenged act","the Communist Party committee","the people's congress"],a:1,e:"行政诉讼被告恒定为作出行政行为的行政机关；原告恒定为公民/组织——不能反过来。"},
+{t:"L5",q:"Qiuju's demand for a “shuofa” (说法, an explanation/account) illustrates that",o:["plaintiffs only care about money","litigants may seek recognition or apology that formal law cannot easily deliver","mediation is useless in villages","the police always side with village heads"],a:1,e:"秋菊要的不是钱是「说法」——法律能判赔偿，却给不了她要的交代，这是 L5 的核心张力。"},
+{t:"W5",q:"Peerenboom notes that mediated settlement agreements are more likely to be complied with because",o:["courts enforce them faster than judgments","the parties agreed to them voluntarily","they are notarized by the police","they are reviewed by the adjudicative committee"],a:1,e:"和解协议是双方自愿达成的，履行率更高——这是法官爱调解的执行面原因，与「50% 判决未执行」互为印证。"},
+{t:"W6",q:"Legislative supervision by people's congresses in China covers",o:["only the courts","the government, the courts and the procuratorates (一府两院)","the Central Military Commission only","Party disciplinary bodies"],a:1,e:"人大监督对象是「一府两院」：政府、法院、检察院——党委和纪委不在其内。"},
+{t:"W4",q:"Despite the five-person limit on collective petitions, Cai reports that the actual average number of participants across 11 provinces ranged between",o:["2 and 5","5 and 10","17 and 31","50 and 100"],a:2,e:"上限 5 人，实际平均 17–31 人——限制在实践中最常被突破，这个反差是考点。"},
+{t:"L6",q:"Even when citizens win an administrative lawsuit, a frequently remaining problem is",o:["the court fees","enforcement — getting the agency to actually comply with the judgment","the appeal period","finding a lawyer"],a:1,e:"「赢了能不能执行」是 L6 的收尾问题：判决撤销行政行为后，执行仍可能卡壳。"},
+{t:"L4",q:"For consumer-rights disputes, besides going to court, citizens can turn to",o:["the military","consumer associations and administrative agencies for help","the village head","the procuratorate's criminal division"],a:1,e:"消费者维权的常见非诉渠道：消协和相关行政部门投诉——L4 的具体场域之一。"}
 ]};
 const letters="abcdef";
 let curSet="A";const state={picked:{},graded:{}};
