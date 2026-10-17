@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SOSC1840｜期中加练：两套新模拟题（A/B 卷）</title>
+<style>
+:root{--bg:#0c1117;--panel:#121a23;--panel2:#182330;--line:#2b3a49;--text:#e8eef5;--muted:#9fb0c1;--accent:#67d391;--accent2:#7eb6ff;--warn:#ffd166;--red:#ff7b72;--shadow:0 12px 40px #0005}
+*{-webkit-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important;box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1000px 500px at 10% -10%,#234a3a55,transparent 60%),var(--bg);color:var(--text);font:15px/1.7 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#0c1117ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.topin{max-width:980px;margin:auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{font-size:16px;font-weight:750}.brand small{display:block;color:var(--muted);font-size:12px;font-weight:450}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:9px;padding:7px 12px;text-decoration:none;cursor:pointer;font:inherit;font-size:13.5px}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.on{border-color:var(--accent);color:var(--accent);background:#67d39118}
+.score{font-weight:800;color:var(--accent);font-size:15px;padding:7px 12px;border:1px solid #67d39144;border-radius:9px;background:#67d39110}
+main{max-width:980px;margin:auto;padding:24px 20px 90px}
+.hero{border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#14251f,#111a24 60%);box-shadow:var(--shadow);padding:26px;margin-bottom:22px}
+.kicker{color:var(--accent);font-weight:700;letter-spacing:.1em;font-size:12px;text-transform:uppercase}
+.hero h1{font-size:clamp(24px,4vw,38px);margin:8px 0}
+.hero p{color:#c8d5de;margin:6px 0;max-width:860px}
+.setbar{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.q{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px 20px;margin-bottom:16px;scroll-margin-top:90px}
+.qhead{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.qno{font:700 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);border:1px solid #67d39144;background:#67d39110;border-radius:6px;padding:4px 8px;white-space:nowrap}
+.src{font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.qtext{margin:6px 0 12px;font-size:15.5px;font-weight:600}
+.opts{display:grid;gap:7px}
+.opt{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 13px;cursor:pointer;display:flex;gap:10px;align-items:baseline;transition:.12s}
+.opt:hover{border-color:var(--accent2)}
+.opt .letter{font:700 13px ui-monospace,monospace;color:var(--accent2);min-width:16px}
+.opt.picked{border-color:var(--accent2);background:#7eb6ff14}
+.opt.correct{border-color:var(--accent);background:#67d3911c}.opt.correct .letter{color:var(--accent)}
+.opt.wrong{border-color:var(--red);background:#ff7b7214}.opt.wrong .letter{color:var(--red)}
+.opt.lock{cursor:default}
+.verdict{margin-top:10px;font-size:13.5px;font-weight:700;display:none}
+.verdict.ok{color:var(--accent);display:block}
+.verdict.no{color:var(--red);display:block}
+.expl{display:none;margin-top:8px;font-size:13.5px;color:#c8d5de;border-left:3px solid var(--accent2);padding:8px 12px;background:#10243a28;border-radius:0 8px 8px 0}
+.expl.show{display:block}
+.ref{margin:12px 0 0;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.ref a{color:var(--accent2);text-decoration:none}.ref a:hover{text-decoration:underline}
+.result{border:1px solid #67d39155;border-radius:14px;background:#10231a;padding:18px 20px;margin:20px 0;display:none}
+.result.show{display:block}.result b{color:var(--accent);font-size:22px}
+.foot{color:var(--muted);font-size:12.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand">SOSC1840 · 期中加练 A/B 卷<small>各 30 题 · 考点全覆盖 · 答案盖住 · 带解析</small></div>
+<div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做本卷</button><a class="btn" href="SOSC1840-模拟考2021.html">📝 2021 真题</a><a class="btn" href="index.html">🏠 入口</a></div>
+</div></header>
+<main>
+<section class="hero">
+<div class="kicker">Practice Sets · 新题 · 非真题</div>
+<h1>两套加练：A 卷偏讲义 + W1/W2，B 卷偏 L4–L6 + 阅读</h1>
+<p>每套 30 题，按 2021 真题的命题风格（偷换层级/数字/方向、镜像选项、all of the above）出题。点选项立即揭晓对错，并附<b>一句话解析</b>和「复习 →」直达链接。覆盖：L1–L6 讲义 + Week 1–6 阅读全部考点区。</p>
+<div class="setbar"><button class="btn on" id="setA">📗 A 卷（30 题）</button><button class="btn" id="setB">📘 B 卷（30 题）</button></div>
+</section>
+<div id="quiz"></div>
+<div class="result" id="result"></div>
+<div class="foot">本卷为学习辅助新出题（非历年真题），依据：lecture 1–6 讲义、Week 1–6 指定阅读、考点总表。答案以教师课件与阅读原文为准。</div>
+</main>
+<script>
+const SETS={A:[
+{t:"L1",q:"According to Lecture 1, which of the following is NOT among the functions of law in society?",o:["Maintaining social order and protecting the legitimate rights of social actors","Providing stability and predictability","Mediating and resolving social disputes","Redistributing wealth among social classes"],a:3,e:"讲义只列了三项功能：维持秩序、稳定可预期、解决纠纷；财富再分配不在其中。"},
+{t:"L1",q:"“Order without law” works in a small community mainly because",o:["the state sends mediators to the village","reputation matters, exit is difficult, and tit-for-tat is possible","people there are more law-abiding by nature","formal courts are easily accessible"],a:1,e:"小共同体三条件：声誉重要、难以退出、以牙还牙可行——state 恰恰缺位。"},
+{t:"L1",q:"In traditional China, one of the “three taboos” was",o:["borrowing money from relatives","taking a dispute to the court","selling land to outsiders","moving to another village"],a:1,e:"三大禁忌：殡葬、当铺、打官司（丢脸，说明对方不尊重你）。"},
+{t:"L1",q:"Which of the following was NOT a typical qualification of the gentry (乡绅) as mediators in traditional society?",o:["Having passed the Imperial Examinations","Being literate among a largely illiterate population","Being formally appointed as a judge by the county magistrate","Having property, stable marriage and leisure for tea-shop discussions"],a:2,e:"乡绅是科举出身的民间士人，不是官府任命的法官——这是他们调解权威来自声望而非官职的原因。"},
+{t:"L1",q:"The Kang Xi Emperor's remarks about litigation (1662–1723) show that the Qing government",o:["encouraged people to defend their rights in court","treated litigation as a sign of moral progress","discouraged lawsuits and wanted litigants to be treated without pity","built more courts to handle disputes"],a:2,e:"康熙的态度：厌讼——告状者要被无情对待使其厌讼，纠纷应「如兄弟般」解决。"},
+{t:"L1",q:"The correct order of the rural collective structure in Maoist China is",o:["commune → brigade → production team","production team → brigade → people's commune","brigade → production team → commune","production team → commune → brigade"],a:1,e:"生产队 → 大队 → 人民公社，三级顺序是必考点。"},
+{t:"L1",q:"The urban work unit system (单位制) controlled employees mainly through",o:["the household registration of their parents","the personnel-file system and the rationing system","mandatory military service","residence permits issued by courts"],a:1,e:"单位制的控制抓手：人事档案 + 配给制度，外加住房、养老金等福利都绑在单位上。"},
+{t:"L1",q:"Between 1978 and 1981, the Supreme People's Court reviewed about 1.2 million criminal cases from the Cultural Revolution and corrected",o:["about one tenth of them","about one quarter of them, involving 326,000 people","about half of them","all of them"],a:1,e:"120 万件复查、纠正四分之一、涉及 326,000 人——文革后果的三连数字。"},
+{t:"L1",q:"Which law was NOT among the seven laws passed by the NPC in 1979?",o:["The Criminal Law","The Election Law of Deputies of the People's Congresses","The Marriage Law","The Sino-Foreign Joint Ventures Law"],a:2,e:"1979 七部法没有婚姻法（婚姻法是 1950/1980）；这个陷阱 2021 年考过。"},
+{t:"L1",q:"From 1978 to 1998, the NPC and its Standing Committee passed about ____ laws.",o:["127","327","1,000","4,200"],a:1,e:"327 部是全国人大的；1,000+ 是国务院规定、4,200 是省级人大地方性法规——三级数字别混。"},
+{t:"L1",q:"“Rule according to law / rule by law” (依法治国) differs from “rule of law” mainly in that",o:["it is the English translation of the same concept","under rule by law, law is a tool used by the state rather than a constraint on the state","rule by law requires an independent judiciary","rule of law exists only in common law countries"],a:1,e:"rule by law = 用法律治理（法律是工具）；rule of law = 法律约束国家本身。课上强调二者不等同。"},
+{t:"L1",q:"Between 1978 and 1997, the state economy's share of GDP in China changed roughly from",o:["26.5% to 77.6%","77.6% to 26.5%","50% to 32.9%","0.2% to 32.9%"],a:1,e:"国有经济占比 77.6%→26.5%；0.2%→32.9% 是私营经济的上升线，方向别反。"},
+{t:"L2",q:"Under “four levels and two instances of trials”, a party may appeal",o:["twice, to two higher courts","only once, to the court at the next higher level","directly to the Supreme People's Court","only with permission of the procuratorate"],a:1,e:"两审终审：只能向上一级上诉一次；SPC 一审立即生效（无处可上诉）。"},
+{t:"L2",q:"In China's institutional structure, the public security organ (公安局) belongs to",o:["the judicial system","the administrative system (a functional department of the government)","the procuratorate system","the people's congress system"],a:1,e:"公安编制上属于行政系统，虽然刑事程序中行使侦查、逮捕等职能——身份与职能错位是常考点。"},
+{t:"L2",q:"In a criminal case, the power to approve an arrest (批准逮捕) rests with",o:["the public security bureau that investigates the case","the people's procuratorate","the court that will try the case","the political-legal affairs committee"],a:1,e:"公安侦查后只能申请，批捕决定权在检察院。"},
+{t:"L2",q:"During the 1983–1984 “Striking Hard” campaign, the number of criminals (in custody) increased",o:["from 600,000 to 1.2 million","from 1.2 million to 600,000","from 100,000 to 200,000","it remained stable"],a:0,e:"严打后果之一：在押人员从 60 万翻倍到 120 万，中央一度失控。"},
+{t:"L2",q:"Under the 1979 State Council regulation on labor education (劳动教养), a person could be detained for",o:["6 months to 1 year","1 to 3 years, extendable by one more year if necessary","3 to 5 years without extension","an unlimited period"],a:1,e:"1979 年规定 1–3 年、必要时可延长 1 年；1979 年前无上限、有人被关 20 年。"},
+{t:"L2",q:"A prisoner released on bail for medical treatment (保外就医) must, among other things, obtain documents from",o:["any hospital of his/her choice","hospitals designated by the provincial government","the court that issued the judgment","the Ministry of Public Security"],a:1,e:"保外就医需要省政府指定医院的证明文件；危险或想自残者不得保外就医。"},
+{t:"L2",q:"In the 1997 barbershop case (Kang v. Zhou, the 阴阳头 case), which statement is correct?",o:["It was only a civil dispute, since there was an oral agreement","It was only a criminal case, since Zhou used violence","It was both: Zhou's act broke criminal law, and Kang could sue for pay because the oral agreement violated her rights in the first place","Kang had no remedy at all because she quit voluntarily"],a:2,e:"刑事（侮辱伤害）+ 民事（口头协议因侵害权利而无效，可讨薪索赔）双重性质，选 d 式表述。"},
+{t:"L2",q:"In the watermelon case, the peasant could sue the police station because",o:["the police caused his loss directly","the police station failed to perform its duty of protecting citizens' property","he could claim civil compensation from the thieves","the police station was an enterprise"],a:1,e:"告的是行政不作为——派出所未履行保护公民财产的职责。"},
+{t:"L3",q:"China's first unified national judicial examination (统一司法考试) was held in",o:["1995","1998","2002","2010"],a:2,e:"2001 年《法官法》修正确立，2002 年首次统考——两个年份常被混考。"},
+{t:"L3",q:"According to the lecture's figures, China had about ____ judges.",o:["12,000–13,000","120,000–130,000","300,000","1.2 million"],a:1,e:"讲义口径：法官 12–13 万，财政供养人员 18 万。注意阅读（Peerenboom）说 18 万是法官——两套口径，看题干问哪份材料。"},
+{t:"L3",q:"As reported by lawyers in the lecture survey, the factor that most affects a lawyer's chance of winning a case is",o:["personal connections (关系)","pertinent laws","facts","the judge's political inclination"],a:2,e:"律师们的回答：事实是第一位；但「关系」的比例也不低，这正是讲课张力所在。"},
+{t:"L3",q:"“Protective umbrellas” (保护伞) in organized crime refer to",o:["informal dispute mediators","public employees including state officials and legal workers who help criminal organizations","village elders who shield offenders from clans","lawyers who defend criminal suspects"],a:1,e:"保护伞 = 公职人员（官员、法律工作者）为犯罪组织提供庇护，是有组织犯罪增多的重要原因。"},
+{t:"W1",q:"According to Wang Shaoguang, which of the following is NOT one of the six critical functions of an effective state?",o:["Monopolize the legitimate use of force","Extract resources","Hold regular competitive elections","Redistribute resources"],a:2,e:"六职能：武力、汲取、认同、管制、协调（内部一致性）、再分配——没有选举。民主是另一套制度（democratic institutions）。"},
+{t:"W1",q:"Wang Shaoguang points out that, paradoxically, so-called “police states”",o:["have more police per citizen than free societies","tend to have FEWER police officers per citizen than free societies","always have the most restrained police","have no police force at all"],a:1,e:"压制型政权人均警察数反而更少；自由社会警察更多也更受约束。中国每千人仅 1 名警察。"},
+{t:"W1",q:"In recent years, central-government revenues in China averaged about ____ of GDP, leaving Beijing unable to finance many vital functions.",o:["8 percent or less","15 percent","25 percent","40 percent"],a:0,e:"中央收入 ≤8% of GDP；15% 是各级政府正式收入合计；非正式收入约为其 2.5 倍。"},
+{t:"W2",q:"China's people's assessors (人民陪审员) differ from juries in common law countries in that assessors",o:["only decide issues of fact","are selected on the basis of citizenship","function as judges and decide both issues of fact and law","serve permanently in one court"],a:2,e:"陪审员功能等同法官、事实和法律都定；jury 只定事实、按公民身份选出。"},
+{t:"W2",q:"According to the Week 2 reading, the judicial interpretations of the Supreme People's Court and the Supreme People's Procuratorate",o:["have no legal effect because China is not a common law country","bind only the courts, not the procuratorates","have de facto legal effect and bind lower-level judicial activities even though China is not a common law country","must be approved by the NPC before taking effect"],a:2,e:"两家解释都有 de facto 约束力——「不是普通法国家」并不妨碍（2021 Q23 的变体）。"},
+{t:"W2",q:"Within the procuratorate structure, higher-level procuratorates ____ the work of lower-level ones; within the court system, higher courts ____ the work of lower courts.",o:["supervise; direct","direct; supervise","direct; direct","supervise; supervise"],a:1,e:"检察院上下级是「领导（direct/lead）+ 双重领导」；法院上下级只是「监督（supervise）」——方向相反是必考对比。"}
+],B:[
+{t:"L4",q:"According to the survey in Lecture 4 (947 civil disputes), the most commonly used method for resolving civil disputes was",o:["going to court","mediation by acquaintances (30.7%)","approaching state authorities","collective petition"],a:1,e:"民事纠纷首选熟人调解 30.7%；法律只有 16.1%。与官民纠纷首选法律 27.1% 正好相反。"},
+{t:"L4",q:"In the same survey, the use of law in civil disputes was reported by",o:["about 21% of urban and 11% of rural residents","about 11% of urban and 21% of rural residents","equal shares of urban and rural residents","about 40% of all residents"],a:0,e:"城市 20.9% ≈ 21%，农村 11.1% ≈ 11%——城市用法律明显更多，方向别记反。"},
+{t:"L4",q:"In medical disputes, mediated cases (by the medical dispute mediation committee) mostly took ____ compared with lawsuits.",o:["much longer","about the same time","less time — most mediated cases were resolved within 1–90 days","exactly 361 days"],a:2,e:"调解案件 76.97% 在 1–90 天内解决；诉讼更耗时——所以 2021 真题说 lawsuits take more time 是对的。"},
+{t:"L4",q:"Under the Labor Law, a labor dispute between an employee and the employer must",o:["be filed directly to the court","first be submitted to the arbitration committee; only if a party rejects the arbitration outcome can it go to court","be mediated by the trade union first","be reported to the police"],a:1,e:"劳动争议「先裁后诉」：必须先经仲裁委员会仲裁，不服才能上法院。"},
+{t:"L4",q:"Which of the following is NOT a problem faced by migrant workers in protecting their rights?",o:["The limited credibility of arbitration (wasting money and time)","The lengthy legal process","Migrant workers are less likely to win lawsuits than their employers","Problems with enforcement (winning the case but still not getting paid)"],a:2,e:"讲义列的问题是仲裁公信力、程序长、执行难；并没有说农民工胜诉率比雇主低。"},
+{t:"L4",q:"In medical dispute lawsuits, patients' chance of winning is",o:["higher in the first-instance trial than in the second-instance trial","higher in the second-instance trial than in the first","equal in both","zero in both"],a:0,e:"一审胜率高于二审——与「诉讼更耗时」合起来就是 2021 Q2 的两个正确项（a 和 c）。"},
+{t:"L5",q:"In The Story of Qiuju, after the village head agreed to pay the medical bill, Qiuju",o:["accepted the settlement","returned the money and sued Wang, considering it insufficient redress","appealed to the provincial court","asked Constable Li to continue mediating"],a:1,e:"她要的是「说法」不是钱——退钱并起诉村长王善堂。"},
+{t:"L5",q:"In The Story of Qiuju, the person who mediated between the parties was",o:["the village head Wang Shantang","Constable Li Shunlin (the police officer)","a judge of the basic people's court","Qiuju's husband Qinglai"],a:1,e:"调解由李公安员主持——纠纷第一站是警察调解而不是法院。人物别记反：受伤的是丈夫庆来。"},
+{t:"L5",q:"The three basic laws for civil disputes listed in Lecture 5 are",o:["General Principles of Civil Law (1986), Marriage Law (1950/1980/2001), Contract Law (1999)","Criminal Law (1979), Marriage Law, Labor Law","Constitution, Civil Procedure Law, Contract Law","General Principles of Civil Law (1999), Property Law, Tort Law"],a:0,e:"三部基本法 + 年份成组背：民法通则 1986、婚姻法 1950/80/2001、合同法 1999。"},
+{t:"L5",q:"Which statement about the Marriage Law is true?",o:["The 1950 Law introduced the family planning policy","The 1980 amendment included the family planning policy","The 1950 Law set the marriage age at 22 for males and 20 for females","The 2001 amendment abolished polygamy"],a:1,e:"1950 年废除一夫多妻；计划生育是 1980 年修正加入的；22/20 婚龄也是 1980 年规定的。"},
+{t:"L5",q:"In the child-support case in Lecture 5, the court",o:["granted both the 18,000 yuan and the raise to 300 yuan/month","rejected the 18,000 yuan claim but raised the monthly support from 150 to 250 yuan","rejected both claims","raised the monthly support to 300 yuan"],a:1,e:"抚养费 150→250（不是 300）；18,000 元因名目不是学费被完全驳回；诉讼费 382 元父亲担 200。"},
+{t:"L6",q:"In administrative litigation, the level of government most frequently sued is",o:["the provincial governments","the city governments","the county governments and their agencies","the central ministries"],a:2,e:"县级政府及其部门被诉最多——它们直接与公民打交道。"},
+{t:"L6",q:"The most frequently used mode of settling administrative lawsuits in China is",o:["the court upholds the government's decision","the court cancels the administrative act","plaintiffs withdraw their cases","the court rejects the lawsuits"],a:2,e:"撤诉最常见：政府主动纠正行为保面子 + 向原告施压迫使其撤诉。"},
+{t:"L6",q:"Which statement about the 2014 amendment of the Administrative Litigation Law (effective 2015) is TRUE?",o:["The filing window was extended from 6 to 12 months","Leaders of the sued agency should appear in court","Agencies may prevent courts from accepting cases involving state secrets","Cases must be tried exactly where the agency is located"],a:1,e:"真项：被告机关负责人应出庭、机关不得阻挠立案、可异地管辖。假项陷阱：起诉期是 3→6 个月，不是 6→12。"},
+{t:"L6",q:"The State Compensation Law (effective January 1, 1995)",o:["applies retroactively to all wrongly decided cases since 1949","does not apply to cases closed before it took effect","only compensates property losses","was abolished in 2012"],a:1,e:"法不溯及既往：1995 年前已结案的旧案不能索赔——哪怕后来平反（2021 Q6 同考点）。"},
+{t:"L6",q:"The 2012 amendment of the State Compensation Law (effective 2013)",o:["abolished compensation for wrongful detention","added compensation for mental or psychological suffering (精神损失)","raised compensation based on the average salary in the provincial capital","extended the payment deadline to 5 years"],a:1,e:"真项：精神损害赔偿入法、理论上 22 天内赔付。陷阱项：赔偿标准基于上年度全国职工日平均工资，不是省会城市的。"},
+{t:"L6",q:"Courts' difficulty in enforcing judgments outside their home locations (异地执行难) mainly stems from",o:["the lack of enforcement laws","local protectionism (地方保护主义)","the absence of bank accounts","the unwillingness of plaintiffs"],a:1,e:"异地执行三难（找财产难、银行配合难、当地司法公安支持难）的根源是地方保护主义。"},
+{t:"W4",q:"According to Cai (2008), petitioning to pertinent agencies or leaders remains the most commonly used mode in state-citizen disputes if approaching upper-level leaders is counted as petitioning — the combined share is",o:["13.4%","26.8%","40.2%","27.1%"],a:2,e:"40.2% = 找上级领导 26.8% + 集体上访 13.4%，是合计数而非表中某一行——真题最爱考这个。"},
+{t:"W4",q:"Cai's key finding about behavioral intention vs actual action in state-citizen disputes is that",o:["people who said they would use law actually used it more","collective petition was intended by 2.3% but actually used by 13.4%","tolerance was intended by 26% but practiced by 11.8%","intention and action roughly matched"],a:1,e:"三组落差：法律被高估（41.3→27.1），集体上访（2.3→13.4）和不作为（11.8→26.0）被低估。"},
+{t:"W4",q:"Cai argues that the coexistence of numerous social conflicts and social stability in China shows that the Chinese political system",o:["is on the verge of collapse","has resilience — it permits conflict-resolution mechanisms while preventing regime-threatening behavior","has completely institutionalized conflict resolution","has eliminated collective action"],a:1,e:"核心命题：冲突多 + 政权稳 = 韧性（resilience）。但合法渠道效果有限，官民纠纷解决更缺制度化。"},
+{t:"W4",q:"Since 2005, the government has limited the number of participants in a collective petition to a maximum of",o:["three","five","fifteen","fifty"],a:1,e:"五人限制（five-person limit）；但 11 省的实际平均参与人数在 17–31 人之间，限制常被突破。"},
+{t:"W5",q:"According to Peerenboom, rule of law requires the judiciary to be",o:["independent, competent, and vested with sufficient powers","elected, transparent, and democratic","wealthy, large, and centralized","formal, informal, and flexible"],a:0,e:"三要求：independent、competent、sufficient powers——中国三项都不达标。干扰项常混入 democratic/transparent。"},
+{t:"W5",q:"Chinese courts, as described by Peerenboom, CANNOT",o:["try civil cases","conduct judicial review or strike down government regulations inconsistent with higher legislation","hear appeals","enforce their own judgments"],a:1,e:"法院只适用法律，不能造法、不能做司法审查、不能推翻政府规章——「一手被绑在背后」。"},
+{t:"W5",q:"The 1999 reforms gave more decision power to",o:["the court president in all cases","the presiding judges of collegiate panels and single judges in summary procedures","the adjudicative committee in all cases","the political-legal committee"],a:1,e:"1999 年放权给合议庭审判长与简易程序独任法官；但重大疑难案件和合议庭有重大分歧时仍需审批。"},
+{t:"W5",q:"Which case would still require approval (重大/疑难案件) after the 1999 reform?",o:["A routine divorce case","A death penalty case or a politically sensitive case (e.g., involving Falun Gong or a lawsuit against a government organ)","A small-claims contract dispute","A traffic fine appeal"],a:1,e:"重大疑难清单：死刑、重大经济犯罪、巨额标的、涉外投资、政治敏感（含告政府、无罪后检察院抗诉）。"},
+{t:"W5",q:"Peerenboom argues that the prevalence of judicial mediation in China is best explained by",o:["Confucian preference for harmony and face","judges' heavy workload, fear of reversal on appeal (which can cut their pay), and difficulty enforcing judgments","the requirement of the Marriage Law","the lack of lawyers"],a:1,e:"文化只是部分解释；更重要的是功利激励：减工作量、怕改判扣工资、判决执行难（和解协议更可能被履行）。"},
+{t:"W5",q:"According to Peerenboom, as many as ____ of civil judgments and arbitral awards went unenforced.",o:["10%","25%","50%","90%"],a:2,e:"多达 50% 未执行——执行难是法官爱调解的直接背景，也与 L6 的执行难互证。"},
+{t:"W6",q:"“Excess of authority” (超越职权) differs from “abuse of authority” (滥用职权) in that",o:["they are two translations of the same concept","excess means the agency had no authority at all over the act; abuse means the act was within its jurisdiction but inconsistent with the law's purpose or unreasonable","abuse means the agency had no authority; excess means misuse within authority","excess applies only to courts"],a:1,e:"一句话：有没有权限 vs 权限内用得对不对。例：劳动局发营业执照 = 超越职权。"},
+{t:"W6",q:"Which case may be tried NOT in public (公开审判的例外)?",o:["A commercial contract dispute between two companies","A divorce case","A routine traffic violation","A case involving an adult defendant"],a:1,e:"例外五项：国家秘密、个人隐私、离婚、商业秘密、未成年人。干扰项常写「所有刑事案件」。"},
+{t:"W6",q:"According to “China's Long March toward Rule of Law,” which is NOT a form of legislative supervision?",o:["Investigating law enforcement","Controlling the budget of administrative agencies","Reviewing local Party-committee rules for consistency with higher-level legislation","Making appointment and removal decisions"],a:2,e:"人大监督对象是「一府两院」的法和行为；党委的规章不在人大监督范围内（2021 Q18 变体）。"}
+]};
+const letters="abcdef";
+let curSet="A";const state={picked:{},graded:{}};
+const quiz=document.getElementById('quiz');
+function render(){
+  quiz.innerHTML='';state.picked={};state.graded={};
+  document.getElementById('result').className='result';
+  document.getElementById('score').textContent='得分 0 / 30';
+  SETS[curSet].forEach((it,i)=>{
+    const d=document.createElement('div');d.className='q';d.id='q'+(i+1);
+    d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div><p class="qtext">'+it.q+'</p><div class="opts">'+
+      it.o.map((o,j)=>'<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+letters[j]+'.</span><span>'+o+'</span></div>').join('')+
+      '</div><p class="verdict" id="v'+i+'"></p><div class="expl" id="e'+i+'"></div></div>';
+    quiz.appendChild(d);
+  });
+}
+function updateScore(){
+  const done=Object.keys(state.graded).length,right=Object.values(state.graded).filter(Boolean).length;
+  document.getElementById('score').textContent='得分 '+right+' / 30'+(done<30?'（已答 '+done+'）':'');
+  const r=document.getElementById('result');
+  if(done===30){r.className='result show';const pct=Math.round(right/30*100);
+    const wrongs=SETS[curSet].map((q,i)=>({q,i})).filter(x=>state.graded[x.i]===false);
+    r.innerHTML='<b>'+right+' / 30（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！':pct>=60?'💪 及格线以上，看错题解析。':'📖 先读错题解析再重做。')+'</p>'+(wrongs.length?'<p style="margin:6px 0 0;color:var(--muted)">错题直达：'+wrongs.map(x=>'<a href="#q'+(x.i+1)+'" style="color:var(--red)">Q'+(x.i+1)+'</a>').join(' · ')+'</p>':'<p>满分！🎉</p>');}
+  else r.className='result';
+}
+quiz.addEventListener('click',e=>{
+  const el=e.target.closest('.opt');if(!el)return;
+  const i=+el.dataset.q,o=+el.dataset.o;
+  if(state.graded[i]!==undefined)return;
+  state.picked[i]=o;el.classList.add('picked');
+  const it=SETS[curSet][i],card=document.getElementById('q'+(i+1));
+  card.querySelectorAll('.opt').forEach(x=>{const oo=+x.dataset.o;x.classList.add('lock');if(oo===it.a)x.classList.add('correct');else if(oo===o)x.classList.add('wrong');});
+  const ok=o===it.a;state.graded[i]=ok;
+  const v=document.getElementById('v'+i);v.className='verdict '+(ok?'ok':'no');
+  v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
+  const ex=document.getElementById('e'+i);ex.className='expl show';ex.innerHTML='<b>解析：</b>'+it.e;
+  updateScore();
+});
+document.getElementById('setA').onclick=()=>{curSet='A';document.getElementById('setA').classList.add('on');document.getElementById('setB').classList.remove('on');render();window.scrollTo({top:0});};
+document.getElementById('setB').onclick=()=>{curSet='B';document.getElementById('setB').classList.add('on');document.getElementById('setA').classList.remove('on');render();window.scrollTo({top:0});};
+document.getElementById('reset').onclick=render;
+render();
+</script>
+</body>
+</html>
