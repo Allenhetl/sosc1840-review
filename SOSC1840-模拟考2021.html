@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SOSC1840｜2021 期中模拟考（答案盖住版）</title>
+<style>
+:root{--bg:#0c1117;--panel:#121a23;--panel2:#182330;--line:#2b3a49;--text:#e8eef5;--muted:#9fb0c1;--accent:#67d391;--accent2:#7eb6ff;--warn:#ffd166;--red:#ff7b72;--shadow:0 12px 40px #0005}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1000px 500px at 10% -10%,#234a3a55,transparent 60%),var(--bg);color:var(--text);font:15px/1.7 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#0c1117ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.topin{max-width:980px;margin:auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{font-size:16px;font-weight:750}.brand small{display:block;color:var(--muted);font-size:12px;font-weight:450}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:9px;padding:7px 12px;text-decoration:none;cursor:pointer;font:inherit;font-size:13.5px}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.score{font-weight:800;color:var(--accent);font-size:15px;padding:7px 12px;border:1px solid #67d39144;border-radius:9px;background:#67d39110}
+main{max-width:980px;margin:auto;padding:24px 20px 90px}
+.hero{border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#14251f,#111a24 60%);box-shadow:var(--shadow);padding:26px;margin-bottom:22px}
+.kicker{color:var(--accent);font-weight:700;letter-spacing:.1em;font-size:12px;text-transform:uppercase}
+.hero h1{font-size:clamp(24px,4vw,38px);margin:8px 0}
+.hero p{color:#c8d5de;margin:6px 0;max-width:860px}
+.modebar{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.modebar .btn.on{border-color:var(--accent);color:var(--accent);background:#67d39118}
+.q{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px 20px;margin-bottom:16px;scroll-margin-top:90px}
+.qhead{display:flex;gap:10px;align-items:baseline;margin-bottom:8px}
+.qno{font:700 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);border:1px solid #67d39144;background:#67d39110;border-radius:6px;padding:4px 8px;white-space:nowrap}
+.qtext{margin:6px 0 12px;font-size:15.5px;font-weight:600}
+.opts{display:grid;gap:7px}
+.opt{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 13px;cursor:pointer;display:flex;gap:10px;align-items:baseline;transition:.12s}
+.opt:hover{border-color:var(--accent2)}
+.opt .letter{font:700 13px ui-monospace,monospace;color:var(--accent2);min-width:16px}
+.opt.picked{border-color:var(--accent2);background:#7eb6ff14}
+.opt.correct{border-color:var(--accent);background:#67d3911c}
+.opt.correct .letter{color:var(--accent)}
+.opt.wrong{border-color:var(--red);background:#ff7b7214}
+.opt.wrong .letter{color:var(--red)}
+.opt.lock{cursor:default}
+.verdict{margin-top:10px;font-size:13.5px;font-weight:700;display:none}
+.verdict.ok{color:var(--accent);display:block}
+.verdict.no{color:var(--red);display:block}
+h2.part{font-size:20px;color:var(--warn);border-left:5px solid var(--warn);padding-left:10px;margin:34px 0 16px}
+.essay{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px 20px;margin-bottom:16px}
+.essay h3{margin:0 0 8px;font-size:16px}
+.essay details{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+.essay summary{cursor:pointer;color:var(--warn);font-weight:700}
+.essay .ans{margin-top:8px;color:#d9e5eb}
+.essay .ans p{margin:6px 0}
+.result{border:1px solid #67d39155;border-radius:14px;background:#10231a;padding:18px 20px;margin:20px 0;display:none}
+.result.show{display:block}
+.result b{color:var(--accent);font-size:22px}
+.foot{color:var(--muted);font-size:12.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand">SOSC1840 · 2021 期中模拟考<small>30 选择题 + 3 简答 · 答案已盖住</small></div>
+<div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做</button><a class="btn" href="SOSC1840-期中冲刺.html">⚡ 期中冲刺</a><a class="btn" href="index.html">🏠 入口</a></div>
+</div></header>
+<main>
+<section class="hero">
+<div class="kicker">Past Paper · Mid-Term 2021 · 42 points</div>
+<h1>模拟考：先自己答，再对答案</h1>
+<p>两种模式：<b>即时模式</b>——点选项立刻揭晓对错；<b>交卷模式</b>——先全部选完，最后统一批改。答案在揭晓前完全不可见。简答题答案在折叠区里，先自己写再展开对照。</p>
+<div class="modebar"><button class="btn on" id="mInstant">⚡ 即时模式</button><button class="btn" id="mExam">📝 交卷模式</button><button class="btn" id="grade" style="display:none">✅ 交卷批改</button></div>
+</section>
+<h2 class="part">第一部分：选择题（每题 1 分，共 30 分）</h2>
+<div id="quiz"></div>
+<div class="result" id="result"></div>
+<h2 class="part">第二部分：简答题（共 12 分）</h2>
+<div id="essays"></div>
+<div class="foot">题目与答案来源：SOSC1840 2021 期中试卷（Past Paper，仅供课程学习使用）。模拟成绩仅供参考，考试以教师课件、讲义与指定阅读为准。</div>
+</main>
+<script>
+const Q=[
+{n:1,q:"When did the Chinese government abolish the Labor Education Camp system（劳动教养）?",o:["1995","2000","2010","2013"],a:3},
+{n:2,q:"In China, when people have medical disputes with hospitals, they may use different modes to resolve their disputes. Which of the following statements is true?",o:["Lawsuits generally take more time than the mediation by the mediation committee for medical disputes.","Patients or their families prefer using lawsuits because they have an equally high chance of winning both the first-instance (一审) and second-instance (二审) trials.","Patients or their families have a higher chance of winning the first-stance trial, as opposed to the second-instance trial.","Patients or their families have a smaller chance of winning the first-stance trial, as opposed to the second-instance trial.","a and c"],a:4},
+{n:3,q:"In China, most lawsuits accepted by the courts are",o:["administrative litigation cases","civil cases, including commercial disputes","state compensation cases","criminal cases","no difference"],a:1},
+{n:4,q:"In the Chinese mainland, if you are in an emergency situation, you can seek help from the police by calling",o:["999","911","110","101"],a:2},
+{n:5,q:"In China, the legal procedure for a divorce can be done",o:["through the court","through the civil affairs bureau if both parties agree","through the work units or the village authority","all of the above","a and b"],a:4},
+{n:6,q:"In 1977, a peasant was detained for corruption and sentenced to seven years in prison. He was released in 1984. Later he was found not guilty and the original verdict was revoked. He applied for state compensation in 1998. Which is the most likely outcome?",o:["He would obtain state compensation.","He was unlikely to obtain state compensation because the State Compensation Law which took effect in 1995 does not apply to cases closed before the law was enacted.","He would obtain state compensation if he sued the local government.","He was likely to obtain state compensation if he used administrative reconsideration."],a:1},
+{n:7,q:"In Chinese prisons, a prisoner can have his/her sentence reduced (减刑) if s/he meets the requirements. For a person sentenced to death penalty with a reprieve (死缓), a reduction of prison term can only be started after this person has been jailed for",o:["3 years","2 years","5 years","10 years"],a:0},
+{n:8,q:"Which of the following statements concerning the “Striking Hard” (严打) between 1983 and 1984 is FALSE?",o:["The background of this “Striking Hard” was the deteriorating public security in the early 1980s.","Its targets included “hooligan” gang members, criminals who fled from place to place, murderers, rapists, robbers and serious thieves, and traffickers in women and children.","Some judges felt sick or collapsed, dying from exhaustion after several strenuous days of adjudication.","Death penalty and life imprisonment cases were delegated (下放) to the city-level or intermediate courts."],a:3},
+{n:9,q:"According to “Social Conflicts and Modes of Actions in China,” which of the following statements is true?",o:["Although many people reported that they would use law if they had conflicts with the state authority, the proportion of those who used it in reality was smaller.","Although many people reported that they would use collective petition if they had conflicts with the state authority, the proportion of those who used it in reality was much smaller.","Although fewer people reported that they would use collective petition if they had conflicts with the state authority, the proportion of those who used it in reality was larger.","Although fewer people reported that they would tolerate it if they had conflict with the state authority, the proportion of those who tolerated it in reality was larger.","all the above, except b"],a:4},
+{n:10,q:"In China, which organization is specialized in monitoring and investigating foreign people who go to China from overseas?",o:["the military","the national security bureau","the political-legal affairs committee","the procuratorate"],a:1},
+{n:11,q:"Which of the following laws was NOT passed by the National People's Congress in 1979?",o:["The Election Law of Deputies of the People's Congresses (人民代表大会选举法)","The Criminal Law (刑法)","The Organization Law of the People's Court (人民法院组织法)","The Marriage Law (婚姻法)","The Sino-Foreign Joint Ventures Law (中外合资经营企业法)"],a:3},
+{n:12,q:"Which of the following is NOT a problem faced by migrant workers in protecting their rights?",o:["the limited credibility of arbitration by the arbitration committee","lengthy legal process when they use the legal system","they are less likely to win lawsuits than their employers","problems with law enforcement (e.g., winning a case but still failing to get the pay)"],a:2},
+{n:13,q:"The Chinese Marriage Law was enacted in 1950 and then amended in 1980 and 2011. Which of the following statements is true?",o:["The 1950 law abolished polygamy (一夫多妻) and regulated the marriage age: 22 for males and 20 for females.","The amended one in 1980 includes the family planning policy.","The 1950 Law prohibited marriage between people who are relatives within three generations.","all of the above"],a:1},
+{n:14,q:"In China, which level of government and its agencies are most frequently sued in administrative litigation cases?",o:["city governments and their agencies","county governments and their agencies","provincial governments and their agencies","no difference"],a:1},
+{n:15,q:"A peasant and his son were selling watermelons in a city. A group of people came to taste; some began to take melons without paying. The peasant asked his son to go to the police station for help, but the police did not take action under the pretext of a lack of manpower. The peasant incurred a loss worth 1,000 yuan.",o:["The peasant could not sue the police station because his loss was not caused by the police station.","The peasant could sue the police station because it failed to perform its duty of protecting citizens' property.","The peasant could file a civil lawsuit against the police station for compensation."],a:1},
+{n:16,q:"According to Week 2 reading “China's Judicial System: people's courts, procuratorates, and public security,” the Supreme People's Court has jurisdiction over the following cases:",o:["Cases of first instance assigned by laws and other cases that it considers it should try itself.","Appealed and protested cases against judgments and other orders of higher people's courts and special people's courts","Protested cases filed by the Supreme People's Procuratorate (or procuracy)","all of the above","a and b"],a:3},
+{n:17,q:"According to the lecture, which group was NOT among the major mediators of civil disputes in traditional society (e.g., the Qing Dynasty) in China?",o:["Village leaders","Government officials","The gentry","The families and clans","Guilds"],a:1},
+{n:18,q:"According to “China's Long March toward Rule of Law,” legislative supervision takes a variety of forms. Which is NOT included in the scope of legislative supervision?",o:["investigating law enforcement","controlling the budget of administrative agencies","legislative review of local Party-committee rules for consistency with higher-level legislation","making appointment and removal decisions","investigating hot topics"],a:2},
+{n:19,q:"According to “China's Long March toward Rule of Law,” the Administrative Reconsideration Law (行政复议法) has limitations because",o:["The Communist Party is not included within the jurisdictional scope of administrative reconsideration.","The procuratorate/procuracy is not included within the jurisdictional scope of administrative reconsideration.","The decision to hold a hearing for an administrative reconsideration is left to the reconsideration body.","The decision to hold a hearing for an administrative reconsideration is left to the upper-level organ overseeing the reconsideration body.","all of the above except d"],a:4},
+{n:20,q:"According to the lecture, as reported by the lawyers, a lawyer's chance of winning a case is most likely to be affected by",o:["facts","pertinent laws","personal connections","no difference between these three factors in terms of percentage reported by lawyers"],a:0},
+{n:21,q:"According to Week 2 reading, the Higher People's Courts in China are courts of",o:["provinces","autonomous regions and municipalities directly under the central government","important cities and counties","all of the above","a and b"],a:4},
+{n:22,q:"Which mode is most frequently used in the settlement of lawsuits against the government or its agencies in China?",o:["The government's decisions are upheld (支持) by the courts.","The courts cancel or partially cancel the administrative conduct of the government or its agency.","The courts reject the lawsuits against the government or its agencies","Plaintiffs withdraw their cases against the government or its agencies."],a:3},
+{n:23,q:"According to the Week-2 reading, which of the following statements is true?",o:["The judicial interpretations of the Supreme People's Procuratorate do not have de facto legal effect or are not binding on lower-level procuratorates because China is not a common law country.","The judicial interpretations of the Supreme People's Procuratorate, but not those of the Supreme Court, have de facto legal effect and are binding on lower-level procuratorates.","The judicial interpretations of the Supreme People's Procuratorate, as well as those of the Supreme People's Court, have de facto legal effect and are binding upon the judicial activities of lower-level people's procuratorates throughout China even though China is not a common law country.","Neither the interpretations of the Supreme People's Procuratorate nor those of the Supreme People's Court have de facto legal effect because China is not a common law country."],a:2},
+{n:24,q:"Which of the following statements is true about the labor camp system in China?",o:["It was created in 1956 to detain political enemies and work to support themselves.","In 1957, the State Council decided to put in those who did not want to work and violated rules.","Before 1979, there was no regulation on the maximum period of labor education, and some people were detained as long as 20 years.","In 1979, the State Council regulated that a person can be detained in the camp for 1 to 3 years; the term can be extended for one more year if necessary.","All of the above."],a:4},
+{n:25,q:"Which of the following statements is FALSE? In China,",o:["a prisoner can obtain a reduced sentence (减刑) if s/he behaves very well and fulfills the conditions.","a prisoner sentenced to lifetime imprisonment can be released on parole if s/he has finished five years of imprisonment and behaves well enough to meet all other conditions.","a prisoner cannot be released on bail for medical treatment if s/he is dangerous and may threaten others' lives or wants to disable himself/herself.","a prisoner released on bail for medical treatment must obtain, among other things, documents from hospitals designated by the provincial government."],a:1},
+{n:26,q:"In 1997, Kang began to work for a barbershop opened by Zhou in Hebei. Oral agreement: Kang would receive 2,000 yuan if she worked one year; she would pay Zhou 350 yuan/month tuition if she failed to work one year. By May 1998 Kang had worked eight months without pay, quit, and found another job. Zhou demanded 2,000 yuan tuition, had Kang brought back, and shaved parts of her hair (阴阳头). What is true about this case?",o:["This is a criminal case in which Zhou insulted and hurt Kang by breaking the state law.","Kang could not sue Zhou for work pay and compensation because Zhou based her action on the oral agreement between them.","It is also a civil case in which Kang could sue Zhou for work pay and compensation because the oral agreement was not legal as it violated Kang's rights in the first place.","a and c."],a:3},
+{n:27,q:"In 2014, the Chinese authority amended the Administrative Litigation Law that took effect in 2015. Which of the following statements is FALSE?",o:["State agencies are not allowed to prevent courts from accepting cases.","The time period of filing a lawsuit is extended from six to 12 months after a violation occurs.","Leaders of the sued agency should appear in the court.","A case can be tried outside the place where the state agency is located.","a and c"],a:1},
+{n:28,q:"An important reason for the increase in organized crimes in China is the existence of “protective umbrellas.” “Protective umbrellas” mean",o:["manufacturers who make umbrellas and engage in organized crimes","ringleaders of criminal organizations who protect the people of their organizations","public employees, including state officials and legal workers, who provide help to criminal organizations","business people who provide financial support for criminal organizations"],a:2},
+{n:29,q:"The Chinese State Compensation Law was amended in 2012 and took effect in 2013. Which of the following statements is FALSE?",o:["Citizens can get compensation for their mental or psychological suffering (精神损失).","In theory, if a person is ruled to obtain state compensation, s/he should obtain the compensation within 22 days.","The amended law raises the amount of compensation by using a new criterion based on the daily average salary in the capital city of a province of the previous year.","Citizens who are injured during the process of law enforcement should be compensated."],a:2},
+{n:30,q:"According to “China's Long March toward Rule of Law,” supervisory organs in the government sector also play a role in limiting the power of government agencies. But their role is limited because",o:["they lack sufficient independence and authority to monitor government agencies","they are only answerable to the high-level government that created them","they must obtain the approval of the government that created them for any important decisions","all the above","a and c"],a:4}
+];
+const ESSAYS=[
+{t:"1. 行政诉讼（administrative litigation）三问：(1) 中国行政诉讼的结案方式有哪些？(2) 哪种方式最常用？为什么？(3) 行政诉讼在中国的运用存在哪些问题？",a:`<p><b>(1) 结案方式（modes of settlement）</b>：① 维持（uphold）政府或其机关的决定；② 撤销或部分撤销（cancel or cancel partially）具体行政行为／要求被告履行职责；③ 驳回（refused）；④ 撤诉（withdrawal）。</p><p><b>(2) 最常用的是撤诉（withdrawal）</b>，原因有二：① 政府或其机关主动纠正行为、避免对簿公堂以「保全面子」（save their faces）；② 政府向原告施压，迫使其撤诉。</p><p><b>(3) 存在的问题</b>：① 公民法律意识（awareness of the law）不足；② 地方官员漠视法律义务（很少出庭）；③ 打官司需要知识、勇气和政治智慧；④ 告政府的诉讼比例仍然偏少——立案难、裁决难、执行难（difficult to file a case, make a ruling and enforce a case）；⑤ 有些机关根本不能被起诉。</p>`},
+{t:"2. 据《China's Long March Toward Rule of Law》：(1) 为什么说「中国的司法独立并不意味着法官个人独立判案」？(2) 为什么合议庭（collegiate panel）可能迟迟不出判决？",a:`<p><b>(1)</b> 因为除轻微案件外，所有案件都由合议庭（heyi ting）决定，通常由三名法官、或两名法官加一名人民陪审员（lay assessor）组成；其中一名是审判长（shenpanzhang），负责主持庭审；此外还有一名承办法官（chengban faguan / responsible judge），有时审判长兼任。承办法官对主要证据的审查往往决定案件结果，并且通常由承办法官撰写最终判决意见。因此法官个人无法独立定案。</p><p><b>(2)</b> 合议庭在下判决前，往往需要取得庭长（division chief）、庭务委员会（division committee）、院长（court president）或审判委员会（adjudicative committee）的批准；这套繁琐的审批程序（cumbersome approval process）常常导致久拖不决。</p>`},
+{t:"3. 据《China's Long March Toward Rule of Law》：《行政诉讼法》和行政复议有一个共同局限——某些机关不在其管辖范围内，即不能被起诉。是哪些机关？",a:`<p><b>中国共产党（CCP）和检察院（procuracy）</b>不在行政复议和《行政诉讼法》（Administrative Litigation Law）的管辖范围之内——也就是说，党政机关与检察机关不能成为这两类案件的被告。</p>`}
+];
+const letters="abcdef";
+let mode="instant";
+const state={picked:{},graded:{}};
+const quiz=document.getElementById('quiz');
+Q.forEach((it,i)=>{
+  const d=document.createElement('div');d.className='q';d.id='q'+it.n;
+  d.innerHTML='<div class="qhead"><span class="qno">Q'+it.n+'</span></div><p class="qtext">'+it.q+'</p><div class="opts">'+
+    it.o.map((o,j)=>'<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+letters[j]+'.</span><span>'+o+'</span></div>').join('')+
+    '</div><p class="verdict" id="v'+i+'"></p></div>';
+  quiz.appendChild(d);
+});
+const es=document.getElementById('essays');
+ESSAYS.forEach((e,i)=>{
+  const d=document.createElement('div');d.className='essay';
+  d.innerHTML='<h3>'+e.t+'</h3><p style="color:var(--muted);font-size:13px;margin:0">✍️ 先在纸上/心里写出你的答案，再展开对照。</p><details><summary>🔒 查看参考答案（先自己写）</summary><div class="ans">'+e.a+'</div></details>';
+  es.appendChild(d);
+});
+function updateScore(){
+  const done=Object.keys(state.graded).length;
+  const right=Object.values(state.graded).filter(Boolean).length;
+  document.getElementById('score').textContent='得分 '+right+' / '+Q.length+(done<Q.length?'（已答 '+done+'）':'');
+  const r=document.getElementById('result');
+  if(done===Q.length){
+    r.className='result show';
+    const pct=Math.round(right/Q.length*100);
+    r.innerHTML='<b>'+right+' / 30（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！错题回到考点总表再过一遍。':pct>=60?'💪 及格线以上，重点看下面标红的错题。':'📖 建议先重做错题，再回讲义翻译合集补对应讲次。')+'</p><p style="margin:6px 0 0;color:var(--muted)">错题直达：'+Q.filter((q,i)=>state.graded[i]===false).map(q=>'<a href="#q'+q.n+'" style="color:var(--red)">Q'+q.n+'</a>').join(' · ')+'</p>';
+  }else r.className='result';
+}
+function reveal(i){
+  const it=Q[i],card=document.getElementById('q'+it.n),v=document.getElementById('v'+i);
+  card.querySelectorAll('.opt').forEach(el=>{
+    const o=+el.dataset.o;el.classList.add('lock');
+    if(o===it.a)el.classList.add('correct');
+    else if(o===state.picked[i])el.classList.add('wrong');
+  });
+  const ok=state.picked[i]===it.a;
+  state.graded[i]=ok;
+  v.className='verdict '+(ok?'ok':'no');
+  v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
+  updateScore();
+}
+quiz.addEventListener('click',e=>{
+  const el=e.target.closest('.opt');if(!el)return;
+  const i=+el.dataset.q,o=+el.dataset.o;
+  if(mode==='instant'){
+    if(state.graded[i]!==undefined)return;
+    state.picked[i]=o;el.classList.add('picked');reveal(i);
+  }else{
+    if(state.graded[i]!==undefined)return;
+    state.picked[i]=o;
+    document.querySelectorAll('.opt[data-q="'+i+'"]').forEach(x=>x.classList.toggle('picked',+x.dataset.o===o));
+    const done=Object.keys(state.picked).length;
+    document.getElementById('score').textContent='已选 '+done+' / '+Q.length;
+  }
+});
+const mI=document.getElementById('mInstant'),mE=document.getElementById('mExam'),g=document.getElementById('grade');
+function setMode(m){
+  mode=m;mI.classList.toggle('on',m==='instant');mE.classList.toggle('on',m==='exam');
+  g.style.display=m==='exam'?'':'none';reset();
+}
+mI.onclick=()=>setMode('instant');mE.onclick=()=>setMode('exam');
+g.onclick=()=>{Q.forEach((_,i)=>{if(state.picked[i]!==undefined&&state.graded[i]===undefined)reveal(i);});};
+function reset(){
+  state.picked={};state.graded={};
+  document.querySelectorAll('.opt').forEach(x=>x.className='opt');
+  document.querySelectorAll('.verdict').forEach(x=>{x.className='verdict';x.textContent='';});
+  document.getElementById('score').textContent='得分 0 / '+Q.length;
+  document.getElementById('result').className='result';
+}
+document.getElementById('reset').onclick=reset;
+</script>
+</body>
+</html>
