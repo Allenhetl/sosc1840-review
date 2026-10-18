@@ -152,10 +152,15 @@ const SETS={A:[
 const letters="abcdef";
 let curSet="A";const state={picked:{},graded:{}};
 const quiz=document.getElementById('quiz');
+const LSKEY='sosc1840-jlian-v1';
+function loadAll(){try{return JSON.parse(localStorage.getItem(LSKEY)||'{}')}catch(e){return{}}}
+function save(){const all=loadAll();all[curSet]={picked:state.picked,graded:state.graded};try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}}
 function render(){
   quiz.innerHTML='';state.picked={};state.graded={};
+  const saved=loadAll()[curSet];
+  if(saved){state.picked=saved.picked||{};state.graded=saved.graded||{};}
   document.getElementById('result').className='result';
-  document.getElementById('score').textContent='得分 0 / 30';
+  document.getElementById('score').textContent='得分 0 / '+SETS[curSet].length;
   SETS[curSet].forEach((it,i)=>{
     const d=document.createElement('div');d.className='q';d.id='q'+(i+1);
     d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div><p class="qtext">'+it.q+'</p><div class="opts">'+
@@ -163,14 +168,26 @@ function render(){
       '</div><p class="verdict" id="v'+i+'"></p><div class="expl" id="e'+i+'"></div></div>';
     quiz.appendChild(d);
   });
+  // 恢复已答题目
+  Object.keys(state.graded).forEach(k=>{
+    const i=+k,o=state.picked[k];if(o===undefined)return;
+    const it=SETS[curSet][i],card=document.getElementById('q'+(i+1));if(!card)return;
+    card.querySelectorAll('.opt').forEach(x=>{const oo=+x.dataset.o;x.classList.add('lock');if(oo===it.a)x.classList.add('correct');else if(oo===o)x.classList.add('wrong');if(oo===o)x.classList.add('picked');});
+    const ok=state.graded[k];
+    const v=document.getElementById('v'+i);v.className='verdict '+(ok?'ok':'no');
+    v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
+    const ex=document.getElementById('e'+i);ex.className='expl show';ex.innerHTML='<b>解析：</b>'+it.e;
+  });
+  updateScore();
 }
 function updateScore(){
+  const total=SETS[curSet].length;
   const done=Object.keys(state.graded).length,right=Object.values(state.graded).filter(Boolean).length;
-  document.getElementById('score').textContent='得分 '+right+' / 30'+(done<30?'（已答 '+done+'）':'');
+  document.getElementById('score').textContent='得分 '+right+' / '+total+(done<total?'（已答 '+done+'）':'');
   const r=document.getElementById('result');
-  if(done===30){r.className='result show';const pct=Math.round(right/30*100);
+  if(done===total){r.className='result show';const pct=Math.round(right/total*100);
     const wrongs=SETS[curSet].map((q,i)=>({q,i})).filter(x=>state.graded[x.i]===false);
-    r.innerHTML='<b>'+right+' / 30（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！':pct>=60?'💪 及格线以上，看错题解析。':'📖 先读错题解析再重做。')+'</p>'+(wrongs.length?'<p style="margin:6px 0 0;color:var(--muted)">错题直达：'+wrongs.map(x=>'<a href="#q'+(x.i+1)+'" style="color:var(--red)">Q'+(x.i+1)+'</a>').join(' · ')+'</p>':'<p>满分！🎉</p>');}
+    r.innerHTML='<b>'+right+' / '+total+'（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！':pct>=60?'💪 及格线以上，看错题解析。':'📖 先读错题解析再重做。')+'</p>'+(wrongs.length?'<p style="margin:6px 0 0;color:var(--muted)">错题直达：'+wrongs.map(x=>'<a href="#q'+(x.i+1)+'" style="color:var(--red)">Q'+(x.i+1)+'</a>').join(' · ')+'</p>':'<p>满分！🎉</p>');}
   else r.className='result';
 }
 quiz.addEventListener('click',e=>{
@@ -184,11 +201,12 @@ quiz.addEventListener('click',e=>{
   const v=document.getElementById('v'+i);v.className='verdict '+(ok?'ok':'no');
   v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
   const ex=document.getElementById('e'+i);ex.className='expl show';ex.innerHTML='<b>解析：</b>'+it.e;
+  save();
   updateScore();
 });
 document.getElementById('setA').onclick=()=>{curSet='A';document.getElementById('setA').classList.add('on');document.getElementById('setB').classList.remove('on');render();window.scrollTo({top:0});};
 document.getElementById('setB').onclick=()=>{curSet='B';document.getElementById('setB').classList.add('on');document.getElementById('setA').classList.remove('on');render();window.scrollTo({top:0});};
-document.getElementById('reset').onclick=render;
+document.getElementById('reset').onclick=()=>{const all=loadAll();delete all[curSet];try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}render();};
 render();
 </script>
 </body>
