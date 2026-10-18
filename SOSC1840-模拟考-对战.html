@@ -78,7 +78,7 @@ main{max-width:980px;margin:auto;padding:24px 20px 90px}
 </section>
 <div id="quiz"></div>
 <div class="result" id="result"></div>
-<div class="foot">本卷为学习辅助新出题（非历年真题）。对战同步依赖免费公共服务 npoint.io，房间链接即钥匙，只发给你的朋友；若同步失败，各自做题不受影响。</div>
+<div class="foot">本卷为学习辅助新出题（非历年真题）。对战进度保存在自建 Cloudflare 服务，房间 24 小时后过期。房间链接即钥匙，只发给你的朋友；若同步失败，各自做题不受影响。</div>
 </main>
 <script>
 const SETS={C:[
@@ -206,44 +206,43 @@ document.getElementById('setC').onclick=()=>{curSet='C';document.getElementById(
 document.getElementById('setD').onclick=()=>{curSet='D';document.getElementById('setD').classList.add('on');document.getElementById('setC').classList.remove('on');render();pushStats();window.scrollTo({top:0});};
 document.getElementById('reset').onclick=()=>{const all=loadAll();delete all[curSet];try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}render();pushStats();};
 
-/* ---------- 组队对战（npoint.io 公共 JSON 存储） ---------- */
+/* ---------- 组队对战（Cloudflare Worker + KV） ---------- */
+const SYNC_BASE='https://1840.allenhtl.com';
 const bstatus=document.getElementById('bstatus'),pboard=document.getElementById('pboard'),roomlink=document.getElementById('roomlink');
 let roomId=null,myName=null,pollTimer=null;
 const params=new URLSearchParams(location.search);
 if(params.get('room')){roomId=params.get('room');document.getElementById('createroom').style.display='none';document.getElementById('joinroom').style.display='';bstatus.textContent='已带入房间号，填名字点「加入并同步」';}
 myName=localStorage.getItem('sosc1840-name')||'';
 if(myName)document.getElementById('myname').value=myName;
-async function api(method,body){
-  const url=roomId?'https://api.npoint.io/'+roomId:'https://api.npoint.io/';
-  const r=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+async function api(method,body,id=roomId){
+  const url=SYNC_BASE+'/'+(id?encodeURIComponent(id):'');
+  const r=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,cache:'no-store',signal:AbortSignal.timeout(10000)});
   if(!r.ok)throw new Error('sync '+r.status);
   return r.json();
 }
 async function readRoom(){const d=await api('GET');return(d&&d.players)||{};}
-async function writePlayer(name,stats){
-  let players={};
-  try{players=await readRoom();}catch(e){}
-  players[name]=stats;
-  await api('POST',{players});
+async function writePlayer(name,stats,id=roomId){
+  const d=await api('POST',{name,stats},id);
+  return d.players;
 }
 document.getElementById('createroom').onclick=async()=>{
   const n=document.getElementById('myname').value.trim();if(!n){bstatus.textContent='先填名字';return;}
   bstatus.textContent='创建中…';
   try{
-    const d=await fetch('https://api.npoint.io/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({players:{}})}).then(r=>r.json());
+    const d=await api('POST',{players:{}},null);
     roomId=d.id||(d.url||'').split('/').pop();
     if(!roomId)throw new Error('no id');
-    join(n,true);
+    join(n);
     const link=location.origin+location.pathname+'?room='+roomId;
     roomlink.style.display='block';roomlink.textContent='把这条链接发给朋友：'+link;
-    try{navigator.clipboard.writeText(link);bstatus.textContent='房间已创建，链接已复制 ✔';}catch(e){bstatus.textContent='房间已创建，复制下方链接发给朋友';}
-  }catch(e){bstatus.textContent='创建失败（公共服务异常），可稍后再试，不影响做题';}
+    try{await navigator.clipboard.writeText(link);bstatus.textContent='房间已创建，链接已复制 ✔';}catch(e){bstatus.textContent='房间已创建，复制下方链接发给朋友';}
+  }catch(e){bstatus.textContent='创建失败，可稍后再试，不影响做题';}
 };
 document.getElementById('joinroom').onclick=()=>{
   const n=document.getElementById('myname').value.trim();if(!n){bstatus.textContent='先填名字';return;}
-  join(n,false);
+  join(n);
 };
-function join(n,fresh){
+function join(n){
   myName=n;localStorage.setItem('sosc1840-name',n);
   bstatus.textContent='已加入房间：'+roomId+'（每 5 秒同步）';
   pushStats();
@@ -251,20 +250,52 @@ function join(n,fresh){
   pollTimer=setInterval(refreshBoard,5000);
   refreshBoard();
 }
+let syncRunning=false,pendingSync=false,lastPushAt=0,syncFailed=false;
+let boardRoom=null,boardPlayers=new Map();
+function syncSuccess(){
+  if(syncFailed)bstatus.textContent='已加入房间：'+roomId+'（每 5 秒同步）';
+  syncFailed=false;
+}
+function syncFailure(){syncFailed=true;bstatus.textContent='同步暂时失败，做题不受影响';}
 function pushStats(){
   if(!roomId||!myName)return;
-  writePlayer(myName,myStats()).then(renderBoard).catch(()=>{});
+  pendingSync=true;
+  if(!syncRunning)flushStats();
+}
+async function flushStats(){
+  syncRunning=true;
+  while(pendingSync){
+    // KV allows one write per second to a key; coalesce rapid answers.
+    await new Promise(resolve=>setTimeout(resolve,Math.max(0,1100-(Date.now()-lastPushAt))));
+    pendingSync=false;
+    const id=roomId;
+    try{const players=await writePlayer(myName,myStats(),id);if(id===roomId){renderBoard(players);syncSuccess();}}
+    catch(e){syncFailure();pendingSync=true;}
+    lastPushAt=Date.now();
+    if(pendingSync)await new Promise(resolve=>setTimeout(resolve,5000));
+  }
+  syncRunning=false;
 }
 async function refreshBoard(){
   if(!roomId)return;
-  try{renderBoard(await readRoom());}catch(e){bstatus.textContent='同步暂时失败，做题不受影响';}
+  const id=roomId;
+  try{const players=await readRoom();if(id===roomId){renderBoard(players);syncSuccess();}}catch(e){if(id===roomId)syncFailure();}
 }
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function renderBoard(players){
+  // KV is eventually consistent: keep each player's newest observed update.
+  if(boardRoom!==roomId){boardRoom=roomId;boardPlayers=new Map();}
+  Object.entries(players).forEach(([name,stats])=>{
+    const previous=boardPlayers.get(name);
+    if(!previous||stats.ts>=previous.ts)boardPlayers.set(name,stats);
+  });
+  if(myName)boardPlayers.set(myName,myStats());
+  players=Object.fromEntries(boardPlayers);
   const names=Object.keys(players);if(!names.length){pboard.innerHTML='';return;}
   pboard.innerHTML=names.map(n=>{
     const p=players[n],pct=p.answered?Math.round(p.correct/p.answered*100):0,fill=p.total?Math.round(p.answered/p.total*100):0;
     const ago=Math.max(0,Math.round((Date.now()-(p.ts||Date.now()))/1000));
-    return '<div class="pcard"><span class="nm'+(n===myName?' me':'')+'">'+(n===myName?'👤 ':'🧑 ')+n+(n===myName?'（我）':'')+'</span> <span class="st">'+p.set+' 卷 · 已答 '+p.answered+'/'+p.total+' · 答对 '+p.correct+'（正确率 '+pct+'%） · '+ago+' 秒前更新</span><div class="bar"><i style="width:'+fill+'%"></i></div></div>';
+    return '<div class="pcard"><span class="nm'+(n===myName?' me':'')+'">'+(n===myName?'👤 ':'🧑 ')+escapeHtml(n)+(n===myName?'（我）':'')+'</span> <span class="st">'+escapeHtml(p.set)+' 卷 · 已答 '+p.answered+'/'+p.total+' · 答对 '+p.correct+'（正确率 '+pct+'%） · '+ago+' 秒前更新</span><div class="bar"><i style="width:'+fill+'%"></i></div></div>';
   }).join('');
 }
 render();
