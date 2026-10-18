@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SOSC1840｜对战卷 C/D：双人同步刷题</title>
+<style>
+:root{--bg:#0c1117;--panel:#121a23;--panel2:#182330;--line:#2b3a49;--text:#e8eef5;--muted:#9fb0c1;--accent:#67d391;--accent2:#7eb6ff;--warn:#ffd166;--red:#ff7b72;--shadow:0 12px 40px #0005}
+*{-webkit-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important;box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1000px 500px at 10% -10%,#234a3a55,transparent 60%),var(--bg);color:var(--text);font:15px/1.7 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#0c1117ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.topin{max-width:980px;margin:auto;padding:14px 20px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{font-size:16px;font-weight:750}.brand small{display:block;color:var(--muted);font-size:12px;font-weight:450}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:9px;padding:7px 12px;text-decoration:none;cursor:pointer;font:inherit;font-size:13.5px}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.on{border-color:var(--accent);color:var(--accent);background:#67d39118}
+.score{font-weight:800;color:var(--accent);font-size:15px;padding:7px 12px;border:1px solid #67d39144;border-radius:9px;background:#67d39110}
+main{max-width:980px;margin:auto;padding:24px 20px 90px}
+.hero{border:1px solid var(--line);border-radius:18px;background:linear-gradient(135deg,#14251f,#111a24 60%);box-shadow:var(--shadow);padding:26px;margin-bottom:22px}
+.kicker{color:var(--accent);font-weight:700;letter-spacing:.1em;font-size:12px;text-transform:uppercase}
+.hero h1{font-size:clamp(24px,4vw,38px);margin:8px 0}
+.hero p{color:#c8d5de;margin:6px 0;max-width:860px}
+.setbar{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.battle{border:1px solid #7eb6ff55;border-radius:14px;background:#101d2b;padding:16px 18px;margin:0 0 22px}
+.battle h2{margin:0 0 8px;font-size:17px}
+.battle .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.battle input{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:8px 12px;font:inherit;font-size:14px;width:160px}
+.battle .link{font:12.5px ui-monospace,monospace;color:var(--accent2);word-break:break-all;background:#0b1520;border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-top:8px;display:none}
+.pboard{margin-top:12px;display:grid;gap:8px}
+.pcard{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px 14px}
+.pcard .nm{font-weight:700}
+.pcard .me{color:var(--accent)}
+.pcard .st{color:var(--muted);font-size:13px}
+.bar{height:8px;border-radius:99px;background:#0b1520;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:99px}
+.q{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px 20px;margin-bottom:16px;scroll-margin-top:90px}
+.qhead{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.qno{font:700 12px/1 ui-monospace,Consolas,monospace;color:var(--accent);border:1px solid #67d39144;background:#67d39110;border-radius:6px;padding:4px 8px;white-space:nowrap}
+.src{font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.qtext{margin:6px 0 12px;font-size:15.5px;font-weight:600}
+.opts{display:grid;gap:7px}
+.opt{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 13px;cursor:pointer;display:flex;gap:10px;align-items:baseline;transition:.12s}
+.opt:hover{border-color:var(--accent2)}
+.opt .letter{font:700 13px ui-monospace,monospace;color:var(--accent2);min-width:16px}
+.opt.picked{border-color:var(--accent2);background:#7eb6ff14}
+.opt.correct{border-color:var(--accent);background:#67d3911c}.opt.correct .letter{color:var(--accent)}
+.opt.wrong{border-color:var(--red);background:#ff7b7214}.opt.wrong .letter{color:var(--red)}
+.opt.lock{cursor:default}
+.verdict{margin-top:10px;font-size:13.5px;font-weight:700;display:none}
+.verdict.ok{color:var(--accent);display:block}
+.verdict.no{color:var(--red);display:block}
+.expl{display:none;margin-top:8px;font-size:13.5px;color:#c8d5de;border-left:3px solid var(--accent2);padding:8px 12px;background:#10243a28;border-radius:0 8px 8px 0}
+.expl.show{display:block}
+.result{border:1px solid #67d39155;border-radius:14px;background:#10231a;padding:18px 20px;margin:20px 0;display:none}
+.result.show{display:block}.result b{color:var(--accent);font-size:22px}
+.foot{color:var(--muted);font-size:12.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<div class="brand">SOSC1840 · 对战卷 C/D<small>各 30 题 · 双人同步进度 · 答案盖住 · 带解析</small></div>
+<div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做本卷</button><a class="btn" href="SOSC1840-模拟考-加练.html">🧪 A/B 卷</a><a class="btn" href="index.html">🏠 入口</a></div>
+</div></header>
+<main>
+<section class="hero">
+<div class="kicker">Practice Sets · 新题 · 非真题</div>
+<h1>C/D 对战卷：各自刷题，互相看进度</h1>
+<p>C 卷、D 卷各 30 题，L1–L6 讲义 + Week 1–6 阅读全覆盖，与 A/B 卷和 2021 真题不重复。点选项立即揭晓对错并附解析。</p>
+<div class="setbar"><button class="btn on" id="setC">📙 C 卷（30 题）</button><button class="btn" id="setD">📒 D 卷（30 题）</button></div>
+</section>
+<section class="battle" id="battlebox">
+<h2>👥 组队对战</h2>
+<p style="margin:0;color:#c8d5de;font-size:13.5px">一个人填名字点「创建房间」，把生成的链接发给朋友；朋友打开链接、填自己的名字点「加入」，两个人的<b>已答题数、正确数、正确率</b>就会实时互显（约 5 秒刷新一次）。各做各的卷也行，选同一套卷比拼更有意思。</p>
+<div class="row"><input id="myname" placeholder="你的名字（如 Allen）" maxlength="12"><button class="btn" id="createroom">➕ 创建房间</button><button class="btn" id="joinroom" style="display:none">🚪 加入并同步</button><span id="bstatus" style="font-size:12.5px;color:var(--muted)"></span></div>
+<div class="link" id="roomlink"></div>
+<div class="pboard" id="pboard"></div>
+</section>
+<div id="quiz"></div>
+<div class="result" id="result"></div>
+<div class="foot">本卷为学习辅助新出题（非历年真题）。对战同步依赖免费公共服务 npoint.io，房间链接即钥匙，只发给你的朋友；若同步失败，各自做题不受影响。</div>
+</main>
+<script>
+const SETS={C:[
+{t:"L1",q:"According to Lecture 1, which IS one of the functions of law in society?",o:["Guaranteeing equal wealth for all citizens","Providing stability and predictability for social life","Replacing informal norms entirely","Eliminating social conflicts"],a:1,e:"法律三功能：维持秩序、稳定可预期、解决纠纷。法律不能消灭冲突，也不能保证财富平等。"},
+{t:"L1",q:"Which of the following was NOT one of the “three taboos” in traditional Chinese villages?",o:["Funeral matters","Pawning goods","Taking a dispute to court","Arranged marriage"],a:3,e:"三大禁忌：殡葬、当铺、打官司。包办婚姻不在其列。"},
+{t:"L1",q:"The Nina Wang case (HK$200 million in legal fees) and the Lai Changxing case (12 years of delay) together illustrate that",o:["Chinese courts are efficient","access to law depends on whether one can afford the money and the time","criminal cases are faster than civil cases","lawyers are cheap in Hong Kong"],a:1,e:"「成本、时间、可及性」主线：用不用得起、等不等得起，决定了能不能用法律。"},
+{t:"L1",q:"Which law WAS among the seven laws passed by the NPC in 1979?",o:["The Marriage Law","The Criminal Law","The Contract Law","The General Principles of Civil Law"],a:1,e:"1979 七部法含刑法、选举法、中外合资经营企业法等；婚姻法 1950/1980、合同法 1999、民法通则 1986。"},
+{t:"L1",q:"From 1978 to 1998, the State Council issued about ____ regulations, and provincial-level people's congresses passed about ____ local regulations.",o:["327; 1,000","1,000+; 4,200","4,200; 327","327; 4,200"],a:1,e:"三级数字：全国人大 327 部法律、国务院 1,000+ 规定、省级人大 4,200 部地方性法规。"},
+{t:"L1",q:"Between 1978 and 1997, the private economy's share of GDP in China rose roughly from",o:["77.6% to 26.5%","0.2% to 32.9%","26.5% to 77.6%","32.9% to 0.2%"],a:1,e:"私营经济 0.2%→32.9%（上升线）；国有经济 77.6%→26.5%（下降线）。方向别反。"},
+{t:"L2",q:"Under “four levels and two instances”, if the Supreme People's Court hears a case as the court of first instance, the judgment",o:["can be appealed to the NPC","takes effect immediately — there is no higher court to appeal to","can be appealed to the SPP","must be retried"],a:1,e:"两审终审的例外逻辑：SPC 一审已是最高级，判决立即生效。"},
+{t:"L2",q:"In criminal procedure, the public security organ's role is mainly",o:["approving arrests","investigating the case and detaining suspects","issuing the indictment","passing sentence"],a:1,e:"公安侦查、拘留；批捕归检察院、公诉归检察院、审判归法院。"},
+{t:"L2",q:"The procuratorate system operates under “dual leadership”, meaning a procuratorate answers to",o:["only the people's congress at the same level","only the higher-level procuratorate","both the people's congress at the same level and the higher-level procuratorate","the court at the same level"],a:2,e:"检察院双重领导：同级人大 + 上级检察院。法院上下级之间只是监督关系。"},
+{t:"L2",q:"One consequence of the 1983–84 “Striking Hard” (严打) campaign was that",o:["the number of people in custody doubled from 600,000 to 1.2 million","crime was permanently eliminated","the procuratorate was abolished","labor education was repealed"],a:0,e:"严打时在押人员 60 万→120 万翻倍，中央一度失控——运动式执法的代价。"},
+{t:"L3",q:"The unified national judicial examination was established by",o:["the 1982 Constitution","the 2001 amendment of the Judges Law, with the first exam held in 2002","the 1979 seven laws","the 2014 reform"],a:1,e:"2001 年立法确立、2002 年首考。两个年份配对记。"},
+{t:"L3",q:"In the lecture's lawyer survey, although “facts” ranked first, the share of lawyers naming “personal connections (关系)” as decisive was",o:["zero","surprisingly high as well","exactly 50%","illegal to report"],a:1,e:"事实第一，但选「关系」的比例也不低——这正是讲课的张力所在。"},
+{t:"W1",q:"Which of the following IS among Wang Shaoguang's six critical functions of an effective state?",o:["Holding competitive elections","Guaranteeing press freedom","Extracting resources (taxation)","Separating party and state"],a:2,e:"六职能：武力、汲取、认同、管制、协调、再分配。选举和新闻自由不在清单里。"},
+{t:"W1",q:"Wang Shaoguang's “police state paradox” holds that free societies",o:["have fewer police than police states","have more police per citizen, but the police are more restrained","have no need for police","spend less on policing"],a:1,e:"自由社会警察更多但更克制；压制型政权人均警察反而更少。中国约每千人 1 名警察。"},
+{t:"W1",q:"Formal revenues of ALL levels of government in China averaged about ____ of GDP, while extrabudgetary/informal revenues were about 2.5 times that.",o:["8%","15%","25%","40%"],a:1,e:"各级合计 15%；中央只有 ≤8%；非正式收入约为正式的 2.5 倍。三个数字分清主体。"},
+{t:"W2",q:"In common law countries, a jury decides",o:["both facts and law","issues of fact only; the law is for the judge","issues of law only","sentencing appeals"],a:1,e:"jury 只定事实；中国的人民陪审员功能等同法官、事实和法律都定。"},
+{t:"W2",q:"Which bodies may issue judicial interpretations with de facto binding force?",o:["All high people's courts","The Supreme People's Court and the Supreme People's Procuratorate","The Ministry of Justice","Local bar associations"],a:1,e:"只有最高法、最高检两家；地方高院文件不算司法解释。"},
+{t:"W2",q:"Saying that judicial interpretations are binding “de facto” means",o:["they are formally statutes passed by the NPC","they are not law on paper, but lower judicial organs must follow them in practice","they are optional guidelines","they apply only in Beijing"],a:1,e:"de jure 上不是法律，de facto 上必须遵守——2021 真题 Q23 原考点。"},
+{t:"L4",q:"In the 947-dispute survey, the share of civil disputes in which citizens used the law was about",o:["30.7%","16.1%","40.2%","76.97%"],a:1,e:"民事纠纷用法律只有 16.1%；30.7% 是熟人调解——两个数常互换做陷阱。"},
+{t:"L4",q:"In medical disputes, 76.97% of mediated cases were resolved within",o:["1–90 days","6–12 months","2 years","one week exactly"],a:0,e:"医疗调解 76.97% 在 1–90 天内解决；诉讼明显更耗时。"},
+{t:"L4",q:"The mandatory first step for a labor dispute is",o:["court litigation","arbitration by the labor dispute arbitration committee","police mediation","petitioning the provincial government"],a:1,e:"先裁后诉：仲裁是法定前置程序，不服仲裁才能起诉。"},
+{t:"L5",q:"The General Principles of Civil Law (民法通则) was enacted in",o:["1950","1979","1986","1999"],a:2,e:"民法通则 1986；婚姻法 1950/80/2001；合同法 1999——三部法年份成组记。"},
+{t:"L5",q:"The most recent amendment of the Marriage Law discussed in Lecture 5 was in",o:["1950","1980","2001","2014"],a:2,e:"1950 立法、1980 修正（计划生育+婚龄 22/20）、2001 再修正。"},
+{t:"L5",q:"In The Story of Qiuju, the dispute first went to",o:["the basic people's court","Constable Li, the police officer, who mediated","the county government","a private lawyer"],a:1,e:"纠纷第一站是警察调解（李公安员），不是法院——基层纠纷处理的常见路径。"},
+{t:"L6",q:"The Administrative Litigation Law, the first law allowing citizens to sue the government, took effect in",o:["1979","1986","1990","2015"],a:2,e:"1990 年生效；2014 年修正（2015 年实施）。之前公民告政府无法可依。"},
+{t:"L6",q:"Plaintiffs withdrawing their cases is the most common outcome in administrative litigation mainly because",o:["citizens always lose interest","agencies correct their acts to save face and/or pressure plaintiffs into withdrawing","courts refuse to hear the cases","lawyers charge too much"],a:1,e:"撤诉两大动因：政府主动纠正保面子 + 向原告施压。"},
+{t:"L6",q:"State compensation for wrongful detention is calculated on the basis of",o:["the victim's own salary","the average daily salary of the nation's employees in the previous year","the provincial capital's average salary","a fixed 100 yuan per day"],a:1,e:"标准 = 上年度全国职工日平均工资；「省会城市」是干扰项（2012 修正案考点）。"},
+{t:"W4",q:"In Cai's data on state-citizen disputes, approaching upper-level leaders alone accounted for",o:["13.4%","26.8%","40.2%","27.1%"],a:1,e:"找上级领导 26.8%；集体上访 13.4%；两者合计 40.2% 才算信访总量。"},
+{t:"W4",q:"Cai's term “resilience” refers to",o:["the economy's growth rate","the political system's capacity to permit conflict-resolution channels while preventing regime-threatening behavior","the courts' efficiency","the flexibility of labor law"],a:1,e:"冲突多 + 政权稳 = 韧性。允许泄压渠道、压住越界行为。"},
+{t:"W5",q:"Peerenboom's three requirements of a judiciary under rule of law do NOT include",o:["independence","competence","sufficient powers","democratic election of judges"],a:3,e:"三要求：independent、competent、sufficient powers。民主选举法官不在其中。"}
+],D:[
+{t:"L1",q:"“Order without law” fails in a big city mainly because",o:["city people are less moral","interactions are anonymous and one-off — reputation, repeat dealing and retaliation no longer work","cities have no lawyers","the police are too efficient"],a:1,e:"非正式秩序三条件：声誉、难以退出、以牙还牙。陌生人社会三条都不成立。"},
+{t:"L1",q:"Which was NOT a typical qualification of the traditional gentry mediator (乡绅)?",o:["Imperial Examination degree","Literacy","Appointment as a government judge","Property and leisure"],a:2,e:"乡绅是民间士人，权威来自声望而非官职——不是官府任命的法官。"},
+{t:"L1",q:"The Kang Xi Emperor's attitude toward litigation was that",o:["litigants should be treated without pity so that they come to hate lawsuits","courts should be expanded","litigation shows virtue","mediators should be punished"],a:0,e:"厌讼：让告状者吃苦头使其不敢再告，纠纷应私下和解。"},
+{t:"L1",q:"The Supreme People's Court's 1978–81 review of Cultural Revolution criminal cases corrected about",o:["one quarter of 1.2 million cases, involving 326,000 people","half of all cases","1.2 million people directly","none of them"],a:0,e:"复查 120 万件、纠正约四分之一、涉及 326,000 人。"},
+{t:"L1",q:"“Rule by law” (依法治国) as opposed to “rule of law” means",o:["law constrains the state itself","law is an instrument the state uses to govern, without constraining the state","judges are elected","the constitution is supreme"],a:1,e:"rule by law = 以法为工具；rule of law = 法律约束国家。课上强调二者不同。"},
+{t:"L2",q:"The correct order of China's court levels from highest to lowest is",o:["basic → intermediate → high → supreme","supreme → high → intermediate → basic","supreme → intermediate → high → basic","high → supreme → basic → intermediate"],a:1,e:"最高 → 高级 → 中级 → 基层，四级。"},
+{t:"L2",q:"After investigating a case, the public security bureau must apply to ____ for approval of an arrest.",o:["the court","the people's procuratorate","the political-legal committee","the Ministry of Justice"],a:1,e:"批捕权在检察院，公安只能申请。"},
+{t:"L2",q:"For release on bail for medical treatment (保外就医), the required medical documents must come from",o:["any county clinic","hospitals designated by the provincial government","the prison infirmary only","the court"],a:1,e:"省级政府指定医院出证明；危险或自残倾向者不得保外就医。"},
+{t:"L2",q:"The 1997 barbershop (阴阳头) case shows that one incident can be",o:["only criminal","only civil","both criminal and civil at the same time","neither"],a:2,e:"周的暴力触犯刑法；口头协议因侵害 Kang 的权利无效，她仍可民事索赔讨薪。"},
+{t:"L2",q:"In the watermelon case, the legal basis for suing the police station was",o:["theft","administrative inaction — failure to perform the duty of protecting citizens' property","breach of contract","defamation"],a:1,e:"告的是行政不作为。派出所是公安五级的末梢。"},
+{t:"L3",q:"According to the lecture, the number of judges in China was about",o:["12,000","120,000–130,000","1.2 million","300,000"],a:1,e:"讲义口径 12–13 万；Peerenboom 说 18 万。看题干问哪份材料。"},
+{t:"L3",q:"“Protective umbrellas” (保护伞) enable organized crime because they are",o:["village elders","state officials and legal workers who shelter criminal organizations","private bodyguards","foreign investors"],a:1,e:"保护伞 = 公职人员庇护犯罪组织，是有组织犯罪增多的关键原因。"},
+{t:"L3",q:"In the lawyers' survey, the top-ranked factor for winning a case was",o:["guanxi","facts","the judge's ideology","the lawyer's seniority"],a:1,e:"事实第一位，关系比例也不低——两者并存是考点。"},
+{t:"W2",q:"People's assessors in China",o:["decide facts only","function like judges, deciding both fact and law","are chosen randomly by citizenship","serve for life"],a:1,e:"陪审员功能等同法官；jury 只定事实、公民身份随机选出。"},
+{t:"W2",q:"Higher courts ____ lower courts; higher procuratorates ____ lower procuratorates.",o:["direct; supervise","supervise; direct","lead; ignore","supervise; supervise"],a:1,e:"法院上下级=监督；检察院上下级=领导（direct）。方向相反必考。"},
+{t:"W2",q:"The de facto binding force of SPC/SPP judicial interpretations exists",o:["only in common law countries","even though China is a civil law country where judges cannot formally make law","only after NPC approval","only in criminal cases"],a:1,e:"大陆法系框架下的事实约束力——直觉陷阱题。"},
+{t:"L4",q:"The most common way of resolving civil disputes in the survey was",o:["litigation","mediation by acquaintances (30.7%)","petitioning","arbitration"],a:1,e:"民事首选熟人调解 30.7%，法律仅 16.1%。官民纠纷才首选法律 27.1%。"},
+{t:"L4",q:"Use of law in civil disputes was reported by about ____ of urban and ____ of rural residents.",o:["11%; 21%","21%; 11%","30%; 30%","40%; 20%"],a:1,e:"城市约 21%（20.9），农村约 11%（11.1）——城市更高，方向别反。"},
+{t:"L4",q:"In medical-dispute lawsuits, patients win more often",o:["in the second instance","in the first instance than in the second","never","only in the SPC"],a:1,e:"一审胜率高于二审；诉讼耗时比调解长。2021 真题 Q2 同考点。"},
+{t:"L4",q:"Which is NOT listed as a problem migrant workers face in rights protection?",o:["Arbitration's limited credibility","The lengthy process","Lower win rates than employers","Enforcement problems"],a:2,e:"讲义列：仲裁公信力、程序长、执行难——没说胜诉率低于雇主。"},
+{t:"L5",q:"The Contract Law (合同法) was enacted in",o:["1986","1990","1999","2001"],a:2,e:"合同法 1999；民法通则 1986；婚姻法 1950/80/2001。"},
+{t:"L5",q:"The family-planning policy and the marriage age of 22 (male) / 20 (female) were introduced by",o:["the 1950 Marriage Law","the 1980 amendment","the 2001 amendment","the Constitution"],a:1,e:"1980 修正加入计划生育并提高婚龄；1950 年废除一夫多妻。"},
+{t:"L5",q:"In the child-support case, the court raised monthly support to ____ and rejected the 18,000 yuan claim.",o:["300 yuan","250 yuan","150 yuan","500 yuan"],a:1,e:"150→250（不是 300）；18,000 元因名目不是学费被驳回。"},
+{t:"L5",q:"What Qiuju really wanted was",o:["money","a “shuofa” — an explanation/account, i.e., recognition of the wrong","revenge","a divorce"],a:1,e:"要「说法」不要钱——法律能给赔偿，给不了交代。"},
+{t:"L6",q:"The government level most frequently sued in administrative litigation is",o:["provincial","ministerial","county governments and their agencies","township only"],a:2,e:"县级及其部门直接与公民打交道，被诉最多。"},
+{t:"L6",q:"The 2014 amendment of the Administrative Litigation Law extended the filing window from",o:["6 to 12 months","3 to 6 months","1 to 3 months","12 to 24 months"],a:1,e:"3→6 个月；「6→12」是把两数加倍的陷阱。另三条真改动：负责人出庭、不得阻挠立案、可异地管辖。"},
+{t:"L6",q:"The root cause of courts' difficulty in enforcing judgments outside their home area is",o:["bad roads","local protectionism (地方保护主义)","lack of laws","lazy judges"],a:1,e:"异地执行三难的根源是地方保护主义。"},
+{t:"W4",q:"If approaching upper-level leaders (26.8%) is counted as petitioning, petitioning's combined share in state-citizen disputes is",o:["13.4%","27.1%","40.2%","26.8%"],a:2,e:"40.2% = 26.8 + 13.4，是加法不是表中某一行。"},
+{t:"W4",q:"Since 2005, a collective petition may involve at most ____ participants.",o:["3","5","15","50"],a:1,e:"五人上限；实际平均 17–31 人，限制常被突破。"},
+{t:"W6",q:"Which is NOT a form of legislative supervision by people's congresses?",o:["Investigating law enforcement","Budget control over administrative agencies","Reviewing Party-committee rules","Appointment and removal decisions"],a:2,e:"人大监督一府两院；党委规章不在其范围（2021 真题 Q18 变体）。"}
+]};
+const letters="abcdef";
+let curSet="C";const state={picked:{},graded:{}};
+const quiz=document.getElementById('quiz');
+const LSKEY='sosc1840-duizhan-v1';
+function loadAll(){try{return JSON.parse(localStorage.getItem(LSKEY)||'{}')}catch(e){return{}}}
+function save(){const all=loadAll();all[curSet]={picked:state.picked,graded:state.graded};try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}}
+function render(){
+  quiz.innerHTML='';state.picked={};state.graded={};
+  const saved=loadAll()[curSet];
+  if(saved){state.picked=saved.picked||{};state.graded=saved.graded||{};}
+  document.getElementById('result').className='result';
+  document.getElementById('score').textContent='得分 0 / '+SETS[curSet].length;
+  SETS[curSet].forEach((it,i)=>{
+    const d=document.createElement('div');d.className='q';d.id='q'+(i+1);
+    d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div><p class="qtext">'+it.q+'</p><div class="opts">'+
+      it.o.map((o,j)=>'<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+letters[j]+'.</span><span>'+o+'</span></div>').join('')+
+      '</div><p class="verdict" id="v'+i+'"></p><div class="expl" id="e'+i+'"></div></div>';
+    quiz.appendChild(d);
+  });
+  Object.keys(state.graded).forEach(k=>{
+    const i=+k,o=state.picked[k];if(o===undefined)return;
+    const it=SETS[curSet][i],card=document.getElementById('q'+(i+1));if(!card)return;
+    card.querySelectorAll('.opt').forEach(x=>{const oo=+x.dataset.o;x.classList.add('lock');if(oo===it.a)x.classList.add('correct');else if(oo===o)x.classList.add('wrong');if(oo===o)x.classList.add('picked');});
+    const ok=state.graded[k];
+    const v=document.getElementById('v'+i);v.className='verdict '+(ok?'ok':'no');
+    v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
+    const ex=document.getElementById('e'+i);ex.className='expl show';ex.innerHTML='<b>解析：</b>'+it.e;
+  });
+  updateScore();
+}
+function myStats(){
+  const done=Object.keys(state.graded).length,right=Object.values(state.graded).filter(Boolean).length;
+  return{set:curSet,answered:done,correct:right,total:SETS[curSet].length,ts:Date.now()};
+}
+function updateScore(){
+  const total=SETS[curSet].length;
+  const done=Object.keys(state.graded).length,right=Object.values(state.graded).filter(Boolean).length;
+  document.getElementById('score').textContent='得分 '+right+' / '+total+(done<total?'（已答 '+done+'）':'');
+  const r=document.getElementById('result');
+  if(done===total){r.className='result show';const pct=Math.round(right/total*100);
+    const wrongs=SETS[curSet].map((q,i)=>({q,i})).filter(x=>state.graded[x.i]===false);
+    r.innerHTML='<b>'+right+' / '+total+'（'+pct+'%）</b><p style="margin:6px 0 0">'+(pct>=80?'🎉 很稳！':pct>=60?'💪 及格线以上，看错题解析。':'📖 先读错题解析再重做。')+'</p>'+(wrongs.length?'<p style="margin:6px 0 0;color:var(--muted)">错题直达：'+wrongs.map(x=>'<a href="#q'+(x.i+1)+'" style="color:var(--red)">Q'+(x.i+1)+'</a>').join(' · ')+'</p>':'<p>满分！🎉</p>');}
+  else r.className='result';
+}
+quiz.addEventListener('click',e=>{
+  const el=e.target.closest('.opt');if(!el)return;
+  const i=+el.dataset.q,o=+el.dataset.o;
+  if(state.graded[i]!==undefined)return;
+  state.picked[i]=o;el.classList.add('picked');
+  const it=SETS[curSet][i],card=document.getElementById('q'+(i+1));
+  card.querySelectorAll('.opt').forEach(x=>{const oo=+x.dataset.o;x.classList.add('lock');if(oo===it.a)x.classList.add('correct');else if(oo===o)x.classList.add('wrong');});
+  const ok=o===it.a;state.graded[i]=ok;
+  const v=document.getElementById('v'+i);v.className='verdict '+(ok?'ok':'no');
+  v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
+  const ex=document.getElementById('e'+i);ex.className='expl show';ex.innerHTML='<b>解析：</b>'+it.e;
+  save();pushStats();
+  updateScore();
+});
+document.getElementById('setC').onclick=()=>{curSet='C';document.getElementById('setC').classList.add('on');document.getElementById('setD').classList.remove('on');render();pushStats();window.scrollTo({top:0});};
+document.getElementById('setD').onclick=()=>{curSet='D';document.getElementById('setD').classList.add('on');document.getElementById('setC').classList.remove('on');render();pushStats();window.scrollTo({top:0});};
+document.getElementById('reset').onclick=()=>{const all=loadAll();delete all[curSet];try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}render();pushStats();};
+
+/* ---------- 组队对战（npoint.io 公共 JSON 存储） ---------- */
+const bstatus=document.getElementById('bstatus'),pboard=document.getElementById('pboard'),roomlink=document.getElementById('roomlink');
+let roomId=null,myName=null,pollTimer=null;
+const params=new URLSearchParams(location.search);
+if(params.get('room')){roomId=params.get('room');document.getElementById('createroom').style.display='none';document.getElementById('joinroom').style.display='';bstatus.textContent='已带入房间号，填名字点「加入并同步」';}
+myName=localStorage.getItem('sosc1840-name')||'';
+if(myName)document.getElementById('myname').value=myName;
+async function api(method,body){
+  const url=roomId?'https://api.npoint.io/'+roomId:'https://api.npoint.io/';
+  const r=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+  if(!r.ok)throw new Error('sync '+r.status);
+  return r.json();
+}
+async function readRoom(){const d=await api('GET');return(d&&d.players)||{};}
+async function writePlayer(name,stats){
+  let players={};
+  try{players=await readRoom();}catch(e){}
+  players[name]=stats;
+  await api('POST',{players});
+}
+document.getElementById('createroom').onclick=async()=>{
+  const n=document.getElementById('myname').value.trim();if(!n){bstatus.textContent='先填名字';return;}
+  bstatus.textContent='创建中…';
+  try{
+    const d=await fetch('https://api.npoint.io/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({players:{}})}).then(r=>r.json());
+    roomId=d.id||(d.url||'').split('/').pop();
+    if(!roomId)throw new Error('no id');
+    join(n,true);
+    const link=location.origin+location.pathname+'?room='+roomId;
+    roomlink.style.display='block';roomlink.textContent='把这条链接发给朋友：'+link;
+    try{navigator.clipboard.writeText(link);bstatus.textContent='房间已创建，链接已复制 ✔';}catch(e){bstatus.textContent='房间已创建，复制下方链接发给朋友';}
+  }catch(e){bstatus.textContent='创建失败（公共服务异常），可稍后再试，不影响做题';}
+};
+document.getElementById('joinroom').onclick=()=>{
+  const n=document.getElementById('myname').value.trim();if(!n){bstatus.textContent='先填名字';return;}
+  join(n,false);
+};
+function join(n,fresh){
+  myName=n;localStorage.setItem('sosc1840-name',n);
+  bstatus.textContent='已加入房间：'+roomId+'（每 5 秒同步）';
+  pushStats();
+  if(pollTimer)clearInterval(pollTimer);
+  pollTimer=setInterval(refreshBoard,5000);
+  refreshBoard();
+}
+function pushStats(){
+  if(!roomId||!myName)return;
+  writePlayer(myName,myStats()).then(renderBoard).catch(()=>{});
+}
+async function refreshBoard(){
+  if(!roomId)return;
+  try{renderBoard(await readRoom());}catch(e){bstatus.textContent='同步暂时失败，做题不受影响';}
+}
+function renderBoard(players){
+  const names=Object.keys(players);if(!names.length){pboard.innerHTML='';return;}
+  pboard.innerHTML=names.map(n=>{
+    const p=players[n],pct=p.answered?Math.round(p.correct/p.answered*100):0,fill=p.total?Math.round(p.answered/p.total*100):0;
+    const ago=Math.max(0,Math.round((Date.now()-(p.ts||Date.now()))/1000));
+    return '<div class="pcard"><span class="nm'+(n===myName?' me':'')+'">'+(n===myName?'👤 ':'🧑 ')+n+(n===myName?'（我）':'')+'</span> <span class="st">'+p.set+' 卷 · 已答 '+p.answered+'/'+p.total+' · 答对 '+p.correct+'（正确率 '+pct+'%） · '+ago+' 秒前更新</span><div class="bar"><i style="width:'+fill+'%"></i></div></div>';
+  }).join('');
+}
+render();
+</script>
+</body>
+</html>
