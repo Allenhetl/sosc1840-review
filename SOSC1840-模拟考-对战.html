@@ -65,12 +65,14 @@ main{max-width:980px;margin:auto;padding:24px 20px 90px}
 .reading-guide>summary{cursor:pointer;color:var(--accent2);font-size:14px;font-weight:700}.reading-guide h3{font-size:14px;margin:16px 0 7px}
 .reading-guide p{margin:8px 0}.guide-phrases{display:grid;gap:8px}.guide-phrase{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border-bottom:1px solid var(--line);padding:6px 0;align-items:start}
 .guide-phrase b{font-weight:650;overflow-wrap:anywhere}.guide-zh{color:#c8d5de}.guide-phrase .guide-zh{display:block;font-size:13px}.guide-phrase label{font-size:12px;color:var(--muted);white-space:nowrap}
-.guide-chunk{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(55px,.55fr) minmax(0,1.3fr);gap:10px;border-bottom:1px solid var(--line);padding:8px 0;align-items:start}.guide-chunk-en{color:var(--text);overflow-wrap:anywhere}.guide-role{font-size:12px;color:var(--accent2)}
+.guide-chunk-en{color:var(--text);overflow-wrap:anywhere}.guide-role{font-size:12px;color:var(--accent2)}
+.stem-separator{color:var(--accent2);padding:0 4px}.stem-hint[hidden]{display:none!important}.stem-controls{margin:0 0 12px}.stem-hint{font-size:13px;font-weight:400;line-height:1.6;margin-top:5px}.stem-role,.stem-hint .guide-zh{display:block}
+.reading-question.with-grammar{display:flex;flex-wrap:wrap;gap:7px;align-items:flex-start}.reading-question.with-grammar .stem-piece{display:inline-flex;flex-direction:column;max-width:100%;padding:6px 8px;border-bottom:1px solid #7eb6ff55;background:#10243a45}.reading-question.with-grammar .stem-separator{padding-top:6px}
 .guide-pattern{font-size:13px;color:var(--muted)}.guide-check,.guide-option-help{margin:12px 0}.guide-check>summary,.guide-option-help>summary{cursor:pointer;color:var(--accent2);font-size:13px}.guide-options{padding-left:22px}.guide-options li{margin:8px 0}
 .reading-guide textarea,.reading-guide select{font:inherit;font-size:14px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px;max-width:100%}.reading-guide textarea{width:100%;min-height:85px;resize:vertical;margin:6px 0}.guide-note-label{display:block;font-size:13px}.guide-selfcheck{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;margin-top:8px}
 .reading-mask .guide-zh{display:none!important}.study-mask{display:block;font-size:13px;margin:10px 0}#study-summary{color:var(--accent);font-size:13px}#study-status{color:var(--warn);font-size:13px}
 button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
-@media(max-width:600px){.guide-chunk{grid-template-columns:minmax(0,1fr)}.guide-role{order:-1}.reading-guide{padding:10px}.study-path{padding:14px}.study-actions .btn{flex:1 1 180px}.q,.study-path{scroll-margin-top:225px}}
+@media(max-width:600px){.reading-guide{padding:10px}.study-path{padding:14px}.study-actions .btn{flex:1 1 180px}.q,.study-path{scroll-margin-top:225px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.opt{transition:none}}
 </style>
 </head>
@@ -338,6 +340,12 @@ function saveStudyState(){
   try{localStorage.setItem(STUDY_KEY,JSON.stringify(studyState));document.getElementById('study-status').textContent='';}
   catch(e){document.getElementById('study-status').textContent='本次学习记录未能保存。可先复制自己的复述，稍后再试。';}
 }
+function questionStemHtml(item){
+  const guide=curSet==='F'&&readingEnabled?READING_GUIDES[item.id]:null;
+  if(!guide)return'<p class="qtext">'+item.q+'</p>';
+  const pieces=guide.chunks.map(([en,role,zh])=>'<span class="stem-piece"><span class="guide-chunk-en">'+escapeHtml(en)+'</span><span class="stem-hint" hidden><small class="stem-role guide-role">'+escapeHtml(role)+'</small><span class="guide-zh">'+escapeHtml(zh)+'</span></span></span>');
+  return '<p class="qtext reading-question" id="stem-'+item.id+'">'+pieces.join('<span class="stem-separator" aria-hidden="true"> / </span>')+'</p><div class="stem-controls"><button class="btn" type="button" data-grammar-toggle="'+item.id+'" aria-expanded="false" aria-controls="stem-'+item.id+'">显示主语 / 谓语 / 中文</button></div>';
+}
 function readingGuideHtml(item){
   const guide=curSet==='F'&&readingEnabled?READING_GUIDES[item.id]:null;
   if(!guide)return'';
@@ -348,9 +356,7 @@ function readingGuideHtml(item){
     '<h3>认本题词组</h3><div class="guide-phrases">'+guide.phrases.map(([en,zh],index)=>{
       const key=id+':'+index;
       return '<div class="guide-phrase"><div><b>'+escapeHtml(en)+'</b><span class="guide-zh">'+escapeHtml(zh)+'</span></div><label><input type="checkbox" data-study-phrase="'+key+'"'+(studyState.phrases[key]===true?' checked':'')+'> 待复习</label></div>';
-    }).join('')+'</div><h3>按句子主干分块读</h3>'+guide.chunks.map(([en,role,zh])=>
-      '<div class="guide-chunk"><span class="guide-chunk-en">'+escapeHtml(en)+'</span><span class="guide-role">'+escapeHtml(role)+'</span><span class="guide-zh">'+escapeHtml(zh)+'</span></div>'
-    ).join('')+'<p class="guide-pattern guide-zh">'+escapeHtml(guide.pattern)+'</p>'+
+    }).join('')+'</div><p class="guide-pattern guide-zh">'+escapeHtml(guide.pattern)+'</p>'+
     '<h3>先用自己的话说</h3><p class="guide-prompt guide-zh">'+escapeHtml(guide.prompt)+'</p><label class="guide-note-label" for="note-'+id+'">我的中文复述（只保存在本机）</label><textarea id="note-'+id+'" data-study-note="'+id+'" maxlength="2000" placeholder="先写你理解的题意，不必逐字翻译。">'+escapeHtml(note)+'</textarea>'+
     '<details class="guide-check"><summary>写完复述后，对照整句中文</summary><p class="guide-zh">'+escapeHtml(guide.check)+'</p></details>'+
     '<details class="guide-option-help"><summary>需要时再看：四个选项的英文读法</summary><p class="study-tip">这里只说明表达含义，正确答案仍在点选后揭晓。</p><ol class="guide-options" type="a">'+guide.options.map(option=>'<li class="guide-zh">'+escapeHtml(option)+'</li>').join('')+'</ol></details>'+
@@ -386,6 +392,16 @@ document.getElementById('reading-open').onclick=()=>enterStudy(true,'reading-pat
 document.getElementById('start-reading').onclick=()=>enterStudy(true,'q1');
 document.getElementById('start-independent').onclick=()=>enterStudy(false,'q6');
 document.getElementById('mask-chinese').onchange=e=>{studyState.hideChinese=e.target.checked;saveStudyState();updateStudyUi();};
+quiz.addEventListener('click',e=>{
+  const button=e.target.closest('button[data-grammar-toggle]');
+  if(!button)return;
+  const expanded=button.getAttribute('aria-expanded')!=='true';
+  const stem=document.getElementById(button.getAttribute('aria-controls'));
+  stem.classList.toggle('with-grammar',expanded);
+  stem.querySelectorAll('.stem-hint').forEach(hint=>{hint.hidden=!expanded;});
+  button.setAttribute('aria-expanded',String(expanded));
+  button.textContent=expanded?'收起句子说明':'显示主语 / 谓语 / 中文';
+});
 quiz.addEventListener('input',e=>{
   const id=e.target.dataset.studyNote;
   if(!id||!Object.hasOwn(READING_GUIDES,id))return;
@@ -407,9 +423,9 @@ function render(){
   document.getElementById('score').textContent='得分 0 / '+SETS[curSet].length;
   SETS[curSet].forEach((it,i)=>{
     const d=document.createElement('div');d.className='q';d.id='q'+(i+1);
-    d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div><p class="qtext">'+it.q+'</p>'+readingGuideHtml(it)+'<div class="opts">'+
+    d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div>'+questionStemHtml(it)+'<div class="opts">'+
       it.o.map((o,j)=>'<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+letters[j]+'.</span><span>'+o+'</span></div>').join('')+
-      '</div><p class="verdict" id="v'+i+'"></p><div class="expl" id="e'+i+'"></div></div>';
+      '</div><p class="verdict" id="v'+i+'"></p><div class="expl" id="e'+i+'"></div>'+readingGuideHtml(it);
     quiz.appendChild(d);
   });
   Object.keys(state.graded).forEach(k=>{
