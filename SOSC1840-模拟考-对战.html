@@ -91,11 +91,11 @@ button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-vi
 </section>
 <details class="study-path" id="reading-path">
 <summary>英语带读：45 分钟学习路径</summary>
-<p>先读懂英文，再判断选项。今天先带读 F1–F5，再独立尝试 F6–F10。每题先用中文说清楚「谁做了什么、在问什么」。</p>
+<p>F1–F41 全部支持用 / 分块读题。点击题干下的「显示主语 / 谓语 / 中文」，可展开对应词组的说明。每次先练 5 题，用中文说清楚「谁做了什么、在问什么」。</p>
 <ol>
 <li><b>5 分钟 · 认词组：</b>先回忆下面的中文意思，再点开核对。</li>
 <li><b>20 分钟 · 带读 F1–F5：</b>认本题词组 → 看句子分块 → 写自己的复述 → 判断选项。</li>
-<li><b>10 分钟 · 独立做 F6–F10：</b>先看原英文，把读不顺的位置记下来。</li>
+<li><b>10 分钟 · 尝试 F6–F10：</b>先自己读，卡住时再展开句子说明。</li>
 <li><b>5 分钟 · 找卡点：</b>区分词组、句型、课程概念和限定词；只补当前卡住的一层。</li>
 <li><b>5 分钟 · 遮提示回忆：</b>隐藏中文提示，再读今天的英文。明天先复习，再继续新题。</li>
 </ol>
@@ -109,11 +109,11 @@ button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-vi
 <details class="phrase-card"><summary>rather than</summary><p>而不是；用来区分两个选择</p></details>
 <details class="phrase-card"><summary>percentage points</summary><p>百分点；用来表达两个百分比相减的差值</p></details>
 </div>
-<div class="study-actions"><button class="btn" id="start-reading">带读 F1–F5</button><button class="btn" id="start-independent">独立练习 F6–F10</button></div>
+<div class="study-actions"><button class="btn" id="start-reading">开启 F 卷全部拆句</button><button class="btn" id="start-independent">关闭提示，独立练 F6–F10</button></div>
 <label class="study-mask"><input type="checkbox" id="mask-chinese"> 隐藏带读区的中文提示，练习自己回忆</label>
 <p id="study-summary" role="status"></p><p id="study-status" role="status"></p>
 <details><summary>我的生词复习 <span id="review-count"></span></summary><p class="study-tip">在题目词组旁勾选「待复习」后，它会出现在这里。先回忆，再展开中文。</p><div id="review-list" class="phrase-deck"></div></details>
-<p class="study-tip">复述、生词和卡点只保存在当前浏览器。它们与答题得分分开记录，不会同步到房间。F6–F41 保留原题练习。</p>
+<p class="study-tip">复述、生词和卡点只保存在当前浏览器。它们与答题得分分开记录，不会同步到房间。F1–F5 另有词组与复述练习，F6–F41 同样可以展开句子说明。</p>
 </details>
 <section class="battle" id="battlebox">
 <h2>👥 组队对战</h2>
@@ -318,6 +318,291 @@ prompt:'这个人同时在哪两个组织任职？题目让你用这一个人兼
 check:'一位政府首长同时是同级党委常委。这在第二讲中体现了哪种关系？',
 options:['membership of a criminal jury：刑事案件陪审团成员身份。全项：政府首长作为刑事陪审团成员的身份。','strict organizational separation …：严格的组织分离。全项：一种阻止党影响政府的严格组织分离。','interlocking … through leadership positions：通过领导职位相互嵌合。全项：党与政府两套系统通过领导职位相互嵌合。','replacement of … by …：由……取代……。全项：党委被人民法庭取代。']}
 };
+const READING_STEMS={
+F06:{chunks:[
+  ["Which institution–instrument pairing", "主语：Which 询问哪一组配对", "哪一组机构与法律文件的配对"],
+  ["matches", "谓语：与……相符", "符合"],
+  ["the legal categories", "宾语：符合的类别", "法律类别"],
+  ["in Lecture 2?", "后置修饰：限定这些类别的出处", "第2讲中的？"]
+]},
+F07:{chunks:[
+  ["The lecture", "主语", "讲义"],
+  ["states", "谓语：后接 that 宾语从句", "指出"],
+  ["that a court", "宾语从句开头：a court 是从句主语", "法院"],
+  ["may reject evidence", "从句谓语＋宾语：may 表示可以", "可以不采纳证据"],
+  ["obtained through torture.", "过去分词短语作后置定语，修饰 evidence", "通过刑讯取得的。"],
+  ["Which conclusion", "新问句的主语", "哪一项结论"],
+  ["follows most directly?", "谓语＋程度状语：follow 表示由此得出", "最能由此直接得出？"]
+]},
+F08:{chunks:[
+  ["Crime", "主语", "犯罪"],
+  ["falls", "谓语：表示减少", "减少"],
+  ["during a “Striking Hard” campaign", "时间状语：during 表示在……期间", "在一次“严打”行动期间"],
+  ["and later rebounds.", "并列谓语：主语仍是 Crime", "随后又回升。"],
+  ["Which inference", "新问句的主语", "哪一种推论"],
+  ["is most consistent with", "系表结构：be consistent with 表示与……一致", "最符合"],
+  ["the lecture?", "介词 with 的宾语", "讲义的内容？"]
+]},
+F09:{chunks:[
+  ["An official", "主语", "一名官员"],
+  ["warns a criminal gang", "谓语＋宾语：warn sb. about sth.", "向一个犯罪团伙发出预警"],
+  ["about an upcoming police inspection.", "介词短语：说明预警的内容", "告知即将进行的警方检查。"],
+  ["In the lecture’s organized-crime discussion,", "范围状语：限定讨论的主题", "在讲义对有组织犯罪的讨论中，"],
+  ["this", "主语：指前述官员的行为", "这一行为"],
+  ["most clearly exemplifies", "谓语＋程度状语：后接选项作宾语", "最清楚地体现了……"]
+]},
+F10:{chunks:[
+  ["The lecture", "主语", "讲义"],
+  ["reports an increase", "谓语＋宾语", "报告了一项上升"],
+  ["from 3.6% to 36.3%", "介词短语：说明上升的起点与终点", "从3.6%上升到36.3%"],
+  ["in sampled crime organizations", "介词短语：说明所观察的组织范围", "在抽样调查的犯罪组织中"],
+  ["whose leaders", "定语从句的主语：whose 表示这些组织的", "这些组织的首领"],
+  ["did not commit offences directly.", "定语从句的谓语＋宾语：did not 表否定", "并不直接实施犯罪。"],
+  ["What interpretation", "前置的疑问宾语：问给出什么解释", "怎样的解释"],
+  ["does it offer?", "助动词＋主语＋谓语：it 指讲义", "讲义给出了……？"]
+]},
+F11:{chunks:[
+  ["What issue", "主语：What 询问核心问题", "什么问题"],
+  ["is at the centre of", "谓语结构：be at the centre of 表示是……的核心", "是……的核心"],
+  ["the lecture’s comparison", "介词 of 的宾语", "讲义所作的比较"],
+  ["between entry standards for judges and doctors?", "后置修饰：说明比较的是哪两类准入标准", "关于法官与医生的准入标准之间的比较？"]
+]},
+F12:{chunks:[
+  ["A judge", "主语", "一名法官"],
+  ["helps the parties negotiate", "谓语＋宾语＋宾语补足语：help sb. (to) do", "帮助当事人协商"],
+  ["rather than issuing a contested judgment.", "rather than 结构：对比被替代的做法", "而不是对争议作出判决。"],
+  ["The lecture", "新句的主语", "讲义"],
+  ["calls this mediation “in the shadow of law”", "谓语＋宾语＋宾语补足语：call A B", "把这种调解称为“在法律的阴影之下”"],
+  ["because", "原因从句连接词：原因由选项补全", "因为……"]
+]},
+F13:{chunks:[
+  ["The reported second-instance medical-dispute win rates", "主语：rates 是中心词，其余词限定胜诉率", "所报告的二审医疗纠纷胜诉率"],
+  ["are", "系动词：连接主语与两组数值", "分别为"],
+  ["69.3% with supporting evidence", "表语的第一组数值＋证据条件", "有证据支持时为69.3%"],
+  ["and 30.7% without sufficient evidence.", "并列的第二组数值＋证据条件", "证据不足时为30.7%。"],
+  ["Which statement", "新问句的主语", "哪一项陈述"],
+  ["is correct?", "系动词＋表语", "是正确的？"]
+]},
+F14:{chunks:[
+  ["Migrant workers", "主语", "外来务工人员"],
+  ["win wage cases", "谓语＋宾语", "在工资纠纷案件中胜诉"],
+  ["but still cannot obtain payment.", "转折的并列谓语：主语仍是工人", "但仍然拿不到应付款项。"],
+  ["Which problem", "前置的疑问宾语", "哪一个问题"],
+  ["identified in the lecture", "过去分词短语作后置定语，修饰 problem", "讲义中指出的"],
+  ["does that observation", "助动词＋主语：that observation 指前述现象", "这一观察到的现象"],
+  ["most directly demonstrate?", "问句的实义谓语＋程度状语", "最直接地说明了……？"]
+]},
+F15:{chunks:[
+  ["The survey", "主语", "这项调查"],
+  ["recorded 947 civil disputes", "谓语＋宾语", "记录了947起民事纠纷"],
+  ["among 10,372 respondents.", "范围状语：among 表示在……之中", "在10,372名受访者中。"],
+  ["Approximately which quantity", "疑问部分：询问结果大约对应哪个数值或指标", "大约是哪一个数值或指标"],
+  ["is 947 divided by 10,372?", "问句余部：divided by 表示除以", "947除以10,372所得的结果是……？"]
+]},
+F16:{chunks:[
+  ["Which provision", "主语：Which 询问哪一项规定", "哪一项规定"],
+  ["belongs to", "谓语＋介词：belong to 表示属于", "属于"],
+  ["the 1980 Marriage Law changes", "介词 to 的宾语：changes 是中心词", "1980年《婚姻法》的修订内容"],
+  ["listed in Lecture 5?", "过去分词短语作后置定语，修饰 changes", "第5讲中列出的？"]
+]},
+F17:{chunks:[
+  ["In the child-support case as taught,", "范围状语：as taught 限定为课堂所讲的案例", "在课堂所讲的子女抚养费案例中，"],
+  ["why did", "原因疑问词＋过去时助动词", "为什么"],
+  ["the fact", "主语的中心词", "这一事实"],
+  ["that the child was over 18", "同位语从句：说明 fact 的内容", "孩子已超过18岁"],
+  ["not by itself end", "否定谓语：by itself 表示仅凭这一点", "没有仅凭这一点就终止"],
+  ["the support obligation?", "宾语：被终止的义务", "抚养义务？"]
+]},
+F18:{chunks:[
+  ["In the medical-dispute material,", "范围状语：说明依据哪部分材料", "在医疗纠纷材料中，"],
+  ["a state agency", "主语", "一个国家机关"],
+  ["participates as an adviser", "谓语＋身份状语：as 表示以……身份", "以顾问身份参与"],
+  ["rather than directly imposing a decision.", "rather than 结构：对比被替代的做法", "而不是直接强加一项决定。"],
+  ["What distinction", "前置的疑问宾语", "什么区别"],
+  ["does this illustrate?", "助动词＋主语＋谓语：this 指前述情形", "这种情形体现了……？"]
+]},
+F19:{chunks:[
+  ["The lecture", "主语", "讲义"],
+  ["links", "谓语：link A to B 表示把 A 与 B 联系起来", "把……与……联系起来"],
+  ["the 2015 shift toward case-filing registration", "宾语 A：toward 说明转变的方向", "2015年向立案登记制的转变"],
+  ["to a sharp rise in accepted administrative cases.", "介词短语 B：被联系起来的另一现象", "与获受理行政案件数量的急剧增加。"],
+  ["Which barrier", "介词 at 的前置疑问宾语", "哪一种障碍"],
+  ["was this reform", "被动问句开头：was＋主语 this reform", "这项改革"],
+  ["most directly aimed at?", "被动谓语余部：be aimed at 表示针对", "最直接针对的是……？"]
+]},
+F20:{chunks:[
+  ["In the post-reform arrangement", "范围状语的开头：限定改革后的安排", "在改革后的安排中"],
+  ["described in the lecture,", "过去分词短语作后置定语，修饰 arrangement", "讲义所描述的，"],
+  ["reconsideration agency A", "主语", "复议机关A"],
+  ["upholds the original decision of agency B.", "谓语＋宾语：of agency B 修饰原决定", "维持机关B的原决定。"],
+  ["If the applicant then sues,", "条件状语从句：If 表示如果", "如果申请人随后提起诉讼，"],
+  ["who are the co-defendants?", "身份疑问句：询问共同被告是谁", "谁是共同被告？"]
+]},
+F21:{chunks:[
+  ["Which example", "主语：Which 询问哪一个例子", "哪一个例子"],
+  ["shows", "谓语：后接 that 宾语从句", "表明"],
+  ["that the lecture’s state-compensation discussion", "宾语从句开头：discussion 是从句主语", "讲义关于国家赔偿的讨论"],
+  ["is not limited to", "从句谓语：be limited to 表示局限于", "并不局限于"],
+  ["loss of liberty?", "介词 to 的宾语", "人身自由的丧失？"]
+]},
+F22:{chunks:[
+  ["What feature", "主语：What 询问哪种特点", "什么特点"],
+  ["distinguished", "谓语：distinguish A from B 表示区分两者", "使……区别于……"],
+  ["re-education through labour", "宾语 A：被区分的一方", "劳动教养"],
+  ["from a court-imposed prison sentence", "介词短语 B：比较的另一方", "与法院判处的监禁刑罚"],
+  ["in the historical account in Lecture 6?", "范围状语：限定为第6讲的历史叙述", "在第6讲对历史的叙述中？"]
+]},
+F23:{chunks:[
+  ["In the 2012 defendant table,", "范围状语：说明数据来自哪张表", "在2012年的被告统计表中，"],
+  ["county-government agencies", "主语", "县政府所属机构"],
+  ["account for 39.90%", "谓语＋比例：account for 表示占比", "占39.90%"],
+  ["and county governments for 15.94%.", "并列分句：省略重复的谓语 account", "县政府则占15.94%。"],
+  ["What is their combined share?", "数值疑问句：their 指前述两类被告", "它们合计占比是多少？"]
+]},
+F24:{chunks:[
+  ["Why can", "疑问词＋情态动词前置：询问原因", "为什么……会"],
+  ["a large economy", "主语", "一个规模庞大的经济体"],
+  ["still have", "谓语：still 表示“仍然”", "仍然具有"],
+  ["weak extractive capacity", "宾语", "薄弱的汲取能力"],
+  ["in Wang’s account?", "观点范围状语", "在 Wang 的论述中？"]
+]},
+F25:{chunks:[
+  ["Wang argues", "主句：Wang 是主语，argues 是谓语", "Wang 认为"],
+  ["that weak taxation", "宾语从句开头：that 引导，weak taxation 是从句主语", "税收征取薄弱"],
+  ["limits", "宾语从句的谓语", "制约了"],
+  ["the social safety net.", "宾语从句的宾语", "社会保障网。"],
+  ["Which relationship between state functions", "前置宾语：between 短语修饰 relationship", "国家各项职能之间的哪一种关系"],
+  ["does this", "助动词前置＋主语 this", "这"],
+  ["illustrate?", "问句的实义谓语", "说明了？"]
+]},
+F26:{chunks:[
+  ["Why does", "疑问词＋助动词前置：询问原因", "为什么"],
+  ["Wang", "主语", "Wang"],
+  ["say", "主句谓语，后接省略 that 的宾语从句", "说"],
+  ["coercion alone", "宾语从句的主语：alone 强调“仅靠”", "仅靠强制"],
+  ["cannot maintain order", "从句谓语＋宾语：order 是宾语", "无法维持秩序"],
+  ["over the long term?", "时间状语", "从长期来看？"]
+]},
+F27:{chunks:[
+  ["A people’s tribunal", "主语", "一个人民法庭"],
+  ["established by a basic people’s court", "过去分词短语作后置定语，修饰 tribunal", "由基层人民法院设立的"],
+  ["issues", "谓语", "作出"],
+  ["a decision.", "宾语", "一项决定。"],
+  ["According to the reading,", "依据状语", "根据阅读材料，"],
+  ["which statement", "疑问主语：which 修饰 statement", "哪一种说法"],
+  ["is correct?", "系动词＋表语", "是正确的？"]
+]},
+F28:{chunks:[
+  ["Which court body", "疑问主语：询问法院内的哪一机构", "法院内的哪一机构"],
+  ["is described as discussing", "被动谓语：be described as doing", "被描述为讨论"],
+  ["major or difficult cases", "discussing 的宾语", "重大或疑难案件"],
+  ["whose decisions panels must follow?", "定语从句：按语意 whose 指 court body；panels 是主语，whose decisions 是前置宾语", "各合议庭必须遵循该机构的决定？"]
+]},
+F29:{chunks:[
+  ["In the Week 2 description,", "语境状语", "在第 2 周材料的描述中，"],
+  ["the chief procurator", "主语", "检察长"],
+  ["may attend", "情态动词＋谓语", "可以参加"],
+  ["an adjudicative-committee meeting.", "宾语", "一次审判委员会会议。"],
+  ["What additional statement", "疑问主语：additional 表示“补充的”", "哪一种补充说法"],
+  ["is correct?", "系动词＋表语", "是正确的？"]
+]},
+F30:{chunks:[
+  ["What is", "疑问表语＋系动词：询问后面主语的内容", "……是什么"],
+  ["Peerenboom’s criticism", "主语", "Peerenboom 的批评"],
+  ["of dismissal practice", "后置定语，说明批评所针对的做法", "针对免职做法的"],
+  ["in the assigned material?", "出处状语", "在指定材料中？"]
+]},
+F31:{chunks:[
+  ["A reform", "主语", "一项改革"],
+  ["grants", "谓语", "赋予"],
+  ["extensive independence", "宾语", "广泛的独立性"],
+  ["before improving", "时间状语开头：before 后接动名词", "在改善……之前"],
+  ["the skills and integrity", "improving 的宾语", "能力与廉洁操守"],
+  ["of poorly trained judges.", "后置定语，修饰 skills and integrity", "训练不足的法官的。"],
+  ["What risk", "前置宾语", "什么风险"],
+  ["does Peerenboom identify?", "问句倒装：does＋主语＋实义谓语 identify", "Peerenboom 指出了？"]
+]},
+F32:{chunks:[
+  ["Cai", "主语", "Cai"],
+  ["reports", "谓语", "报告了"],
+  ["no action", "宾语：报告的是未采取行动这一情况", "未采取行动的情况"],
+  ["in 39.5% of rural state–citizen disputes", "范围状语：说明农村官民纠纷中的比例", "出现在 39.5% 的农村官民纠纷中"],
+  ["and 14.3% of urban ones.", "并列范围：ones 指 state–citizen disputes", "以及 14.3% 的城市官民纠纷中。"],
+  ["Which statement", "疑问主语", "哪一种说法"],
+  ["fits", "谓语", "符合"],
+  ["these figures?", "宾语", "这些数字？"]
+]},
+F33:{chunks:[
+  ["Only 4.6% of surveyed state–citizen disputes", "主语：Only 限定比例，of 短语说明样本范围", "在受调查的官民纠纷中，只有 4.6%"],
+  ["involved", "谓语", "涉及"],
+  ["approaching the media.", "动名词短语作宾语", "向媒体求助。"],
+  ["What", "前置宾语：询问能够确定什么", "什么"],
+  ["can this frequency table alone", "情态动词前置＋主语：alone 强调仅凭此表", "单凭这张频数表能够"],
+  ["establish?", "问句的实义谓语", "确定？"]
+]},
+F34:{chunks:[
+  ["What does", "疑问词＋助动词前置：What 是 refer to 的前置宾语", "什么"],
+  ["the figure 261", "主语", "数字 261"],
+  ["refer to", "谓语动词短语", "指的是"],
+  ["in Cai’s Table 2", "出处状语", "在 Cai 的表 2 中"],
+  ["on modes of resolving state–citizen disputes?", "后置定语，说明表 2 的主题", "关于解决官民纠纷方式的？"]
+]},
+F35:{chunks:[
+  ["Suppose", "假设引导语，后接省略 that 的从句", "假设"],
+  ["judges are well trained", "假设从句：judges 是主语，are well trained 表示训练充分", "法官受过充分训练"],
+  ["but lack legal power", "并列谓语：省略与前文相同的主语 judges", "但缺乏法定权力"],
+  ["to control certain government measures.", "不定式作后置定语，说明 power 的内容", "来制约某些政府措施。"],
+  ["Which of Peerenboom’s three dimensions", "疑问主语：从三个维度中选择一个", "Peerenboom 的三个维度中，哪一个"],
+  ["remains", "系动词，表示状态仍然持续", "仍然处于"],
+  ["unresolved?", "表语，表示尚未解决的状态", "尚未解决的状态？"]
+]},
+F36:{chunks:[
+  ["What concern", "前置宾语", "什么疑虑"],
+  ["does Peerenboom", "助动词前置＋主语", "Peerenboom"],
+  ["raise", "实义谓语", "提出了"],
+  ["about calling", "介词短语开头：说明疑虑所针对的做法", "关于把……称为"],
+  ["every judge-mediated settlement", "calling 的宾语", "每一次由法官调解达成的和解"],
+  ["fully voluntary?", "宾语补足语，说明把和解称为什么", "完全自愿的？"]
+]},
+F37:{chunks:[
+  ["Why can", "疑问词＋情态动词前置：询问原因", "为什么……会"],
+  ["changing a few courtroom rules", "动名词短语作主语", "改变几条法庭规则"],
+  ["leave", "谓语：leave＋宾语＋宾语补足语", "使……仍然处于"],
+  ["local judicial dependence", "宾语", "地方司法的依赖问题"],
+  ["unresolved", "宾语补足语，说明依赖问题的状态", "未解决的状态"],
+  ["in Peerenboom’s account?", "观点范围状语", "在 Peerenboom 的论述中？"]
+]},
+F38:{chunks:[
+  ["How can", "疑问方式＋情态动词前置", "如何能够"],
+  ["a “final” judgment", "主语：“final” 保留原文引号", "一项“终局”判决"],
+  ["still be challenged", "被动谓语：still 表示“仍然”", "仍被提出异议"],
+  ["in the procedural account", "语境状语", "在对程序的论述中"],
+  ["discussed by Peerenboom?", "过去分词短语作后置定语，修饰 account", "由 Peerenboom 讨论的？"]
+]},
+F39:{chunks:[
+  ["Why does", "疑问词＋助动词前置：询问原因", "为什么"],
+  ["Peerenboom", "主语", "Peerenboom"],
+  ["regard", "谓语：regard A as B 表示“将 A 视为 B”", "将……视为"],
+  ["formal legislative budget oversight", "宾语 A", "立法机关正式的预算监督"],
+  ["as an incomplete check on administration", "as 引出的宾语补足语 B", "对行政活动不够全面的制约"],
+  ["in the period", "时间状语", "在那个时期"],
+  ["he describes?", "省略关系词的定语从句，修饰 period", "他所描述的？"]
+]},
+F40:{chunks:[
+  ["Which advantage", "疑问主语的中心部分", "哪一种优势"],
+  ["of administrative reconsideration", "后置定语，说明是谁的优势", "行政复议的"],
+  ["over litigation", "比较定语，说明相对于哪一种方式", "相较于诉讼"],
+  ["is identified", "被动谓语", "被指出"],
+  ["in the assigned reading’s historical comparison?", "出处状语", "在指定阅读材料的历史比较中？"]
+]},
+F41:{chunks:[
+  ["In the reading,", "语境状语", "在阅读材料中，"],
+  ["how does", "疑问方式＋助动词前置", "如何"],
+  ["an Administrative Procedure Law", "主语：an 表示“一部”", "一部《行政程序法》"],
+  ["differ from", "谓语固定搭配：表示“与……不同”", "与……不同"],
+  ["the Administrative Litigation Law (ALL)?", "介词 from 的宾语，说明比较对象", "《行政诉讼法》（ALL）？"]
+]}
+};
 const STUDY_KEY='sosc1840-reading-v1';
 let readingEnabled=new URLSearchParams(location.search).get('learn')==='1';
 let studyState=loadStudyState();
@@ -341,7 +626,7 @@ function saveStudyState(){
   catch(e){document.getElementById('study-status').textContent='本次学习记录未能保存。可先复制自己的复述，稍后再试。';}
 }
 function questionStemHtml(item){
-  const guide=curSet==='F'&&readingEnabled?READING_GUIDES[item.id]:null;
+  const guide=curSet==='F'&&readingEnabled?(READING_GUIDES[item.id]||READING_STEMS[item.id]):null;
   if(!guide)return'<p class="qtext">'+item.q+'</p>';
   const pieces=guide.chunks.map(([en,role,zh])=>'<span class="stem-piece"><span class="guide-chunk-en">'+escapeHtml(en)+'</span><span class="stem-hint" hidden><small class="stem-role guide-role">'+escapeHtml(role)+'</small><span class="guide-zh">'+escapeHtml(zh)+'</span></span></span>');
   return '<p class="qtext reading-question" id="stem-'+item.id+'">'+pieces.join('<span class="stem-separator" aria-hidden="true"> / </span>')+'</p><div class="stem-controls"><button class="btn" type="button" data-grammar-toggle="'+item.id+'" aria-expanded="false" aria-controls="stem-'+item.id+'">显示主语 / 谓语 / 中文</button></div>';
@@ -364,7 +649,7 @@ function readingGuideHtml(item){
 }
 function updateStudyUi(){
   const completed=Object.keys(READING_GUIDES).filter(id=>studyState.done[id]===true).length;
-  document.getElementById('study-summary').textContent='F1–F5 已自检 '+completed+' / 5；'+(curSet==='F'&&readingEnabled?'当前显示带读提示':'可点击「带读 F1–F5」开始');
+  document.getElementById('study-summary').textContent='F 卷 41 题均可拆句；F1–F5 已自检 '+completed+' / 5；'+(curSet==='F'&&readingEnabled?'当前显示带读提示':'可点击「开启 F 卷全部拆句」开始');
   document.getElementById('mask-chinese').checked=studyState.hideChinese;
   quiz.classList.toggle('reading-mask',studyState.hideChinese);
   const marked=[];
