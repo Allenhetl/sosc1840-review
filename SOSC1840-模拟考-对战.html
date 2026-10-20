@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SOSC1840｜对战卷 C/D/E/F：新增两套 41 题</title>
+<title>SOSC1840｜新增 G 卷：41 题仿真练习与英语拆句</title>
 <style>
 :root{--bg:#0c1117;--panel:#121a23;--panel2:#182330;--line:#2b3a49;--text:#e8eef5;--muted:#9fb0c1;--accent:#67d391;--accent2:#7eb6ff;--warn:#ffd166;--red:#ff7b72;--shadow:0 12px 40px #0005}
 *{-webkit-user-select:text!important;user-select:text!important;-webkit-touch-callout:default!important;box-sizing:border-box}html{scroll-behavior:smooth}
@@ -78,24 +78,24 @@ button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-vi
 </head>
 <body>
 <header class="top"><div class="topin">
-<div class="brand">SOSC1840 · 对战卷 C/D/E/F<small>新增 E/F 各 41 题 · C/D 各 30 题 · 双人同步 · 带解析</small></div>
+<div class="brand">SOSC1840 · 对战卷 C/D/E/F/G<small>新增 G 仿真卷 41 题 · 英语拆句 · 双人同步 · 中文解析</small></div>
 <div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做本卷</button><button class="btn" id="reading-open">英语带读</button><a class="btn" href="SOSC1840-模拟考-加练.html">🧪 A/B 卷</a><a class="btn" href="index.html">🏠 入口</a></div>
 </div></header>
 <main>
 <section class="hero">
 <div class="kicker">Practice Sets · 新题 · 非真题</div>
-<h1>新增 E/F 卷：各 41 题，双人同步刷题</h1>
-<p>E/F 两套新卷各 41 道单选题，覆盖 L1–L6 讲义与 Week 1–6 阅读，加入案例应用、数据判断与概念辨析。点选后显示中文解析和复习来源链接；C/D 旧卷继续保留。</p>
+<h1>新增 G 卷：41 道仿真题</h1>
+<p>G 卷参考 2021 期中卷的题型新编，包含事实判断、NOT/FALSE、组合判断与小案例，覆盖 L1–L6 和 Week 1–6 阅读。点选后显示中文解析和复习来源；F/G 两卷均可开启英语拆句。</p>
 <p style="font-size:13px;color:var(--muted)">按课程材料所述的制度与历史时期作答。每题只有一个正确答案，答案在作答前隐藏。</p>
-<div class="setbar"><button class="btn on" id="setC">📙 C 卷（30 题）</button><button class="btn" id="setD">📒 D 卷（30 题）</button><button class="btn" id="setE">📗 E 卷（41 题 · 新）</button><button class="btn" id="setF">📘 F 卷（41 题 · 新）</button></div>
+<div class="setbar"><button class="btn on" id="setC">📙 C 卷（30 题）</button><button class="btn" id="setD">📒 D 卷（30 题）</button><button class="btn" id="setE">📗 E 卷（41 题）</button><button class="btn" id="setF">📘 F 卷（41 题）</button><button class="btn" id="setG">📕 G 仿真卷（41 题 · 新）</button></div>
 </section>
 <details class="study-path" id="reading-path">
 <summary>英语带读：45 分钟学习路径</summary>
-<p>F1–F41 全部支持用 / 分块读题。点击题干下的「显示主语 / 谓语 / 中文」，可展开对应词组的说明。每次先练 5 题，用中文说清楚「谁做了什么、在问什么」。</p>
+<p>F/G 两卷的全部 41 题都支持用 / 分块读题。点击题干下的「显示主语 / 谓语 / 中文」，可展开对应词组的说明。每次先练 5 题，用中文说清楚「谁做了什么、在问什么」。</p>
 <ol>
 <li><b>5 分钟 · 认词组：</b>先回忆下面的中文意思，再点开核对。</li>
-<li><b>20 分钟 · 带读 F1–F5：</b>认本题词组 → 看句子分块 → 写自己的复述 → 判断选项。</li>
-<li><b>10 分钟 · 尝试 F6–F10：</b>先自己读，卡住时再展开句子说明。</li>
+<li><b>20 分钟 · 带读前 5 题：</b>读英文题干 → 看句子分块 → 用中文复述 → 判断选项。</li>
+<li><b>10 分钟 · 尝试接下来的 5 题：</b>先自己读，卡住时再展开句子说明。</li>
 <li><b>5 分钟 · 找卡点：</b>区分词组、句型、课程概念和限定词；只补当前卡住的一层。</li>
 <li><b>5 分钟 · 遮提示回忆：</b>隐藏中文提示，再读今天的英文。明天先复习，再继续新题。</li>
 </ol>
@@ -113,7 +113,7 @@ button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-vi
 <label class="study-mask"><input type="checkbox" id="mask-chinese"> 隐藏带读区的中文提示，练习自己回忆</label>
 <p id="study-summary" role="status"></p><p id="study-status" role="status"></p>
 <details><summary>我的生词复习 <span id="review-count"></span></summary><p class="study-tip">在题目词组旁勾选「待复习」后，它会出现在这里。先回忆，再展开中文。</p><div id="review-list" class="phrase-deck"></div></details>
-<p class="study-tip">复述、生词和卡点只保存在当前浏览器。它们与答题得分分开记录，不会同步到房间。F1–F5 另有词组与复述练习，F6–F41 同样可以展开句子说明。</p>
+<p class="study-tip">复述、生词和卡点只保存在当前浏览器。它们与答题得分分开记录，不会同步到房间。F1–F5 另有词组与复述练习，F/G 两卷其余题目也可展开句子说明。</p>
 </details>
 <section class="battle" id="battlebox">
 <h2>👥 组队对战</h2>
@@ -280,6 +280,50 @@ F:[
 {"t":"W6","q":"In the reading, how does an Administrative Procedure Law differ from the Administrative Litigation Law (ALL)?","o":["The former is an ordinary criminal appeal and the latter a police investigation","ALL regulates only commercial arbitration while procedural law regulates only marriage","They are two interchangeable names for the same statute","The former concerns how administrative decisions are made; the latter concerns bringing administrative disputes to court"],"a":3,"e":"行政程序法关注行政机关“如何作决定”，行政诉讼法关注“如何告政府”。作者说当时缺少统一行政程序法，不是在否认已有行政诉讼法。","r":"SOSC1840-阅读翻译与知识点.html#L6-17","id":"F41"}
 ]
 });
+/* G authored past-paper-style questions: 2026-10-20. */
+SETS.G=[
+{"id":"G01","t":"L1","q":"Which set of statements matches Lecture 1's conditions for formal legal institutions? (1) Laws should be clear and legitimate. (2) Legal agents should be capable and incorrupt. (3) Political institutions need to limit public power but need not limit private power.","o":["(1) only","(1) and (2) only","(2) and (3) only","(1), (2) and (3)"],"a":1,"e":"应选（1）和（2）。讲义要求法律稳定、清晰且具有正当性，法律机构的人员有能力且廉洁；同时，政治制度必须约束公权力和私人行动者的权力。因此（3）把私人权力排除在约束之外，错误；只选（1）则漏掉（2）。","r":"SOSC1840-L1L5-翻译与知识点.html#l1tr"},
+{"id":"G02","t":"L1","q":"In Lecture 1's discussion of Confucian ideology, what did the emergence of formally enacted law indicate?","o":["Greater moral cultivation across society","A stronger system of informal mediation","A decline in moral goodness","The replacement of the gentry by village leaders"],"a":2,"e":"儒家思想在本讲中的表述是：正式制定的法律的出现，被视为道德衰退的迹象。因此选“道德善性的下降”；“道德修养提高”方向相反，非正式调解制度增强或村庄领袖取代乡绅也不是这里的含义。","r":"SOSC1840-L1L5-翻译与知识点.html#l1tr"},
+{"id":"G03","t":"L1","q":"According to Lecture 1, who could be punished if an accused person was judged not guilty in a traditional court trial?","o":["The presiding magistrate","The village mediator","The defendant's clan leader","The unjustified accuser"],"a":3,"e":"讲义描述的传统审判认为必须有人为被扰乱的秩序负责：被告有罪则罚被告；被告无罪时，处罚可能落到无理指控的原告身上。主审官、村庄调解人或被告的宗族领袖并不是该段列出的受罚对象。这是课程对历史审判的描述。","r":"SOSC1840-L1L5-翻译与知识点.html#l1tr"},
+{"id":"G04","t":"L1","q":"Which statement about rural collectivization in Lecture 1 is FALSE?","o":["It protected peasants' rights as a collective.","It limited freedom of mobility.","It contributed to the urban-rural divide.","Civil disputes were often handled within the village community."],"a":0,"e":"错误的是“它保护了农民作为集体的权利”。讲义恰恰说这种权利没有得到保护。其余三项均与本讲相符：迁徙自由受限、形成城乡分割，以及民事纠纷通常在村庄内部处理。","r":"SOSC1840-L1L5-翻译与知识点.html#l1tr"},
+{"id":"G05","t":"L2","q":"Which institution does Lecture 2 identify as having been created in 2018 to discipline public-sector personnel?","o":["The Inspection Commission (监察委员会)","The Central Political-Legal Affairs Committee","The Ministry of Public Security","The Supreme People's Procuratorate"],"a":0,"e":"第2讲将2018年的新机构明确写为监察委员会，职能是对公职部门人员进行惩戒。政法委在本讲对应协调政法部门，公安部对应公安系统，最高检对应检察系统；它们不是题目所问的2018年新设机构。","r":"SOSC1840-L1L5-翻译与知识点.html#l2tr"},
+{"id":"G06","t":"L2","q":"According to Lecture 2, which is the lowest level in the national security bureau's three-level structure?","o":["The provincial level","The city level","The county level","The township level"],"a":1,"e":"讲义给出的国家安全局体系是国家、省、市三级，所以最低为市级。省级还不是最低；县和乡镇不在这份三级清单内。不要与公安系统一直延伸到派出所的结构混淆。","r":"SOSC1840-L1L5-翻译与知识点.html#l2tr"},
+{"id":"G07","t":"L2","q":"A province records two separate cases of death caused by torture. Under the reporting arrangement described as starting in 1999 in Lecture 2, to which level must the responsible head report?","o":["The county political-legal agency","The city public security bureau","The central legal-affairs agency","The provincial legal-affairs agency"],"a":2,"e":"本讲的历史安排是：发生刑讯致死案件，相关负责人向省级政法主管机关报告；同一省发生两起这样的案件时，须上报中央。因此选中央，省级是容易混淆的较低上报层级，市、县级也不满足本题条件。","r":"SOSC1840-L1L5-翻译与知识点.html#l2tr"},
+{"id":"G08","t":"L3","q":"According to Lecture 3, which set of statements describes acts that may support sentence reduction? (1) A prisoner prevents someone else from committing a serious crime. (2) A prisoner saves another person's life. (3) A prisoner makes an important technological innovation.","o":["(1) only","(1) and (2) only","(2) and (3) only","(1), (2) and (3)"],"a":3,"e":"三项都在讲义的减刑立功事由中：阻止他人重大犯罪、救人，以及重要发明或技术革新。因此完整答案是（1）（2）（3）；其他选项都漏掉了符合清单的行为。题目只问可能支持减刑的行为，并未说实施其中一项即可直接获得减刑。","r":"SOSC1840-L1L5-翻译与知识点.html#l3tr"},
+{"id":"G09","t":"L3","q":"According to Lecture 3, in which year did China enact the Law on Prison (监狱法)?","o":["1979","1982","1994","2001"],"a":2,"e":"讲义明确写中国于1994年颁布《监狱法》。其余年份不是这里给出的颁布年；其中2001年在同一讲中对应统一司法考试制度的引入，不能混为一谈。","r":"SOSC1840-L1L5-翻译与知识点.html#l3tr"},
+{"id":"G10","t":"L3","q":"Two smuggling groups remain separate but coordinate their activities. Which type of organized crime in Lecture 3 best describes them?","o":["Family-based groups","Independent but linked organizations","Groups of former prisoners","Groups formed among former classmates"],"a":1,"e":"讲义把“独立但相互勾连的组织”列为一种形态，并以走私为例，正符合两个组织独立又协作的情形。家族型、刑满释放人员型、同学关系型分别依据亲属关系、服刑经历和既有人际关系，题干没有这些信息。","r":"SOSC1840-L1L5-翻译与知识点.html#l3tr"},
+{"id":"G11","t":"L3","q":"What action did the Ministry of Public Security take against more than 33,700 disqualified staff between August and November 2003, according to Lecture 3?","o":["It transferred or dismissed them from law-enforcement posts.","It required them to pass the unified judicial examination.","It appointed them as people's assessors.","It retained them in enforcement posts with disciplinary warnings."],"a":0,"e":"讲义说这33,700多名不合格人员被调离或清除出执法岗位，不能改成全部被开除。统一司法考试对应律师、检察官和法官的准入，任命人民陪审员也不是这里的措施；“留在执法岗位接受警告”则与调离或清除相反。","r":"SOSC1840-L1L5-翻译与知识点.html#l3tr"},
+{"id":"G12","t":"W1","q":"Why does Wang describe the period from 1978 to about 1993 as a 'win-win' phase of reform?","o":["Income differences between social groups disappeared.","Farmers and workers gained while all other groups lost.","Every social group gained by exactly the same amount.","All segments of society benefited in absolute terms."],"a":3,"e":"Wang把1978年至约1993年称为“双赢”，理由是各社会阶层按绝对标准都受益，即使一些群体获益更多。这不表示差距消失、各群体获益相同，也不是只有农民工人获益而其他群体受损。","r":"SOSC1840-阅读翻译与知识点.html#L1R-07"},
+{"id":"G13","t":"W1","q":"According to Wang, which statement about state intrusiveness is FALSE?","o":["An intrusive state can still be weak at making policy.","A state's intrusiveness is sufficient evidence of its effectiveness.","An intrusive state may struggle with routine administration.","Market reform can make a state's capacity deficit more visible."],"a":1,"e":"错误的是把国家的侵入程度当作其有效性的充分证据。Wang明确区分二者：高度侵入的国家仍可能不善于制定政策、执行政策或日常行政。文章还说市场改革使能力赤字更加显眼，因此其余三项符合原文。","r":"SOSC1840-阅读翻译与知识点.html#L1R-04"},
+{"id":"G14","t":"W1","q":"Why does Wang call institutionalized political participation a 'safety valve'?","o":["It can reduce state-society tensions by providing channels for expressing interests.","It permanently preserves a monopolistic structure of interest aggregation.","It directly solves the government's shortage of tax revenue.","It removes the uncertainty created by political competition."],"a":0,"e":"制度化参与为社会群体表达需求和利益提供渠道，使不满有制度出口，从而缓解国家与社会的紧张，这就是“安全阀”。原文的长期方向是竞争性的利益聚合，而非永久维持垄断；参与也不等于直接增加税收或消除政治竞争的不确定性。","r":"SOSC1840-阅读翻译与知识点.html#L1R-08"},
+{"id":"G15","t":"W2","q":"In the Week 2 reading, who appoints ordinary judges and procurators?","o":["The court and procuratorate presidents","The Party's Political-Legal Affairs Committee","The full people's congress at the corresponding level","The standing committee of the corresponding people's congress"],"a":3,"e":"阅读把普通法官、检察官的任命归于相应人大的常委会。须与法院院长、检察长由同级人大选任区分；也不能换成两院负责人或政法委。题目问的是普通法官和检察官，不是两院最高负责人。","r":"SOSC1840-阅读翻译与知识点.html#W2-01"},
+{"id":"G16","t":"W2","q":"Which set of statements matches the Week 2 reading? (1) Collegial panels have an odd number of judges. (2) A single judge may hear an ordinary second-instance case. (3) Simple civil cases may be tried by one judge.","o":["(1) only","(2) and (3) only","(1) and (3) only","(1), (2) and (3)"],"a":2,"e":"应选（1）和（3）。阅读要求合议庭人数为奇数，并允许简单民事案件由独任法官审理；但二审案件由3至5名法官组成的合议庭审理，因此（2）的二审独任审判不符合该阅读。只选（1）又漏掉了（3）。","r":"SOSC1840-阅读翻译与知识点.html#W2-03"},
+{"id":"G17","t":"W2","q":"Which statement about maritime courts in the Week 2 reading is FALSE?","o":["They are listed among the special courts.","They hear criminal cases within their maritime jurisdiction.","Appeals go to the higher people's court where they are located.","Shanghai is one of the cities listed as having a maritime court."],"a":1,"e":"错误的是海事法院审理海事管辖范围内的刑事案件。该阅读明确说海事法院没有刑事管辖权；它们属于专门法院，上诉去所在地的高级法院，列举的设院城市也包括上海。应按这份历史阅读判断。","r":"SOSC1840-阅读翻译与知识点.html#W2-06"},
+{"id":"G18","t":"W5","q":"Which set of statements matches Peerenboom's proposed sequence of judicial reform? (1) Competence, authority and independence should improve together. (2) Greater authority and independence can help attract qualified personnel. (3) Judicial training should wait until courts have gained full independence.","o":["(1) only","(1) and (3) only","(2) and (3) only","(1) and (2) only"],"a":3,"e":"应选（1）和（2）。Peerenboom要求在专业能力、权威和独立性之间配合推进改革，并指出缺少权威与独立性会使司法体系难以吸引和留住合格人才。（3）把培训推迟到完全独立之后，违背按现有能力循序改革的主张；只选（1）则漏掉人才吸引机制。","r":"SOSC1840-阅读翻译与知识点.html#L3-24"},
+{"id":"G19","t":"W5","q":"In the Supreme People's Court's reorganization described by Peerenboom, which division absorbed the former economic division?","o":["The civil division","The criminal division","The administrative division","The case-filing division"],"a":0,"e":"原文说经济庭被并入民事庭，重组后的民事庭再分为婚姻家庭与不动产、合同侵权、知识产权、海事与外商投资等部分。刑事庭、行政庭和立案庭虽也是法院内部业务机构，却不是经济庭的并入对象。","r":"SOSC1840-阅读翻译与知识点.html#L3-26"},
+{"id":"G20","t":"W3","q":"According to Peerenboom, what regular training requirement was proposed for all judges?","o":["At least twenty days every three years","At least three months every three years","At least one month every three years","At least one month every year"],"a":2,"e":"原文对所有法官提出的常规要求是每三年至少培训一个月。20天对应文中院长在国家法官学院的一次培训；3个月对应晋升院长或副院长后的培训。每年一个月则把常规培训周期改错了。","r":"SOSC1840-阅读翻译与知识点.html#L3-33"},
+{"id":"G21","t":"L4","q":"According to Lecture 4, the Consumers' Rights Protection Law was enacted and took effect in which years, respectively?","o":["1990 and 1994","1993 and 1994","1994 and 1999","1993 and 2001"],"a":1,"e":"讲义记载《消费者权益保护法》于 1993 年颁布、1994 年生效，须按 respectively 所提示的顺序对应。其他选项混淆了颁布与生效年份，或混入课程中其他法律的年份。","r":"SOSC1840-L1L5-翻译与知识点.html#l4tr"},
+{"id":"G22","t":"L4","q":"Which statement about the geographical use of lawsuits is FALSE according to Lecture 4?","o":["Citizens in big cities are more likely to use lawsuits.","Areas with a larger urban population share have proportionally more lawsuits.","Village residents were less likely than big-city residents to say they would approach legal departments after being wounded.","Areas with higher GDP per capita have proportionally fewer lawsuits."],"a":3,"e":"本题选错误项（FALSE）。讲义说人均 GDP 较高地区的诉讼相对更多，而非更少；城市人口比重较高、大城市居民更常使用诉讼。被打伤后找法律部门的比例也为大城市 49.7%、农村 16.8%。","r":"SOSC1840-L1L5-翻译与知识点.html#l4tr"},
+{"id":"G23","t":"L4","q":"In the early 2000s: (1) Migrant workers accounted for about 90% of construction workers. (2) They accounted for about 60% of urban service workers. (3) They accounted for about 80% of coal miners. Which statements are correct?","o":["1 only","2 and 3 only","1 and 3 only","1, 2 and 3"],"a":2,"e":"正确陈述为 1、3。讲义给出的农民工占比是建筑业约 90%、采煤业约 80%、纺织业约 60%、城市服务业约 50%；陈述 2 把纺织业的 60% 放到了城市服务业。","r":"SOSC1840-L1L5-翻译与知识点.html#l4tr"},
+{"id":"G24","t":"L4","q":"A consumer chooses arbitration to resolve a dispute with a business. Which prior condition does Lecture 4 specify?","o":["An arbitration agreement made in advance by the parties","A completed first-instance court trial","A mediation proposal from a consumer association","A complaint already upheld by a government department"],"a":0,"e":"讲义的消费者维权途径中，申请仲裁须基于事先的仲裁协议（ex ante agreement）。先完成法院一审、取得消协调解方案或让政府部门支持投诉，都不是这里列出的仲裁前提。","r":"SOSC1840-L1L5-翻译与知识点.html#l4tr"},
+{"id":"G25","t":"L5","q":"Which law does Lecture 5 give as an example of legislation based on the General Rules of Civil Law?","o":["The State Compensation Law","The Administrative Reconsideration Law","The Bankruptcy Law","The Criminal Procedure Law"],"a":2,"e":"讲义明确用破产法（the bankruptcy law）举例，说明《民法通则》的一些规则可成为其他立法的基础。国家赔偿、行政复议和刑事诉讼属于课程中其他制度，并非此处所举的法律。","r":"SOSC1840-L1L5-翻译与知识点.html#l5tr"},
+{"id":"G26","t":"L5","q":"Which statement about medical disputes is FALSE according to Lecture 5?","o":["Hospitals with better facilities or better doctors had fewer medical disputes.","Poor communication between medical staff and patients can contribute to disputes.","High medical fees are among the listed causes of disputes.","Drug prices and medical checks are major hospital money-making methods."],"a":0,"e":"本题选错误项（FALSE）。讲义的反直觉描述是：设备较好或医生较强的医院发生了更多医疗纠纷，并非更少。医患沟通不良、费用高均在成因清单中；药品价格与检查也列为医院主要赚钱方式。","r":"SOSC1840-L1L5-翻译与知识点.html#l5tr"},
+{"id":"G27","t":"L5","q":"In the child-support case: (1) The child was the plaintiff. (2) The mother's monthly salary was higher than the father's. (3) The appeal period was 30 days. Which statements are correct?","o":["1 only","2 and 3 only","1 and 3 only","1 and 2 only"],"a":3,"e":"正确陈述为 1、2。孩子是原告；母亲月薪 1,446 元，高于父亲的 1,058 元。讲义所述上诉期限为收到判决书后 15 天，陈述 3 的 30 天错误。不要把原告与被告角色或 15 天期限混淆。","r":"SOSC1840-L1L5-翻译与知识点.html#l5tr"},
+{"id":"G28","t":"L5","q":"In the 2006 survey of university students in Beijing, Shanghai and Guangzhou, about what share of their monthly income came from parents?","o":["32%","87%","63%","97.8%"],"a":1,"e":"讲义附带的 2006 年三城市大学生调查显示：月均收入为 707 元，其中 87% 来自父母。32% 和 63% 属于劳动纠纷数据，97.8% 是有证据支持时的医疗纠纷一审胜诉率，不能混用。","r":"SOSC1840-L1L5-翻译与知识点.html#l5tr"},
+{"id":"G29","t":"L6","q":"According to Lecture 6, which group contains the agencies most frequently sued?","o":["Police bureaus, land management departments and city construction agencies","Tax bureaus, civil affairs departments and education departments","Foreign affairs departments, commerce departments and culture bureaus","Health bureaus, transport departments and finance departments"],"a":0,"e":"讲义列出的高频被诉机关是公安局、土地管理部门、城市建设主管部门。其余选项虽然也是政府部门组合，但并非讲义所列的这一组；也要与“县级政府及其机构最常被诉”的政府层级结论区分。","r":"SOSC1840-L1L5-翻译与知识点.html#l6tr"},
+{"id":"G30","t":"L6","q":"In Lecture 6's account of the earlier period: (1) Clear legal procedures for suing government existed before the 1990s. (2) Work units limited direct contact with government. (3) Rural collectives acted as buffers. Which statements are correct?","o":["1 and 2 only","1 and 3 only","2 and 3 only","1, 2 and 3"],"a":2,"e":"正确陈述为 2、3。讲义用单位制与农村集体的缓冲作用解释过去起诉政府不常见；并指出 1990 年代前没有规定如何起诉政府的法律，因此陈述 1 把历史条件说反了。","r":"SOSC1840-L1L5-翻译与知识点.html#l6tr"},
+{"id":"G31","t":"L6","q":"Which list gives the “three difficulties” (三难) of administrative litigation discussed in Lecture 6?","o":["Finding witnesses, paying lawyers and preparing a contract","Filing a case, adjudicating it and enforcing the judgment","Investigating a crime, approving an arrest and prosecuting it","Requesting reconsideration, arranging mediation and filing a petition"],"a":1,"e":"行政诉讼“三难”是立案难、审理难、执行难。找证人等属于可能遇到的事务，并非讲义这一固定清单；侦查、批捕、公诉属于刑事程序；复议、调解、信访是不同解纷渠道。","r":"SOSC1840-L1L5-翻译与知识点.html#l6tr"},
+{"id":"G32","t":"L6","q":"In the 2011–2014 figures reported in Lecture 6, approximately what proportion of decisions did administrative reconsideration bodies uphold?","o":["20.2%–22.5%","3.41%–3.84%","70.17%–76.97%","55.8%–59.7%"],"a":3,"e":"讲义报告行政复议机关维持原决定的比例为 55.8%–59.7%，法院相应比例为 20.2%–22.5%。其余区间混入行政判决其他结果、撤诉或医疗纠纷耗时的数据，不能当作复议维持率。","r":"SOSC1840-L1L5-翻译与知识点.html#l6tr"},
+{"id":"G33","t":"L6","q":"In the Shanxi survey of 745 peasants reported in Lecture 6, which response was most common when they had disputes with state actors?","o":["Contacting lawyers or courts","Using personal connections to mediate the conflict","Approaching relevant leaders","Taking no action"],"a":2,"e":"山西 745 名农民的调查中，与国家主体发生纠纷时找相关领导占 51.1%，高于私人关系调解 20.8%、找律师或法院 9.9%、不行动 5.0%。这里的调查与全国官民纠纷 261 件样本不同，不能直接套用“法律 27.1%”的排序。","r":"SOSC1840-L1L5-翻译与知识点.html#l6tr"},
+{"id":"G34","t":"W4","q":"Cai reports petitions to complaint agencies at county level and above. How did their national number change between 1995 and 2004?","o":["From 13.7 million to 4.8 million","From 4.8 million to 10.2 million","From 10.2 million to 13.7 million","From 4.8 million to 13.7 million"],"a":3,"e":"Cai 给出的全国上访数量是 1995 年 480 万、2000 年 1,020 万、2004 年 1,370 万。本题比较 1995 与 2004 两个端点；其他选项或把增长方向倒转，或只覆盖其中一段时期。","r":"SOSC1840-阅读翻译与知识点.html#L4-20"},
+{"id":"G35","t":"W4","q":"Why does Cai warn that widespread inaction may matter for future social conflict?","o":["Pent-up resentment may erupt when the right opportunity comes.","Inactive citizens are counted as successful users of law.","Continuing disputes are reclassified as ordinary civil disputes.","The need for non-institutional protest has disappeared."],"a":0,"e":"作者指出，不行动可能积累被压抑的不满（pent-up resentment），并在合适机会来临时爆发。沉默不等于法律维权成功，也不会把官民纠纷变成民事纠纷，更不能证明非制度性抗议的需要已经消失。","r":"SOSC1840-阅读翻译与知识点.html#L4-19"},
+{"id":"G36","t":"W4","q":"According to Cai's Table 2: (1) Urban respondents used law more often than rural respondents. (2) Rural respondents approached upper-level leaders more often than urban respondents. (3) Urban respondents used collective petitions more often than rural respondents. Which statements are correct?","o":["1 and 2 only","1 and 3 only","2 and 3 only","1, 2 and 3"],"a":1,"e":"正确陈述为 1、3。城镇与农村的用法比例为 32.9% 对 21.5%，集体上访为 16.4% 对 9.9%；找上级领导也是城镇较高（29.3% 对 24.0%），所以陈述 2 的方向相反。这里比较的是发生纠纷者报告的行动比例。","r":"SOSC1840-阅读翻译与知识点.html#L4-18"},
+{"id":"G37","t":"W5","q":"Under the personnel reforms described by Peerenboom, how much training was required upon promotion to court president or vice-president?","o":["One week","One month","Twenty days","Three months"],"a":3,"e":"阅读规定，晋升院长或副院长时，法官须接受三个月培训。不要把它与“每三年至少培训一个月”或 2000 年院长在国家法官学院接受二十天培训的另一安排混淆；一周也不是该规定。","r":"SOSC1840-阅读翻译与知识点.html#L3-33"},
+{"id":"G38","t":"W5","q":"In Peerenboom's account, which task is usually associated with the responsible judge (承办法官) on a collegiate panel?","o":["Supervising daily court operations as vice-president","Deciding major cases through the adjudicative committee","Examining primary evidence and writing the final opinion","Coordinating the court's relations with local Party organs"],"a":2,"e":"承办法官对主要证据的审查往往影响结果，并通常撰写最终意见。法院日常运作多由副院长监督；重大案件由审判委员会按多数票决定；对外联系地方政府和党组织主要是院长的职责。","r":"SOSC1840-阅读翻译与知识点.html#L3-29"},
+{"id":"G39","t":"W5","q":"A court holds a non-public trial without a permitted exception. Under the 1999 reform described by Peerenboom, what should a higher court do when the judgment is challenged?","o":["Vacate the judgment and remand the case for a new trial","Keep the judgment and require only its publication","Ask the parties to file a new action in a different basic court","Keep the judgment and issue a warning to the trial court"],"a":0,"e":"按阅读所述 1999 年公开审判改革，没有适用例外却未公开审判时，当事人或检察机关可提出挑战；上级法院应撤销原判并发回重新审判。仅公开既有判决、警告原审法院或要求另行起诉，都不符合这项救济。","r":"SOSC1840-阅读翻译与知识点.html#L3-32"},
+{"id":"G40","t":"W6","q":"In Peerenboom's account of supervisory organs: (1) They may begin a case without a citizen's complaint. (2) They may freeze bank accounts in suspected corruption cases. (3) They may order officials to explain their acts. Which statements are correct?","o":["1 and 2 only","1, 2 and 3","1 and 3 only","2 and 3 only"],"a":1,"e":"三项均正确。阅读说监察机关可主动立案，也可因公民投诉立案；可在涉嫌腐败案件中冻结银行账户，并命令官员解释其行为。其他组合都遗漏了阅读明确列出的权限；这些监察权限不能等同于法院的刑事定罪权。","r":"SOSC1840-阅读翻译与知识点.html#L6-05"},
+{"id":"G41","t":"W6","q":"Which statement about the letters and petition system (信访) is FALSE in Peerenboom's account?","o":["Letters and petitions generally have a high chance of producing the desired result.","Media support can increase the chance of a prompt response.","The cost of formal proceedings may encourage petitioning.","Many citizens expect officials to rectify injustices as a moral duty."],"a":0,"e":"本题选错误项（FALSE）。作者的总体判断是，信访取得所希望结果的可能性较低，并非普遍很高。媒体支持可能促使更快回应；正式程序成本高和对“父母官”道德责任的期待，都可解释信访为何仍受欢迎。","r":"SOSC1840-阅读翻译与知识点.html#L6-11"}
+];
 const letters="abcdef";
 const READING_GUIDES={
 F01:{
@@ -601,6 +645,293 @@ F41:{chunks:[
   ["an Administrative Procedure Law", "主语：an 表示“一部”", "一部《行政程序法》"],
   ["differ from", "谓语固定搭配：表示“与……不同”", "与……不同"],
   ["the Administrative Litigation Law (ALL)?", "介词 from 的宾语，说明比较对象", "《行政诉讼法》（ALL）？"]
+]},
+G01:{chunks:[
+  ["Which set of statements", "疑问名词短语，作主语；核心词 set 为单数", "哪一组陈述"],
+  ["matches Lecture 1's conditions", "谓语 matches 及宾语 conditions", "符合第1讲所列的条件"],
+  ["for formal legal institutions?", "介词短语，后置修饰 conditions", "正式法律机构应具备的？"],
+  ["(1) Laws should be clear and legitimate.", "编号陈述(1)：主语 Laws + should + 系表结构", "（1）法律应当清晰且具有正当性。"],
+  ["(2) Legal agents should be capable and incorrupt.", "编号陈述(2)：主语 Legal agents + should + 系表结构", "（2）法律工作者应当有能力且廉洁。"],
+  ["(3) Political institutions need to limit public power", "编号陈述(3)前半句：主语 + need to + 动词及宾语", "（3）政治制度需要限制公权力"],
+  ["but need not limit private power.", "but 连接转折谓语，省略相同主语；need not 表示不必", "但不必限制私人权力。"]
+]},
+G02:{chunks:[
+  ["In Lecture 1's discussion of Confucian ideology,", "介词短语，交代讨论范围与出处", "在第1讲对儒家思想的讨论中，"],
+  ["what", "疑问代词，作 indicate 的前置宾语", "什么"],
+  ["did the emergence of formally enacted law", "一般过去时疑问助动词 did + 主语；of 短语修饰 emergence", "正式制定的法律的出现"],
+  ["indicate?", "实义谓语动词原形，与 did 搭配", "意味着？"]
+]},
+G03:{chunks:[
+  ["According to Lecture 1,", "介词短语，说明出处", "根据第1讲，"],
+  ["who could be punished", "who 作被动句主语；could be punished 表示可能受罚", "谁可能受到处罚"],
+  ["if an accused person", "if 引导条件从句，an accused person 作从句主语", "如果一个被告"],
+  ["was judged not guilty", "条件从句的被动谓语；not guilty 明确表示无罪", "被判无罪"],
+  ["in a traditional court trial?", "介词短语，限定审判情境", "在传统的法庭审判中？"]
+]},
+G04:{chunks:[
+  ["Which statement", "疑问名词短语，作主语", "哪一项陈述"],
+  ["about rural collectivization", "介词短语，修饰 statement", "关于农村集体化的"],
+  ["in Lecture 1", "介词短语，限定课程出处", "在第1讲中"],
+  ["is FALSE?", "系表谓语，FALSE 表示错误，要求反向选择", "是错误的？"]
+]},
+G05:{chunks:[
+  ["Which institution", "疑问名词短语，作 identify 的前置宾语", "哪一个机构"],
+  ["does Lecture 2 identify", "一般现在时疑问结构：助动词 + 主语 + 谓语", "被第2讲指出"],
+  ["as having been created in 2018", "as 引出宾语补足语；having been created 为完成式被动结构", "是在2018年设立的"],
+  ["to discipline public-sector personnel?", "目的不定式，说明机构职能", "以惩戒公职部门人员？"]
+]},
+G06:{chunks:[
+  ["According to Lecture 2,", "介词短语，说明出处", "根据第2讲，"],
+  ["which is the lowest level", "疑问代词 which 作主语，is 引出表语", "哪一级是最低层级"],
+  ["in the national security bureau's three-level structure?", "介词短语，限定所比较的组织体系", "在国家安全局的三级结构中？"]
+]},
+G07:{chunks:[
+  ["A province records", "案例主语及谓语", "某省出现了"],
+  ["two separate cases of death caused by torture.", "宾语；caused by torture 修饰 death；two separate cases 明确为两起独立案件", "两起相互独立的刑讯致死案件。"],
+  ["Under the reporting arrangement described as starting in 1999 in Lecture 2,", "依据状语；described 修饰 arrangement，说明课程中的起始时间", "按照第2讲所述自1999年开始的上报安排，"],
+  ["to which level", "介词 to 带疑问短语前置，询问上报对象的层级", "向哪一级"],
+  ["must the responsible head report?", "must + 主语 + 动词的疑问倒装结构", "相关负责人必须报告？"]
+]},
+G08:{chunks:[
+  ["According to Lecture 3,", "介词短语，说明出处", "根据第3讲，"],
+  ["which set of statements", "疑问名词短语，作主语；核心词 set 为单数", "哪一组陈述"],
+  ["describes acts that may support sentence reduction?", "谓语 describes + 宾语 acts；that 引导定语从句，may 表示可能", "描述了可能支持减刑的行为？"],
+  ["(1) A prisoner prevents someone else from committing a serious crime.", "编号陈述(1)：主语 + prevents + 宾语 + from doing，表示阻止他人做某事", "（1）一名囚犯阻止他人实施严重犯罪。"],
+  ["(2) A prisoner saves another person's life.", "编号陈述(2)：主语 + 谓语 + 宾语", "（2）一名囚犯挽救了他人的生命。"],
+  ["(3) A prisoner makes", "编号陈述(3)的主语及谓语", "（3）一名囚犯作出了"],
+  ["an important technological innovation.", "名词短语，作 makes 的宾语", "一项重要技术革新。"]
+]},
+G09:{chunks:[
+  ["According to Lecture 3,", "介词短语，说明出处", "根据第3讲，"],
+  ["in which year", "疑问时间状语", "在哪一年"],
+  ["did China", "一般过去时疑问助动词及主语", "中国"],
+  ["enact the Law on Prison (监狱法)?", "动词 enact 及其宾语，表示制定法律", "颁布了《监狱法》？"]
+]},
+G10:{chunks:[
+  ["Two smuggling groups", "案例名词短语，作主语", "两个走私组织"],
+  ["remain separate", "系表结构，说明组织状态", "保持各自独立"],
+  ["but coordinate their activities.", "but 连接并列转折谓语", "但协调彼此的活动。"],
+  ["Which type of organized crime", "疑问名词短语，作主语", "哪一种有组织犯罪形态"],
+  ["in Lecture 3", "介词短语，限定课程出处", "在第3讲列出的类型中"],
+  ["best describes them?", "谓语 describes 及宾语 them，回指前述组织", "最符合它们的情况？"]
+]},
+G11:{chunks:[
+  ["What action", "疑问名词短语，作 take 的前置宾语", "什么行动"],
+  ["did the Ministry of Public Security take", "一般过去时疑问结构：助动词 + 主语 + 谓语", "是公安部采取的"],
+  ["against more than 33,700 disqualified staff", "介词短语，说明行动针对的人员", "针对33,700多名不合格人员"],
+  ["between August and November 2003,", "时间状语，between...and... 表示起止区间", "在2003年8月至11月期间，"],
+  ["according to Lecture 3?", "介词短语，补充出处", "根据第3讲？"]
+]},
+G12:{chunks:[
+  ["Why", "疑问副词，询问原因", "为什么"],
+  ["does Wang describe", "一般现在时疑问结构：助动词 + 主语 + 谓语", "Wang把"],
+  ["the period from 1978 to about 1993", "宾语；from...to... 修饰 period，限定时期", "1978年至约1993年的时期"],
+  ["as a 'win-win' phase", "as 引出宾语补足语，说明所作界定", "描述为一个“双赢”阶段"],
+  ["of reform?", "of 短语，后置修饰 phase", "属于改革进程中的？"]
+]},
+G13:{chunks:[
+  ["According to Wang,", "介词短语，说明作者观点", "根据Wang的观点，"],
+  ["which statement", "疑问名词短语，作主语", "哪一项陈述"],
+  ["about state intrusiveness", "介词短语，限定 statement 的内容", "关于国家对社会的侵入程度"],
+  ["is FALSE?", "系表谓语；FALSE 表示错误，要求反向选择", "是错误的？"]
+]},
+G14:{chunks:[
+  ["Why", "疑问副词，询问原因", "为什么"],
+  ["does Wang call", "一般现在时疑问结构：助动词 + 主语 + 谓语", "Wang把"],
+  ["institutionalized political participation", "名词短语，作 call 的宾语", "制度化政治参与"],
+  ["a 'safety valve'?", "名词短语，作 call 的宾语补足语", "称作“安全阀”？"]
+]},
+G15:{chunks:[
+  ["In the Week 2 reading,", "介词短语，说明出处", "在第2周阅读中，"],
+  ["who appoints", "who 作主语，appoints 为一般现在时谓语", "由谁任命"],
+  ["ordinary judges", "名词短语，作并列宾语的第一项", "普通法官"],
+  ["and procurators?", "and 连接第二项并列宾语", "和检察官？"]
+]},
+G16:{chunks:[
+  ["Which set of statements", "疑问名词短语，作主语；核心词 set 为单数", "哪一组陈述"],
+  ["matches the Week 2 reading?", "单数谓语 matches 及宾语，限定判断依据", "符合第2周阅读？"],
+  ["(1) Collegial panels have an odd number of judges.", "编号陈述(1)：主语 + 谓语 + 宾语；odd number 表示奇数", "（1）合议庭的法官人数为奇数。"],
+  ["(2) A single judge may hear", "编号陈述(2)前半句：主语 + 情态动词 may + 谓语", "（2）一名独任法官可以审理"],
+  ["an ordinary second-instance case.", "名词短语，作 hear 的宾语；second-instance 修饰 case", "一宗普通的二审案件。"],
+  ["(3) Simple civil cases may be tried by one judge.", "编号陈述(3)：主语 + may be tried 被动谓语 + by 短语", "（3）简单民事案件可以由一名法官审理。"]
+]},
+G17:{chunks:[
+  ["Which statement", "疑问名词短语，作主语", "哪一项陈述"],
+  ["about maritime courts", "介词短语，后置修饰 statement", "关于海事法院"],
+  ["in the Week 2 reading", "介词短语，限定出处", "在第2周阅读中"],
+  ["is FALSE?", "系表谓语；FALSE 表示错误，要求反向选择", "是错误的？"]
+]},
+G18:{chunks:[
+  ["Which set of statements", "疑问名词短语，作主语；核心词 set 为单数", "哪一组陈述"],
+  ["matches Peerenboom's proposed sequence of judicial reform?", "谓语 matches 及宾语；proposed 修饰 sequence", "符合Peerenboom提出的司法改革顺序？"],
+  ["(1) Competence, authority and independence should improve together.", "编号陈述(1)：并列主语 + should + 谓语；together 表示协同", "（1）专业能力、权威和独立性应当共同提升。"],
+  ["(2) Greater authority and independence can help attract qualified personnel.", "编号陈述(2)：并列主语 + can help + 动词原形", "（2）更大的权威和独立性有助于吸引合格人才。"],
+  ["(3) Judicial training should wait", "编号陈述(3)前半句：主语 + should + 谓语", "（3）司法培训应当等待"],
+  ["until courts have gained full independence.", "until 引导时间从句；have gained 为现在完成时", "直到法院已经获得完全独立。"]
+]},
+G19:{chunks:[
+  ["In the Supreme People's Court's reorganization", "介词短语，交代改革情境", "在最高人民法院的机构重组中"],
+  ["described by Peerenboom,", "过去分词短语，后置修饰 reorganization", "即Peerenboom描述的这次重组，"],
+  ["which division", "疑问名词短语，作主语", "哪一个业务庭"],
+  ["absorbed the former economic division?", "一般过去时谓语及宾语，absorbed 表示并入吸收", "吸收了原来的经济庭？"]
+]},
+G20:{chunks:[
+  ["According to Peerenboom,", "介词短语，说明出处", "根据Peerenboom的描述，"],
+  ["what regular training requirement", "疑问名词短语，作被动句主语", "什么常规培训要求"],
+  ["was proposed", "一般过去时被动谓语", "被提出"],
+  ["for all judges?", "介词短语，说明适用范围", "面向所有法官？"]
+]},
+G21:{chunks:[
+  ["According to Lecture 4,", "出处状语", "根据第四讲，"],
+  ["the Consumers' Rights Protection Law", "主语", "《消费者权益保护法》"],
+  ["was enacted and took effect", "并列谓语：被动与主动", "被颁布并开始生效"],
+  ["in which years, respectively?", "疑问时间状语；分别对应前两项", "分别是在哪两年？"]
+]},
+G22:{chunks:[
+  ["Which statement", "疑问主语", "哪项陈述"],
+  ["about the geographical use of lawsuits", "后置介词短语，限定陈述主题", "关于不同地区使用诉讼的情况"],
+  ["is FALSE", "系表谓语；明确要求选错误项", "是错误的"],
+  ["according to Lecture 4?", "出处状语", "根据第四讲的内容？"]
+]},
+G23:{chunks:[
+  ["In the early 2000s:", "时间状语，引出三项陈述", "在 2000 年代初："],
+  ["(1) Migrant workers accounted for", "第 1 项：主语与占比谓语", "（1）农民工占"],
+  ["about 90% of construction workers.", "占比宾语，明确行业分母", "建筑工人的约 90%。"],
+  ["(2) They accounted for", "第 2 项：代词回指农民工", "（2）他们占"],
+  ["about 60% of urban service workers.", "占比宾语", "城市服务业工人的约 60%。"],
+  ["(3) They accounted for", "第 3 项：代词与占比谓语", "（3）他们占"],
+  ["about 80% of coal miners.", "占比宾语", "采煤工人的约 80%。"],
+  ["Which statements are correct?", "选择完整正确陈述集合", "哪些陈述是正确的？"]
+]},
+G24:{chunks:[
+  ["A consumer", "主语", "一名消费者"],
+  ["chooses arbitration", "谓语与宾语", "选择仲裁"],
+  ["to resolve a dispute with a business.", "不定式目的状语", "来解决与经营者的纠纷。"],
+  ["Which prior condition", "前置疑问宾语；prior 表示事先", "哪项事先条件"],
+  ["does Lecture 4 specify?", "一般现在时疑问结构", "是第四讲规定的？"]
+]},
+G25:{chunks:[
+  ["Which law", "前置疑问宾语", "哪部法律"],
+  ["does Lecture 5 give", "助动词构成疑问句", "是第五讲举出的"],
+  ["as an example of legislation", "作例子的补语", "立法例子"],
+  ["based on the General Rules of Civil Law?", "过去分词短语，后置修饰立法", "以《民法通则》为基础的？"]
+]},
+G26:{chunks:[
+  ["Which statement", "疑问主语", "哪项陈述"],
+  ["about medical disputes", "后置介词短语，限定主题", "关于医疗纠纷"],
+  ["is FALSE", "系表谓语；要求选错误项", "是错误的"],
+  ["according to Lecture 5?", "出处状语", "根据第五讲的内容？"]
+]},
+G27:{chunks:[
+  ["In the child-support case:", "案例范围状语", "在抚养费案例中："],
+  ["(1) The child", "第 1 项主语", "（1）孩子"],
+  ["was the plaintiff.", "系表谓语，说明诉讼角色", "是原告。"],
+  ["(2) The mother's monthly salary", "第 2 项主语", "（2）母亲的月薪"],
+  ["was higher than the father's.", "比较级谓语；所有格省略 salary", "高于父亲的月薪。"],
+  ["(3) The appeal period", "第 3 项主语", "（3）上诉期限"],
+  ["was 30 days.", "系表谓语，陈述时长", "为 30 天。"],
+  ["Which statements are correct?", "选择完整正确陈述集合", "哪些陈述是正确的？"]
+]},
+G28:{chunks:[
+  ["In the 2006 survey of university students", "调查范围状语", "在 2006 年的大学生调查中"],
+  ["in Beijing, Shanghai and Guangzhou,", "后置地点短语，限定调查对象所在地", "调查对象来自北京、上海和广州，"],
+  ["about what share of their monthly income", "疑问主语，询问收入占比", "他们月收入的大约多大比例"],
+  ["came from parents?", "谓语与来源补语", "来自父母？"]
+]},
+G29:{chunks:[
+  ["According to Lecture 6,", "出处状语", "根据第六讲，"],
+  ["which group", "疑问主语", "哪一组"],
+  ["contains the agencies", "谓语与宾语", "包含这些机关"],
+  ["most frequently sued?", "过去分词短语，后置修饰机关", "最常被起诉的？"]
+]},
+G30:{chunks:[
+  ["In Lecture 6's account of the earlier period:", "出处与时间范围状语", "在第六讲对较早时期的叙述中："],
+  ["(1) Clear legal procedures for suing government", "第 1 项主语；for 后动名词说明用途", "（1）明确的起诉政府法律程序"],
+  ["existed before the 1990s.", "谓语与时间状语", "在 1990 年代以前就已存在。"],
+  ["(2) Work units", "第 2 项主语", "（2）工作单位"],
+  ["limited direct contact with government.", "谓语与宾语", "限制了人们与政府的直接接触。"],
+  ["(3) Rural collectives", "第 3 项主语", "（3）农村集体"],
+  ["acted as buffers.", "谓语；act as 表示充当", "起到缓冲作用。"],
+  ["Which statements are correct?", "选择完整正确陈述集合", "哪些陈述是正确的？"]
+]},
+G31:{chunks:[
+  ["Which list", "疑问主语", "哪一组清单"],
+  ["gives the “three difficulties” (三难)", "谓语与宾语", "列出了“三难”"],
+  ["of administrative litigation", "后置介词短语，限定三难的领域", "行政诉讼中的"],
+  ["discussed in Lecture 6?", "过去分词短语，说明出处", "第六讲所讨论的？"]
+]},
+G32:{chunks:[
+  ["In the 2011–2014 figures", "时间与数据范围状语", "在 2011 至 2014 年的数据中"],
+  ["reported in Lecture 6,", "过去分词短语，修饰数据", "由第六讲报告的，"],
+  ["approximately what proportion of decisions", "前置疑问宾语，询问比例", "大约多大比例的决定"],
+  ["did administrative reconsideration bodies uphold?", "过去时疑问结构；uphold 表示维持", "得到了行政复议机关的维持？"]
+]},
+G33:{chunks:[
+  ["In the Shanxi survey of 745 peasants", "调查范围状语", "在山西 745 名农民的调查中"],
+  ["reported in Lecture 6,", "过去分词短语，说明调查出处", "第六讲所报告的，"],
+  ["which response", "疑问主语", "哪一种应对方式"],
+  ["was most common", "最高级系表谓语", "最为常见"],
+  ["when they had disputes with state actors?", "时间与情境从句", "当他们与国家主体发生纠纷时？"]
+]},
+G34:{chunks:[
+  ["Cai reports petitions", "主语、谓语与宾语", "Cai 报告了上访情况"],
+  ["to complaint agencies at county level and above.", "介词短语，限定受理机构及层级", "向县级及以上信访机构提出的。"],
+  ["How did their national number change", "过去时方式疑问句", "这些上访的全国数量如何变化"],
+  ["between 1995 and 2004?", "时间范围状语", "从 1995 年到 2004 年？"]
+]},
+G35:{chunks:[
+  ["Why does Cai warn", "原因疑问句的主干", "为什么 Cai 提醒说"],
+  ["that widespread inaction", "that 引导宾语从句；从句主语", "普遍的不行动"],
+  ["may matter", "情态动词与谓语；表示可能产生影响", "可能产生影响"],
+  ["for future social conflict?", "介词短语，说明影响所及", "对于未来的社会冲突？"]
+]},
+G36:{chunks:[
+  ["According to Cai's Table 2:", "出处状语", "根据 Cai 的表 2："],
+  ["(1) Urban respondents used law", "第 1 项主语与谓宾结构", "（1）城镇受访者使用法律"],
+  ["more often than rural respondents.", "频率比较状语", "比农村受访者更频繁。"],
+  ["(2) Rural respondents approached upper-level leaders", "第 2 项主语与谓宾结构", "（2）农村受访者找上级领导"],
+  ["more often than urban respondents.", "频率比较状语", "比城镇受访者更频繁。"],
+  ["(3) Urban respondents used collective petitions", "第 3 项主语与谓宾结构", "（3）城镇受访者采取集体上访"],
+  ["more often than rural respondents.", "频率比较状语", "比农村受访者更频繁。"],
+  ["Which statements are correct?", "选择完整正确陈述集合", "哪些陈述是正确的？"]
+]},
+G37:{chunks:[
+  ["Under the personnel reforms", "制度范围状语", "按这些人事改革安排"],
+  ["described by Peerenboom,", "过去分词短语，限定改革出处", "由 Peerenboom 描述的，"],
+  ["how much training", "疑问主语，询问培训时长", "多长时间的培训"],
+  ["was required", "被动谓语", "是必需的"],
+  ["upon promotion to court president or vice-president?", "时间状语；upon 表示在……之时", "在晋升法院院长或副院长时？"]
+]},
+G38:{chunks:[
+  ["In Peerenboom's account,", "出处状语", "在 Peerenboom 的叙述中，"],
+  ["which task", "疑问主语", "哪项任务"],
+  ["is usually associated with", "被动结构与频率副词", "通常与……相关联"],
+  ["the responsible judge (承办法官)", "介词宾语，指出法官角色", "承办法官"],
+  ["on a collegiate panel?", "后置介词短语，限定其所在组织", "在合议庭中的？"]
+]},
+G39:{chunks:[
+  ["A court holds a non-public trial", "情境句的主谓宾结构", "法院进行了一次不公开审判"],
+  ["without a permitted exception.", "介词状语，排除合法例外", "但没有可以适用的例外。"],
+  ["Under the 1999 reform", "规则范围状语", "按照 1999 年的改革"],
+  ["described by Peerenboom,", "过去分词短语，说明改革出处", "由 Peerenboom 描述的，"],
+  ["what should a higher court do", "情态动词疑问句主干", "上级法院应当怎么做"],
+  ["when the judgment is challenged?", "时间与条件从句；被动语态", "当该判决受到挑战时？"]
+]},
+G40:{chunks:[
+  ["In Peerenboom's account of supervisory organs:", "出处与主题状语", "在 Peerenboom 对监察机关的叙述中："],
+  ["(1) They may begin a case", "第 1 项主语与情态谓语", "（1）它们可以立案"],
+  ["without a citizen's complaint.", "介词状语，表示不以投诉为前提", "即使没有公民投诉。"],
+  ["(2) They may freeze bank accounts", "第 2 项主语与情态谓宾结构", "（2）它们可以冻结银行账户"],
+  ["in suspected corruption cases.", "情境状语", "在涉嫌腐败案件中。"],
+  ["(3) They may order officials", "第 3 项主语、情态谓语与宾语", "（3）它们可以命令官员"],
+  ["to explain their acts.", "不定式宾语补足语", "解释自己的行为。"],
+  ["Which statements are correct?", "选择完整正确陈述集合", "哪些陈述是正确的？"]
+]},
+G41:{chunks:[
+  ["Which statement", "疑问主语", "哪项陈述"],
+  ["about the letters and petition system (信访)", "后置介词短语，限定主题", "关于信访制度"],
+  ["is FALSE", "系表谓语；明确要求选错误项", "是错误的"],
+  ["in Peerenboom's account?", "出处范围状语", "在 Peerenboom 的叙述中？"]
 ]}
 };
 const STUDY_KEY='sosc1840-reading-v1';
@@ -626,7 +957,7 @@ function saveStudyState(){
   catch(e){document.getElementById('study-status').textContent='本次学习记录未能保存。可先复制自己的复述，稍后再试。';}
 }
 function questionStemHtml(item){
-  const guide=curSet==='F'&&readingEnabled?(READING_GUIDES[item.id]||READING_STEMS[item.id]):null;
+  const guide=['F','G'].includes(curSet)&&readingEnabled?(READING_GUIDES[item.id]||READING_STEMS[item.id]):null;
   if(!guide)return'<p class="qtext">'+item.q+'</p>';
   const pieces=guide.chunks.map(([en,role,zh])=>'<span class="stem-piece"><span class="guide-chunk-en">'+escapeHtml(en)+'</span><span class="stem-hint" hidden><small class="stem-role guide-role">'+escapeHtml(role)+'</small><span class="guide-zh">'+escapeHtml(zh)+'</span></span></span>');
   return '<p class="qtext reading-question" id="stem-'+item.id+'">'+pieces.join('<span class="stem-separator" aria-hidden="true"> / </span>')+'</p><div class="stem-controls"><button class="btn" type="button" data-grammar-toggle="'+item.id+'" aria-expanded="false" aria-controls="stem-'+item.id+'">显示主语 / 谓语 / 中文</button></div>';
@@ -649,7 +980,10 @@ function readingGuideHtml(item){
 }
 function updateStudyUi(){
   const completed=Object.keys(READING_GUIDES).filter(id=>studyState.done[id]===true).length;
-  document.getElementById('study-summary').textContent='F 卷 41 题均可拆句；F1–F5 已自检 '+completed+' / 5；'+(curSet==='F'&&readingEnabled?'当前显示带读提示':'可点击「开启 F 卷全部拆句」开始');
+  const readingSet=curSet==='G'?'G':'F';
+  document.getElementById('study-summary').textContent=readingSet+' 卷 41 题均可拆句；'+(curSet==='G'?'':'F1–F5 已自检 '+completed+' / 5；')+(['F','G'].includes(curSet)&&readingEnabled?'当前显示带读提示':'可点击「开启 '+readingSet+' 卷全部拆句」开始');
+  document.getElementById('start-reading').textContent='开启 '+readingSet+' 卷全部拆句';
+  document.getElementById('start-independent').textContent='关闭提示，独立练 '+readingSet+'6–'+readingSet+'10';
   document.getElementById('mask-chinese').checked=studyState.hideChinese;
   quiz.classList.toggle('reading-mask',studyState.hideChinese);
   const marked=[];
@@ -662,12 +996,12 @@ function updateStudyUi(){
 function updateStudyAddress(anchor){
   const url=new URL(location.href);
   url.searchParams.set('set',curSet);
-  if(curSet==='F'&&readingEnabled)url.searchParams.set('learn','1');else url.searchParams.delete('learn');
+  if(['F','G'].includes(curSet)&&readingEnabled)url.searchParams.set('learn','1');else url.searchParams.delete('learn');
   url.hash=anchor;
   history.replaceState(null,'',url);
 }
 function enterStudy(enabled,anchor){
-  curSet='F';readingEnabled=enabled;
+  curSet=curSet==='G'?'G':'F';readingEnabled=enabled;
   updateSetTabs();render();pushStats();updateStudyAddress(anchor);
   document.getElementById('reading-path').open=true;
   document.getElementById(anchor).scrollIntoView({block:'start',behavior:'auto'});
