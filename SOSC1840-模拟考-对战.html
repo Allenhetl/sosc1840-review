@@ -55,12 +55,29 @@ main{max-width:980px;margin:auto;padding:24px 20px 90px}
 .result{border:1px solid #67d39155;border-radius:14px;background:#10231a;padding:18px 20px;margin:20px 0;display:none}
 .result.show{display:block}.result b{color:var(--accent);font-size:22px}
 .foot{color:var(--muted);font-size:12.5px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+.study-path{border:1px solid #7eb6ff66;background:#101c29;padding:16px 18px;margin:0 0 22px;border-radius:14px;scroll-margin-top:110px}
+.study-path>summary{font-size:17px;font-weight:750;color:var(--accent2);cursor:pointer}
+.study-path p{margin:10px 0}.study-path ol{padding-left:22px}.study-path li{margin:7px 0}
+.study-actions{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.study-tip{color:var(--muted);font-size:13px}
+.phrase-deck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.phrase-card{border-bottom:1px solid var(--line);padding:8px 4px;min-width:0}.phrase-card summary{cursor:pointer;color:var(--accent2);overflow-wrap:anywhere}.phrase-card p{margin:5px 0;color:var(--muted)}
+.reading-guide{border-left:3px solid var(--accent2);background:#10243a45;padding:12px 14px;margin:14px 0}
+.reading-guide>summary{cursor:pointer;color:var(--accent2);font-size:14px;font-weight:700}.reading-guide h3{font-size:14px;margin:16px 0 7px}
+.reading-guide p{margin:8px 0}.guide-phrases{display:grid;gap:8px}.guide-phrase{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border-bottom:1px solid var(--line);padding:6px 0;align-items:start}
+.guide-phrase b{font-weight:650;overflow-wrap:anywhere}.guide-zh{color:#c8d5de}.guide-phrase .guide-zh{display:block;font-size:13px}.guide-phrase label{font-size:12px;color:var(--muted);white-space:nowrap}
+.guide-chunk{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(55px,.55fr) minmax(0,1.3fr);gap:10px;border-bottom:1px solid var(--line);padding:8px 0;align-items:start}.guide-chunk-en{color:var(--text);overflow-wrap:anywhere}.guide-role{font-size:12px;color:var(--accent2)}
+.guide-pattern{font-size:13px;color:var(--muted)}.guide-check,.guide-option-help{margin:12px 0}.guide-check>summary,.guide-option-help>summary{cursor:pointer;color:var(--accent2);font-size:13px}.guide-options{padding-left:22px}.guide-options li{margin:8px 0}
+.reading-guide textarea,.reading-guide select{font:inherit;font-size:14px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:9px;max-width:100%}.reading-guide textarea{width:100%;min-height:85px;resize:vertical;margin:6px 0}.guide-note-label{display:block;font-size:13px}.guide-selfcheck{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;margin-top:8px}
+.reading-mask .guide-zh{display:none!important}.study-mask{display:block;font-size:13px;margin:10px 0}#study-summary{color:var(--accent);font-size:13px}#study-status{color:var(--warn);font-size:13px}
+button:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
+@media(max-width:600px){.guide-chunk{grid-template-columns:minmax(0,1fr)}.guide-role{order:-1}.reading-guide{padding:10px}.study-path{padding:14px}.study-actions .btn{flex:1 1 180px}.q,.study-path{scroll-margin-top:225px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.opt{transition:none}}
 </style>
 </head>
 <body>
 <header class="top"><div class="topin">
 <div class="brand">SOSC1840 · 对战卷 C/D/E/F<small>新增 E/F 各 41 题 · C/D 各 30 题 · 双人同步 · 带解析</small></div>
-<div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做本卷</button><a class="btn" href="SOSC1840-模拟考-加练.html">🧪 A/B 卷</a><a class="btn" href="index.html">🏠 入口</a></div>
+<div class="actions"><span class="score" id="score">得分 0 / 30</span><button class="btn" id="reset">↺ 重做本卷</button><button class="btn" id="reading-open">英语带读</button><a class="btn" href="SOSC1840-模拟考-加练.html">🧪 A/B 卷</a><a class="btn" href="index.html">🏠 入口</a></div>
 </div></header>
 <main>
 <section class="hero">
@@ -70,6 +87,32 @@ main{max-width:980px;margin:auto;padding:24px 20px 90px}
 <p style="font-size:13px;color:var(--muted)">按课程材料所述的制度与历史时期作答。每题只有一个正确答案，答案在作答前隐藏。</p>
 <div class="setbar"><button class="btn on" id="setC">📙 C 卷（30 题）</button><button class="btn" id="setD">📒 D 卷（30 题）</button><button class="btn" id="setE">📗 E 卷（41 题 · 新）</button><button class="btn" id="setF">📘 F 卷（41 题 · 新）</button></div>
 </section>
+<details class="study-path" id="reading-path">
+<summary>英语带读：45 分钟学习路径</summary>
+<p>先读懂英文，再判断选项。今天先带读 F1–F5，再独立尝试 F6–F10。每题先用中文说清楚「谁做了什么、在问什么」。</p>
+<ol>
+<li><b>5 分钟 · 认词组：</b>先回忆下面的中文意思，再点开核对。</li>
+<li><b>20 分钟 · 带读 F1–F5：</b>认本题词组 → 看句子分块 → 写自己的复述 → 判断选项。</li>
+<li><b>10 分钟 · 独立做 F6–F10：</b>先看原英文，把读不顺的位置记下来。</li>
+<li><b>5 分钟 · 找卡点：</b>区分词组、句型、课程概念和限定词；只补当前卡住的一层。</li>
+<li><b>5 分钟 · 遮提示回忆：</b>隐藏中文提示，再读今天的英文。明天先复习，再继续新题。</li>
+</ol>
+<div class="phrase-deck" id="core-phrases">
+<details class="phrase-card"><summary>court fees</summary><p>诉讼费</p></details>
+<details class="phrase-card"><summary>arbitral award</summary><p>仲裁裁决</p></details>
+<details class="phrase-card"><summary>voluntary cooperation</summary><p>自愿合作</p></details>
+<details class="phrase-card"><summary>personnel records</summary><p>人事档案</p></details>
+<details class="phrase-card"><summary>has authority to</summary><p>有权做某事</p></details>
+<details class="phrase-card"><summary>legitimate rights and interests</summary><p>合法权益</p></details>
+<details class="phrase-card"><summary>rather than</summary><p>而不是；用来区分两个选择</p></details>
+<details class="phrase-card"><summary>percentage points</summary><p>百分点；用来表达两个百分比相减的差值</p></details>
+</div>
+<div class="study-actions"><button class="btn" id="start-reading">带读 F1–F5</button><button class="btn" id="start-independent">独立练习 F6–F10</button></div>
+<label class="study-mask"><input type="checkbox" id="mask-chinese"> 隐藏带读区的中文提示，练习自己回忆</label>
+<p id="study-summary" role="status"></p><p id="study-status" role="status"></p>
+<details><summary>我的生词复习 <span id="review-count"></span></summary><p class="study-tip">在题目词组旁勾选「待复习」后，它会出现在这里。先回忆，再展开中文。</p><div id="review-list" class="phrase-deck"></div></details>
+<p class="study-tip">复述、生词和卡点只保存在当前浏览器。它们与答题得分分开记录，不会同步到房间。F6–F41 保留原题练习。</p>
+</details>
 <section class="battle" id="battlebox">
 <h2>👥 组队对战</h2>
 <p style="margin:0;color:#c8d5de;font-size:13.5px">一个人填名字点「创建房间」，把生成的链接发给朋友；朋友打开链接、填自己的名字点「加入」，两个人的<b>已答题数、正确数、正确率</b>就会实时互显（约 5 秒刷新一次）。各做各的卷也行，选同一套卷比拼更有意思。</p>
@@ -236,6 +279,46 @@ F:[
 ]
 });
 const letters="abcdef";
+const READING_GUIDES={
+F01:{
+phrases:[['a village settlement','村庄中的和解方案；这里 settlement 指和解'],['is accepted by insiders','被圈内人接受'],['disadvantages a newcomer','使新来的人处于不利地位；disadvantages 在这里是动词'],['lacks local ties','缺少本地关系'],['limitation of informal order','非正式秩序的局限']],
+chunks:[['A village settlement','主语','一个村庄和解方案'],['is accepted by insiders','被动谓语','被圈内人接受'],['but disadvantages a newcomer','转折后的动作','但使一个新来者处于不利地位'],['who lacks local ties.','修饰 newcomer','这个新来者缺少本地关系。'],['Which limitation of informal order','要找的对象','非正式秩序的哪一项局限'],['does this illustrate?','问句结构','被这个情形体现出来？']],
+pattern:'读到 but 时先找前后对比；who 从句描述前面的 newcomer。问句主干是 Which limitation does this illustrate?',
+prompt:'方案被谁接受？谁可能吃亏？题目要你识别哪一类问题？',
+check:'一个村庄和解方案被圈内人接受，但使缺少本地关系的新来者处于不利地位。这体现了非正式秩序的哪种局限？',
+options:['necessarily protect … better than …：必然比另一群人保护得更好。全项：非正式机制必然比保护圈内人更好地保护外来者。','Reputation is irrelevant to …：声誉与……无关。全项：声誉与非正式合作无关。','Rules accepted within a close group：小群体内部接受的规则；may be unfair to outsiders：可能对外人不公平。','automatically has the same jurisdiction as …：自动拥有与……相同的管辖权。全项：村庄调解人自动拥有与最高法院相同的管辖权。']},
+F02:{
+phrases:[['relationship between law and policy','法律与政策之间的关系'],['the Maoist period','毛泽东时期'],['as presented in Lecture 1','按照第一讲所呈现的内容'],['best matches','最符合；这里 matches 表示相符'],['serve policy goals','服务于政策目标']],
+chunks:[['Which description','问句主语','哪一种描述'],['best matches','谓语','最符合'],['the relationship between law and policy','宾语','法律与政策之间的关系'],['in the Maoist period','历史时期','在毛泽东时期'],['as presented in Lecture 1?','材料范围','按照第一讲所描述的情况？']],
+pattern:'主干是 Which description best matches the relationship? 后面两个短语限定历史时期和材料来源。',
+prompt:'题目问的是哪个时期？它在比较哪两样东西之间的关系？',
+check:'按照第一讲的描述，哪一种说法最符合毛泽东时期法律与政策之间的关系？',
+options:['invalidate every Party policy through constitutional review：通过宪法审查使每项党的政策失效。全项：法院被设计来完成这一任务。','All disputes were resolved through autonomous private arbitration：所有纠纷都通过自主的私人仲裁解决。','Work units had no role in …：单位在……中没有作用。全项：单位对个人或家庭纠纷没有作用。','Law was expected to serve … goals：法律被期望服务于……目标。全项：法律被期望服务于政治和经济政策目标。']},
+F03:{
+phrases:[['the weakening of …','……的弱化；这里是名词短语'],['rural collectives','农村集体'],['urban work units','城市单位'],['alter disputes','改变纠纷的情况或形态；alter 是改变'],['citizen–government disputes','官民纠纷，即公民与政府之间的纠纷']],
+chunks:[['How did','提问变化方式','如何'],['the weakening of rural collectives and urban work units','主语','农村集体与城市单位的弱化'],['alter','核心动词','改变'],['many citizen–government disputes','宾语','许多官民纠纷'],['after reform?','时间','在改革之后？']],
+pattern:'How did + 主语 + 动词原形 + 宾语？主语虽然长，核心动词仍然只有 alter。',
+prompt:'发生变化的组织是什么？哪一个词是核心动词？题目要你说明什么变化？',
+check:'改革之后，农村集体与城市单位的弱化，怎样改变了许多官民纠纷的情况？',
+options:['All government contact disappeared …：所有与政府的接触都消失了。全项：公民日常生活中所有与政府的接触都消失了。','Formal law became unnecessary because …：正式法律变得不再需要，因为……。全项：因为集体调解扩大，正式法律不再必要。','dealt more directly with government agencies：更直接地与政府机关打交道；as collective buffers weakened：随着集体缓冲机制弱化。','Every administrative dispute became …：每一项行政纠纷都变成……。全项：每项行政纠纷都成为同一单位内部的纠纷。']},
+F04:{
+phrases:[['formal law','正式法律'],['too rigid','过于僵化、死板'],['too lenient','过于宽松、宽容'],['in one situation … in another','在一种情境……在另一种情境'],['the best implication','最恰当的启示、推论']],
+chunks:[['Lecture 1 notes','主句','第一讲指出'],['that formal law can be too rigid in one situation','指出的内容之一','正式法律在某一种情境可能过于僵化'],['and too lenient in another.','并列对照','在另一种情境又可能过于宽松。'],['What is the best implication?','问句','从中最恰当地可以得到什么启示？']],
+pattern:'notes 在这里是“指出”，不是“笔记”。in another 省略了 situation；can 表示可能，不能读成所有情况下都如此。',
+prompt:'rigid 与 lenient 各是什么意思？两种情况是同时发生在同一个情境里吗？题目让你从描述中做什么？',
+check:'第一讲指出，正式法律在一种情境下可能过于僵化，在另一种情境下又可能过于宽松。最恰当的启示是什么？',
+options:['The existence of a legal rule guarantees …：只要法律规则存在，就能保证……。全项：规则的存在保证结果合乎比例、轻重适当。','All informal settlements are legally coercive：所有非正式和解都具有法律强制性。','must be assessed for how rules work …：必须根据规则怎样运作来评价。全项：要看规则在具体社会情境中如何运作，来评价正式制度。','Written rules are always superior to …：成文规则总是优于……。全项：成文规则总是优于每一种非正式回应。']},
+F05:{
+phrases:[['a government head','政府首长'],['sits on a committee','是某个委员会的成员；不是字面上的坐在上面'],['standing committee','常务委员会；这里 standing 与原告资格不是同一含义'],['the corresponding Party committee','相应的、这里指同级的党委；大写 Party 指党组织'],['Which relationship does this illustrate?','这体现了哪一种关系？']],
+chunks:[['A government head','主语','一位政府首长'],['also sits on the standing committee','谓语','同时也是常务委员会的成员'],['of the corresponding Party committee.','说明所属组织','该常委会属于相应的党委。'],['Which relationship','要找的对象','哪一种关系'],['does this illustrate in Lecture 2?','问句结构','被这个情况体现出来，按第二讲作答？']],
+pattern:'sit on + committee 是固定搭配。先连起来读 standing committee of the Party committee，再看 corresponding 限定的是哪个党委。',
+prompt:'这个人同时在哪两个组织任职？题目让你用这一个人兼任的情况解释哪种组织关系？',
+check:'一位政府首长同时是同级党委常委。这在第二讲中体现了哪种关系？',
+options:['membership of a criminal jury：刑事案件陪审团成员身份。全项：政府首长作为刑事陪审团成员的身份。','strict organizational separation …：严格的组织分离。全项：一种阻止党影响政府的严格组织分离。','interlocking … through leadership positions：通过领导职位相互嵌合。全项：党与政府两套系统通过领导职位相互嵌合。','replacement of … by …：由……取代……。全项：党委被人民法庭取代。']}
+};
+const STUDY_KEY='sosc1840-reading-v1';
+let readingEnabled=new URLSearchParams(location.search).get('learn')==='1';
+let studyState=loadStudyState();
 let curSet=new URLSearchParams(location.search).get('set')||'C';
 if(!Object.hasOwn(SETS,curSet))curSet='C';
 const state={picked:{},graded:{}};
@@ -244,6 +327,78 @@ const LSKEY='sosc1840-duizhan-v1';
 function loadAll(){try{return JSON.parse(localStorage.getItem(LSKEY)||'{}')}catch(e){return{}}}
 function save(){const all=loadAll();all[curSet]={picked:state.picked,graded:state.graded};try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}}
 function explanation(it){return '<b>解析：</b>'+it.e+(it.r?' <a href="'+it.r+'" target="_blank" rel="noopener" style="color:var(--accent2)">复习来源 →</a>':'');}
+function loadStudyState(){
+  try{
+    const value=JSON.parse(localStorage.getItem(STUDY_KEY)||'{}')||{};
+    const object=x=>x&&typeof x==='object'&&!Array.isArray(x)?x:{};
+    return{notes:object(value.notes),phrases:object(value.phrases),reasons:object(value.reasons),done:object(value.done),hideChinese:value.hideChinese===true};
+  }catch(e){return{notes:{},phrases:{},reasons:{},done:{},hideChinese:false};}
+}
+function saveStudyState(){
+  try{localStorage.setItem(STUDY_KEY,JSON.stringify(studyState));document.getElementById('study-status').textContent='';}
+  catch(e){document.getElementById('study-status').textContent='本次学习记录未能保存。可先复制自己的复述，稍后再试。';}
+}
+function readingGuideHtml(item){
+  const guide=curSet==='F'&&readingEnabled?READING_GUIDES[item.id]:null;
+  if(!guide)return'';
+  const id=item.id;
+  const note=typeof studyState.notes[id]==='string'?studyState.notes[id]:'';
+  const reasons={word:'词组不熟',sentence:'句子串不起来',concept:'读懂了，概念不确定',logic:'限定词或推理卡住'};
+  return '<details class="reading-guide" id="guide-'+id+'"'+(id==='F01'?' open':'')+'><summary>英语带读 · 先认词组，再拆句</summary>'+
+    '<h3>认本题词组</h3><div class="guide-phrases">'+guide.phrases.map(([en,zh],index)=>{
+      const key=id+':'+index;
+      return '<div class="guide-phrase"><div><b>'+escapeHtml(en)+'</b><span class="guide-zh">'+escapeHtml(zh)+'</span></div><label><input type="checkbox" data-study-phrase="'+key+'"'+(studyState.phrases[key]===true?' checked':'')+'> 待复习</label></div>';
+    }).join('')+'</div><h3>按句子主干分块读</h3>'+guide.chunks.map(([en,role,zh])=>
+      '<div class="guide-chunk"><span class="guide-chunk-en">'+escapeHtml(en)+'</span><span class="guide-role">'+escapeHtml(role)+'</span><span class="guide-zh">'+escapeHtml(zh)+'</span></div>'
+    ).join('')+'<p class="guide-pattern guide-zh">'+escapeHtml(guide.pattern)+'</p>'+
+    '<h3>先用自己的话说</h3><p class="guide-prompt guide-zh">'+escapeHtml(guide.prompt)+'</p><label class="guide-note-label" for="note-'+id+'">我的中文复述（只保存在本机）</label><textarea id="note-'+id+'" data-study-note="'+id+'" maxlength="2000" placeholder="先写你理解的题意，不必逐字翻译。">'+escapeHtml(note)+'</textarea>'+
+    '<details class="guide-check"><summary>写完复述后，对照整句中文</summary><p class="guide-zh">'+escapeHtml(guide.check)+'</p></details>'+
+    '<details class="guide-option-help"><summary>需要时再看：四个选项的英文读法</summary><p class="study-tip">这里只说明表达含义，正确答案仍在点选后揭晓。</p><ol class="guide-options" type="a">'+guide.options.map(option=>'<li class="guide-zh">'+escapeHtml(option)+'</li>').join('')+'</ol></details>'+
+    '<div class="guide-selfcheck"><label>这题卡在 <select data-study-reason="'+id+'"><option value="">选择卡点（可选）</option>'+Object.entries(reasons).map(([key,text])=>'<option value="'+key+'"'+(studyState.reasons[id]===key?' selected':'')+'>'+text+'</option>').join('')+'</select></label><label><input type="checkbox" data-study-done="'+id+'"'+(studyState.done[id]===true?' checked':'')+'> 我能用中文复述这题</label></div></details>';
+}
+function updateStudyUi(){
+  const completed=Object.keys(READING_GUIDES).filter(id=>studyState.done[id]===true).length;
+  document.getElementById('study-summary').textContent='F1–F5 已自检 '+completed+' / 5；'+(curSet==='F'&&readingEnabled?'当前显示带读提示':'可点击「带读 F1–F5」开始');
+  document.getElementById('mask-chinese').checked=studyState.hideChinese;
+  quiz.classList.toggle('reading-mask',studyState.hideChinese);
+  const marked=[];
+  Object.entries(READING_GUIDES).forEach(([id,guide])=>guide.phrases.forEach(([en,zh],index)=>{
+    if(studyState.phrases[id+':'+index]===true)marked.push({en,zh,id});
+  }));
+  document.getElementById('review-count').textContent='（'+marked.length+' 个）';
+  document.getElementById('review-list').innerHTML=marked.length?marked.map(({en,zh,id})=>'<details class="phrase-card"><summary>'+escapeHtml(en)+'</summary><p>'+escapeHtml(zh)+' · '+id+'</p></details>').join(''):'<p class="study-tip">还没有标记生词。读题时把想再练的词组勾为「待复习」。</p>';
+}
+function updateStudyAddress(anchor){
+  const url=new URL(location.href);
+  url.searchParams.set('set',curSet);
+  if(curSet==='F'&&readingEnabled)url.searchParams.set('learn','1');else url.searchParams.delete('learn');
+  url.hash=anchor;
+  history.replaceState(null,'',url);
+}
+function enterStudy(enabled,anchor){
+  curSet='F';readingEnabled=enabled;
+  updateSetTabs();render();pushStats();updateStudyAddress(anchor);
+  document.getElementById('reading-path').open=true;
+  document.getElementById(anchor).scrollIntoView({block:'start',behavior:'auto'});
+}
+document.getElementById('reading-path').open=readingEnabled;
+document.getElementById('reading-open').onclick=()=>enterStudy(true,'reading-path');
+document.getElementById('start-reading').onclick=()=>enterStudy(true,'q1');
+document.getElementById('start-independent').onclick=()=>enterStudy(false,'q6');
+document.getElementById('mask-chinese').onchange=e=>{studyState.hideChinese=e.target.checked;saveStudyState();updateStudyUi();};
+quiz.addEventListener('input',e=>{
+  const id=e.target.dataset.studyNote;
+  if(!id||!Object.hasOwn(READING_GUIDES,id))return;
+  studyState.notes[id]=e.target.value;saveStudyState();
+});
+quiz.addEventListener('change',e=>{
+  const field=e.target.dataset;
+  if(field.studyPhrase)studyState.phrases[field.studyPhrase]=e.target.checked;
+  else if(field.studyDone)studyState.done[field.studyDone]=e.target.checked;
+  else if(field.studyReason)studyState.reasons[field.studyReason]=e.target.value;
+  else return;
+  saveStudyState();updateStudyUi();
+});
 function render(){
   quiz.innerHTML='';state.picked={};state.graded={};
   const saved=loadAll()[curSet];
@@ -252,7 +407,7 @@ function render(){
   document.getElementById('score').textContent='得分 0 / '+SETS[curSet].length;
   SETS[curSet].forEach((it,i)=>{
     const d=document.createElement('div');d.className='q';d.id='q'+(i+1);
-    d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div><p class="qtext">'+it.q+'</p><div class="opts">'+
+    d.innerHTML='<div class="qhead"><span class="qno">Q'+(i+1)+'</span><span class="src">'+it.t+'</span></div><p class="qtext">'+it.q+'</p>'+readingGuideHtml(it)+'<div class="opts">'+
       it.o.map((o,j)=>'<div class="opt" data-q="'+i+'" data-o="'+j+'"><span class="letter">'+letters[j]+'.</span><span>'+o+'</span></div>').join('')+
       '</div><p class="verdict" id="v'+i+'"></p><div class="expl" id="e'+i+'"></div></div>';
     quiz.appendChild(d);
@@ -266,7 +421,7 @@ function render(){
     v.textContent=ok?'✅ 正确！':'❌ 错了，正确答案是 '+letters[it.a]+'.';
     const ex=document.getElementById('e'+i);ex.className='expl show';ex.innerHTML=explanation(it);
   });
-  updateScore();
+  updateScore();updateStudyUi();
 }
 function myStats(){
   const done=Object.keys(state.graded).length,right=Object.values(state.graded).filter(Boolean).length;
@@ -297,7 +452,7 @@ quiz.addEventListener('click',e=>{
   updateScore();
 });
 function updateSetTabs(){Object.keys(SETS).forEach(id=>document.getElementById('set'+id).classList.toggle('on',id===curSet));}
-Object.keys(SETS).forEach(id=>{document.getElementById('set'+id).onclick=()=>{curSet=id;updateSetTabs();render();pushStats();window.scrollTo({top:0});};});
+Object.keys(SETS).forEach(id=>{document.getElementById('set'+id).onclick=()=>{curSet=id;updateSetTabs();render();pushStats();updateStudyAddress('');window.scrollTo({top:0});};});
 document.getElementById('reset').onclick=()=>{const all=loadAll();delete all[curSet];try{localStorage.setItem(LSKEY,JSON.stringify(all))}catch(e){}render();pushStats();};
 
 /* ---------- 组队对战（Cloudflare Worker + KV） ---------- */
